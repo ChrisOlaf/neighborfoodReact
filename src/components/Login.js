@@ -9,7 +9,7 @@ class Login extends Component{
     render(){
         return(
                 <div>
-                    <input type="text" placeholder="Etunimi" value={this.state.name}/>
+                    <input type="text" placeholder="" value={this.state.name}/>
 
             </div>
         )
