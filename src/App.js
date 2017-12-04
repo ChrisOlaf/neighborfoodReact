@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { Grid } from 'react-bootstrap';
 import Navigation from './Navigation';
 import Home from './components/Home';
+import Register from './components/Register';
 import Test from './components/Test';
 import NotFound from './NotFound';
 
@@ -23,6 +24,7 @@ const App = appProps => (
                 </Switch>
             </Grid>
             <hr/>
+            <Register/>
         </div>
     </Router>
   // render() {
