@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import {Jumbotron} from 'react-bootstrap';
 import '../App.css';
 
-class Home extends Component {
+class Test extends Component {
     render() {
         return (
             <div className="Home">
@@ -18,4 +18,4 @@ class Home extends Component {
     }
 }
 
-export default Home;
+export default Test;
