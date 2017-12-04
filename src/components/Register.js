@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
+import Login from './Login';
 
 class Register extends Component {
-    state = {name:'', lastName:'', phoneNumber:'', location:'',presentation:'',userStatus:''};
+    state = {name:'', lastName:'', phoneNumber:'',
+        location:'',presentation:'',userStatus:'',
+        email:'',password:''};
 
     change = (e) =>{
         this.setState({
@@ -36,35 +39,38 @@ class Register extends Component {
             .then(function(res){ console.log(res) })
             .catch(function(res){ console.log(res) })
 
-        this.setState({name:'', lastName:'', phoneNumber:'', location:'',presentation:'',userStatus:''})
+        this.setState({name:'', lastName:'',
+            phoneNumber:'', location:'',presentation:'',
+            userStatus:'',email:'',password:''})
     };
 
 
     render(){
         return (
+            <div>
             <form>
-                <input name="name"
+                etunimi: <input name="name"
                        type="text"
-                       placeholder="etunimi"
+                       placeholder="Pulla"
                        id="name"
                        value={this.state.name}
                        onChange={e => this.change(e)}/>
                 <br />
-                <input name="lastName"
+                sukunimi: <input name="lastName"
                        type="text"
-                       placeholder="sukunimi"
+                       placeholder="Pepe"
                        id="lastName"
                        value={this.state.lastName}
                        onChange={e => this.change(e)}/>
                 <br />
-                <input name="phoneNumber"
+                puhelinnumero: <input name="phoneNumber"
                        type="number"
-                       placeholder="puhelinnumero"
+                       placeholder="0101112222"
                        id="phoneNumber"
                        value={this.state.phoneNumber}
                        onChange={e => this.change(e)}/>
                 <br />
-                Valitse sijainti
+                Valitse sijainti:
                 <br />
                 <select name="location" onChange={e => this.handleChange(e)}>
                     <option value="etelä">Etelä</option>
@@ -73,11 +79,11 @@ class Register extends Component {
                     <option value="ita">Itä</option>
                 </select>
                 <br />
-                <input name="presentation"
+                Oma esittely: <input name="presentation"
                        type="textarea"
                        rows="300px"
                        cols="400px"
-                       placeholder="Oma esittely"
+                       placeholder="kerro itsestäsi"
                        id="presentation"
                        value={this.state.presentation}
                        onChange={e => this.change(e)}/>
@@ -96,12 +102,28 @@ class Register extends Component {
                        value="chef"
                        onChange={e => this.handleStatus(e)}/>vai kokki?
                 <br />
-
+                sähköposti: <input name="email"
+                       type="email"
+                       placeholder="mokki@kokki"
+                       id="email"
+                       value={this.state.email}
+                       onChange={e => this.change(e)}/>
+                <br />
+                salasana: <input name="password"
+                       type="password"
+                       placeholder="********"
+                       id="password"
+                       value={this.state.password}
+                       onChange={e => this.change(e)}/>
+                <br />
                 <input type="submit"
                        value="lähetä"
                        onClick={e=> this.handleClick(e)}/>
+                <br />
                 <input type="reset" value="tyhjennä"/>
             </form>
+                <Login/>
+            </div>
         );
     }
 }
