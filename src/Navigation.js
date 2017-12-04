@@ -15,8 +15,8 @@ class Navigation extends Component {
                 </Navbar.Header>
                 <Navbar.Collapse>
                     <Nav>
-                        <NavItem href="/documents">Komponentti+alasivu</NavItem>
-                        <NavItem href="/test">Esimerkkejä</NavItem>
+                        <NavItem href="/documents">Uusi myynti-ilmoitus</NavItem>
+                        <NavItem href="/test">Uusi tilaus</NavItem>
                         {/*<NavDropdown title="Esimerkkejä - alisivu" id="basic-nav-dropdown">*/}
                             {/*<MenuItem href="/samples/second/42">Esimerkki/kaksi, id: 42</MenuItem>*/}
                             {/*<MenuItem href="/samples/second/105">Esimerkki/kaksi, id: 105</MenuItem>*/}
@@ -25,7 +25,7 @@ class Navigation extends Component {
                         {/*</NavDropdown>*/}
                     </Nav>
                     <Nav pullRight>
-                        <NavItem href="/nosuchaddress">Not Found (404)</NavItem>
+                        <NavItem href="/nosuchaddress">Rekisteröidy</NavItem>
                     </Nav>
                 </Navbar.Collapse>
             </Navbar>
