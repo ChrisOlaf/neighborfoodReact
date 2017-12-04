@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Link} from 'react-router-dom';
+import {BrowserRouter as Router, Route, Link, Redirect, withRouter} from 'react-router-dom';
 import {Navbar, Nav, NavItem, NavDropdown, MenuItem} from 'react-bootstrap';
 
 const fakeAuth = {
@@ -24,12 +24,52 @@ const IsGuest = () => (
 const IsUser = () => (
     <Nav pullRight>
         <NavDropdown title="Asetukset" id="basic-nav-dropdown">
-        <MenuItem href="/profile">Profiili</MenuItem>
-        <MenuItem divider/>
-        <MenuItem href="/logout">Kirjaudu ulos</MenuItem>
+            <MenuItem href="/profile">Profiili</MenuItem>
+            <MenuItem divider/>
+            <MenuItem href="/logout">Kirjaudu ulos</MenuItem>
         </NavDropdown>
     </Nav>
 );
+
+class LogInButton extends Component {
+    state = {
+        redirectToReferrer: false
+    }
+    login = () => {
+        fakeAuth.authenticate(() => {
+            this.setState(() => ({
+                redirectToReferrer: true
+            }))
+        })
+    }
+
+    render() {
+        const {redirectToReferrer} = this.state
+
+        if (redirectToReferrer === true) {
+            <Redirect to='/' />
+        }
+        return (
+            <div>
+                <button onClick={this.login}>Log in</button>
+            </div>
+        )
+    }
+}
+
+class LogOutButton extends Component {
+    logout = () => {
+        fakeAuth.isAuthenticated = false;
+    }
+
+    render() {
+        return (
+            <div>
+                <button onClick={this.logout}>Log out</button>
+            </div>
+        )
+    }
+}
 
 class Navigation extends Component {
     render() {
@@ -43,10 +83,11 @@ class Navigation extends Component {
                 </Navbar.Header>
                 <Navbar.Collapse>
                     <Nav>
-                        <NavItem href="/documents">Uusi myynti-ilmoitus</NavItem>
+                        <NavItem href="/test">Uusi myynti-ilmoitus</NavItem>
                         <NavItem href="/test">Uusi tilaus</NavItem>
                     </Nav>
-                    { fakeAuth.isAuthenticated === false ? <IsGuest /> : <IsUser /> }
+                    {fakeAuth.isAuthenticated === false ? <LogInButton/> : <LogOutButton/>}
+                    {fakeAuth.isAuthenticated === false ? <IsGuest/> : <IsUser/>}
                 </Navbar.Collapse>
             </Navbar>
         );
