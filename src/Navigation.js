@@ -14,13 +14,30 @@ const fakeAuth = {
     }
 }
 
+const IsGuest = () => (
+    <Nav pullRight>
+        <NavItem href="/login">Kirjaudu sisään</NavItem>
+        <NavItem href="/register">Rekisteröidy</NavItem>
+    </Nav>
+);
+
+const IsUser = () => (
+    <Nav pullRight>
+        <NavDropdown title="Asetukset" id="basic-nav-dropdown">
+        <MenuItem href="/profile">Profiili</MenuItem>
+        <MenuItem divider/>
+        <MenuItem href="/logout">Kirjaudu ulos</MenuItem>
+        </NavDropdown>
+    </Nav>
+);
+
 class Navigation extends Component {
     render() {
         return (
             <Navbar staticTop>
                 <Navbar.Header>
                     <Navbar.Brand>
-                        <Link to="/">Reititysesimerkki</Link>
+                        <Link to="/">Neighborfood</Link>
                     </Navbar.Brand>
                     <Navbar.Toggle/>
                 </Navbar.Header>
@@ -28,39 +45,11 @@ class Navigation extends Component {
                     <Nav>
                         <NavItem href="/documents">Uusi myynti-ilmoitus</NavItem>
                         <NavItem href="/test">Uusi tilaus</NavItem>
-                        {/*<NavDropdown title="Esimerkkejä - alisivu" id="basic-nav-dropdown">*/}
-                        {/*<MenuItem href="/samples/second/42">Esimerkki/kaksi, id: 42</MenuItem>*/}
-                        {/*<MenuItem href="/samples/second/105">Esimerkki/kaksi, id: 105</MenuItem>*/}
-                        {/*<MenuItem divider/>*/}
-                        {/*<MenuItem href="/samples/nosuchaddress">Not found alisivu</MenuItem>*/}
-                        {/*</NavDropdown>*/}
                     </Nav>
-                    {/*<Nav pullRight>*/}
-                    {/*{ fakeAuth.isAuthenticated === false ? <isGuest /> : <isUser /> }*/}
-                    <IsUser />
-                    {/*<NavItem href="/nosuchaddress">Kirjaudu sisään</NavItem><br />*/}
-                    {/*<NavItem href="/nosuchaddress">Rekisteröidy</NavItem>*/}
-                    {/*</Nav>*/}
+                    { fakeAuth.isAuthenticated === false ? <IsGuest /> : <IsUser /> }
                 </Navbar.Collapse>
             </Navbar>
         );
-    }
-}
-
-const IsGuest = () => (
-    <Nav pullRight>
-        <NavItem href="/nosuchaddress">Kirjaudu sisään</NavItem>
-        <NavItem href="/nosuchaddress">Rekisteröidy</NavItem>
-    </Nav>
-);
-
-class IsUser extends Component {
-    render() {
-        return (
-            <Nav pullRight>
-                <NavItem href="/nosuchaddress">Profiili</NavItem>
-                <NavItem href="/nosuchaddress">Kirjaudu Ulos</NavItem>
-            </Nav>);
     }
 }
 
