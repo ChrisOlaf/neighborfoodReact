@@ -1,28 +1,62 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
 import { Grid } from 'react-bootstrap';
 import Navigation from './Navigation';
 import Home from './components/Home';
 import Login from './components/Login';
-import Profile from './components/Profile';
 import Register from './components/Register';
+import Profile from './components/Profile';
 import Test from './components/Test';
 import NotFound from './NotFound';
 
-import logo from './logo.svg';
 import './App.css';
 
-const App = appProps => (
+
+
+const fakeAuth = {
+    isAuthenticated: false,
+    authenticate(cb) {
+        this.isAuthenticated = true
+        setTimeout(cb, 100) // fake async
+    },
+    signout(cb) {
+        this.isAuthenticated = false
+        setTimeout(cb, 100) // fake async
+    }
+}
+
+// const PrivateRoute = ({ component: Component, ...rest }) => (
+//     <Route {...rest} render={(props) => (
+//         fakeAuth.isAuthenticated === true
+//             ? <Component {...props} />
+//             : <Redirect to='/login' />
+//     )} />
+// )
+
+class App extends Component {
+// = appProps => (
+
+state={user:[]};
+
+// var isLoggedIn === false;
+
+verifyUser = (e) => {
+    this.setState({user: e});
+    // this.state.user.id = null ?  :
+}
+
+render () {
+    return(
     <Router>
         <div className="App">
-            <Navigation/>
+            <Navigation auth={fakeAuth}/>
             <Grid>
                 <Switch>
                     <Route exact name="index" path="/" component={Home} />
                     <Route path="/test" component={Test}/>
-                    <Route path="/login" component={Login}/>
-                    <Route path="/profile" component ={Profile}/>
+                    <Route path="/login" component={Login} callback={this.verifyUser}/>
                     <Route path="/register" component ={Register}/>
+                    <Route path="/profile" component ={Profile}/>
                     <Route component={NotFound} />
                 </Switch>
             </Grid>
@@ -41,6 +75,7 @@ const App = appProps => (
   //     </div>
   //   );
   // }
-);
+);}}
+
 
 export default App;

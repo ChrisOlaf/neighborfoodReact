@@ -2,17 +2,17 @@ import React, {Component} from 'react';
 import {BrowserRouter as Router, Route, Link, Redirect, withRouter} from 'react-router-dom';
 import {Navbar, Nav, NavItem, NavDropdown, MenuItem} from 'react-bootstrap';
 
-const fakeAuth = {
-    isAuthenticated: false,
-    authenticate(cb) {
-        this.isAuthenticated = true
-        setTimeout(cb, 100) // fake async
-    },
-    signout(cb) {
-        this.isAuthenticated = false
-        setTimeout(cb, 100) // fake async
-    }
-}
+// const fakeAuth = {
+//     isAuthenticated: false,
+//     authenticate(cb) {
+//         this.isAuthenticated = true
+//         setTimeout(cb, 100) // fake async
+//     },
+//     signout(cb) {
+//         this.isAuthenticated = false
+//         setTimeout(cb, 100) // fake async
+//     }
+// }
 
 const IsGuest = () => (
     <Nav pullRight>
@@ -36,7 +36,7 @@ class LogInButton extends Component {
         redirectToReferrer: false
     }
     login = () => {
-        fakeAuth.authenticate(() => {
+        this.props.auth.authenticate(() => {
             this.setState(() => ({
                 redirectToReferrer: true
             }))
@@ -59,7 +59,7 @@ class LogInButton extends Component {
 
 class LogOutButton extends Component {
     logout = () => {
-        fakeAuth.isAuthenticated = false;
+        this.props.auth.isAuthenticated = false;
     }
 
     render() {
@@ -72,6 +72,7 @@ class LogOutButton extends Component {
 }
 
 class Navigation extends Component {
+
     render() {
         return (
             <Navbar staticTop>
@@ -86,8 +87,8 @@ class Navigation extends Component {
                         <NavItem href="/test">Uusi myynti-ilmoitus</NavItem>
                         <NavItem href="/test">Uusi tilaus</NavItem>
                     </Nav>
-                    {fakeAuth.isAuthenticated === false ? <LogInButton/> : <LogOutButton/>}
-                    {fakeAuth.isAuthenticated === false ? <IsGuest/> : <IsUser/>}
+                    {this.props.auth.isAuthenticated === false ? <LogInButton {...this.props}/> : <LogOutButton {...this.props}/>}
+                    {this.props.auth.isAuthenticated === false ? <IsGuest/> : <IsUser/>}
                 </Navbar.Collapse>
             </Navbar>
         );
