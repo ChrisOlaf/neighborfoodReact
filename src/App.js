@@ -39,12 +39,21 @@ const InitialState = {
 
 class App extends Component {
 
+    constructor(props) {
+        super(props)
+        this.state = InitialState;
+    }
+    reset() {
+        this.setState(InitialState);
+    }
+
 verifyUser = (e) => {
     this.setState({user: e});
     console.log(this.state);
     this.state.user.id === null ? this.setState({auth: false}): this.setState({auth: true});
     console.log(this.state);
 }
+
 logoutUser = () => {
     this.reset();
     console.log(this.state);
@@ -52,15 +61,6 @@ logoutUser = () => {
     // this.state.user.id === null || this.state.user.id === undefined ? this.setState({auth: false}): this.setState({auth: true});
     // console.log(this.state);
 }
-
-    constructor(props) {
-        super(props)
-        this.state = InitialState;
-    }
-
-    reset() {
-        this.setState(InitialState);
-    }
 
 render () {
     return(
