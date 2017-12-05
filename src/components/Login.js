@@ -9,6 +9,7 @@ class Login extends Component{
 
     verify = e => {
         e.preventDefault();
+        console.log("verify..");
         var joku = this;
         fetch('verify',
             {
@@ -21,17 +22,18 @@ class Login extends Component{
             })
             .then(function(res){
                 if(res.ok){
+                    console.dir("moimoi");
                     return res.json();
-                console.dir("moimoi");}
+                }
                 else{
                     throw new Error("something wrong with the response");
                 }
             })
-
-     .catch(function(json){
-            console.dir("moi");
-            joku.setState(json);
-            return this.state;
+            .then(function(json){
+                console.dir("moi");
+                joku.setState(json);
+                this.props.callback(json);
+                //return joku.state;
      });
 
     };
