@@ -32,10 +32,12 @@ class Login extends Component{
             .then(function(json){
                 console.dir("moi");
                 joku.setState(json);
-                this.props.callback(json);
-                //return joku.state;
-     });
+                joku.send();
 
+     });
+    };
+    send = () =>{
+        this.props.callback(this.state);
     };
 
     change = (e) => {
