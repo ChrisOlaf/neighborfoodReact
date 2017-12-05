@@ -1,18 +1,20 @@
 import React, { Component } from 'react';
-import {Jumbotron} from 'react-bootstrap';
 import '../App.css';
+import Orderlist from './Orderlist';
+import Saleslist from "./Saleslist";
 
 class Home extends Component {
     render() {
         return (
             <div className="Home">
-                <Jumbotron>
-                    <h1>Router esimerkkejä</h1>
-                    <p>React router v4 tyylin reititystä</p>
-                </Jumbotron>
-                <p>Hieman esimerkkejä käyttäen React router v4,
-                    ja vähän React Bootstrapiä bonuksena.
-                </p>
+                <div className="ordersdiv">
+                    <h1>Tilaukset</h1>
+                    <Orderlist />
+                </div>
+                <div className="salesdiv">
+                    <h1>Myynnit</h1>
+                    <Saleslist />
+                </div>
             </div>
         );
     }
