@@ -3,7 +3,8 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { Grid } from 'react-bootstrap';
 import Navigation from './Navigation';
 import Home from './components/Home';
-// import Login from './components/Login';
+import Login from './components/Login';
+import Profile from './components/Profile';
 import Register from './components/Register';
 import Test from './components/Test';
 import NotFound from './NotFound';
@@ -19,7 +20,8 @@ const App = appProps => (
                 <Switch>
                     <Route exact name="index" path="/" component={Home} />
                     <Route path="/test" component={Test}/>
-                    {/*<Route path="/login" component={Login}/>*/}
+                    <Route path="/login" component={Login}/>
+                    <Route path="/profile" component ={Profile}/>
                     <Route path="/register" component ={Register}/>
                     <Route component={NotFound} />
                 </Switch>
