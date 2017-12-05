@@ -26,7 +26,13 @@ class Profile extends Component{
         return(
                 <div>
                     <button onClick={this.getUser}>Klikkaa</button>
-                    <table></table>
+                    <table>
+                        <tr><td>Nimi: </td><td>{this.props.user.name}</td></tr>
+                        <tr><td>Sijainti: </td><td>{this.props.user.location}</td></tr>
+                        <tr><td>Kuvaus: </td><td>{this.props.user.presentation}</td></tr>
+                        <tr><td>Status: </td><td>{this.props.user.userStatus}</td></tr>
+                        <tr><td>Ota yhteyttä: </td><td>{this.props.user.email}</td></tr>
+                    </table>
                 </div>
         )
 
