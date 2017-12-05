@@ -11,9 +11,7 @@ import NotFound from './NotFound';
 
 import './App.css';
 
-
-
-const fakeAuth = {
+const Auth = {
     isAuthenticated: false,
     authenticate(cb) {
         this.isAuthenticated = true
@@ -25,36 +23,57 @@ const fakeAuth = {
     }
 }
 
-// const PrivateRoute = ({ component: Component, ...rest }) => (
-//     <Route {...rest} render={(props) => (
-//         fakeAuth.isAuthenticated === true
-//             ? <Component {...props} />
-//             : <Redirect to='/login' />
-//     )} />
-// )
+const PrivateRoute = ({ component: Component, ...rest }) => (
+    <Route {...rest} render={(props) => (
+        this.state.auth === true
+            ? <Component {...props} />
+            : <Redirect to='/login' />
+    )} />
+)
+
+
+
+const InitialState = {
+    user:[], auth: false
+};
 
 class App extends Component {
-// = appProps => (
-
-state={user:[]};
-
-// var isLoggedIn === false;
 
 verifyUser = (e) => {
     this.setState({user: e});
-    // this.state.user.id = null ?  :
+    console.log(this.state);
+    this.state.user.id === null ? this.setState({auth: false}): this.setState({auth: true});
+    console.log(this.state);
 }
+logoutUser = () => {
+    this.reset();
+    console.log(this.state);
+    // this.setState({auth:false});
+    // this.state.user.id === null || this.state.user.id === undefined ? this.setState({auth: false}): this.setState({auth: true});
+    // console.log(this.state);
+}
+
+    constructor(props) {
+        super(props)
+        this.state = InitialState;
+    }
+
+    reset() {
+        this.setState(InitialState);
+    }
 
 render () {
     return(
     <Router>
         <div className="App">
-            <Navigation auth={fakeAuth}/>
+            <Navigation auth={this.state.auth} user={this.state.user} callback={this.logoutUser}/>
             <Grid>
                 <Switch>
                     <Route exact name="index" path="/" component={Home} />
                     <Route path="/test" component={Test}/>
-                    <Route path="/login" component={Login} callback={this.verifyUser}/>
+                    {/*<Route path="/login" callback={this.verifyUser} component={Login}/>*/}
+                    <Route exact path='/login' render={(props) =>
+                        (<Login {...props} user={this.state.user} callback={this.verifyUser} />)}/>
                     <Route path="/register" component ={Register}/>
                     <Route path="/profile" component ={Profile}/>
                     <Route component={NotFound} />

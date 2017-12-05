@@ -58,8 +58,12 @@ class LogInButton extends Component {
 }
 
 class LogOutButton extends Component {
+    state = {id:'',name:'', lastName:'', phoneNumber:'',
+        location:'',presentation:'',userStatus:'',
+        email:'',password:''};
+
     logout = () => {
-        this.props.auth.isAuthenticated = false;
+        this.props.callback(this.state);
     }
 
     render() {
@@ -72,6 +76,10 @@ class LogOutButton extends Component {
 }
 
 class Navigation extends Component {
+
+    logout = (e) => {
+        this.props.callback(e)
+    }
 
     render() {
         return (
@@ -87,8 +95,8 @@ class Navigation extends Component {
                         <NavItem href="/test">Uusi myynti-ilmoitus</NavItem>
                         <NavItem href="/test">Uusi tilaus</NavItem>
                     </Nav>
-                    {this.props.auth.isAuthenticated === false ? <LogInButton {...this.props}/> : <LogOutButton {...this.props}/>}
-                    {this.props.auth.isAuthenticated === false ? <IsGuest/> : <IsUser/>}
+                    {this.props.auth === false ? <LogInButton {...this.props}/> : <LogOutButton {...this.props} callback={this.logout}/>}
+                    {this.props.auth === false ? <IsGuest/> : <IsUser/>}
                 </Navbar.Collapse>
             </Navbar>
         );

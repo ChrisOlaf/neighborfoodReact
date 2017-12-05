@@ -1,32 +1,19 @@
 import React, { Component } from 'react';
 import {BrowserRouter as Redirect} from 'react-router-dom';
+import Orderlist from './Orderlist';
 import '../App.css';
 
 class Test extends React.Component {
-    // state = {
-    //     redirectToReferrer: false
-    // }
-    // // login = () => {
-    // //     fakeAuth.authenticate(() => {
-    // //         this.setState(() => ({
-    // //             redirectToReferrer: true
-    // //         }))
-    // //     })
-    // // }
-    // render() {
-    //     const { redirectToReferrer } = this.state
-    //
-    //     if (redirectToReferrer === true) {
-    //         <Redirect to='/' />
-    //     }
-    //
-    //     return (
-    //         <div>
-    //             <p>You must log in to view the page</p>
-    //             <button onClick={this.login}>Log in</button>
-    //         </div>
-    //     )
-    // }
+    render() {
+        return (
+            <div className="Home">
+                <div className="ordersdiv">
+                    <h1>Tilaukset</h1>
+                    <Orderlist />
+                </div>
+            </div>
+        );
+    }
 }
 
 export default Test;
