@@ -26,6 +26,7 @@ class Profile extends Component{
         return(
                 <div>
                     <button onClick={this.getUser}>Klikkaa</button>
+                    <table></table>
                 </div>
         )
 
