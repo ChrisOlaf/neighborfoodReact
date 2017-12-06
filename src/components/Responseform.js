@@ -6,7 +6,7 @@ class Responseform extends Component {
         super(props);
         this.state = {
             content: '',
-            orders_id: props.orders_id
+            order_id: props.order_id
         };
     }
 

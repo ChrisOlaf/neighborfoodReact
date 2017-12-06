@@ -18,7 +18,7 @@ class Orders extends Component {
                 <button onClick={() => this.setState({ isFormVisible: true })}>Vastaa tilaukseen</button>
                 <br/>
                 <div>
-                    { this.state.isFormVisible ? <Responseform orders_id={this.props.info.id} /> : null }
+                    { this.state.isFormVisible ? <Responseform order_id={this.props.info.id} /> : null }
                     { this.state.isFormVisible ? <button onClick={() => this.setState({ isFormVisible: false })}>Sulje</button> : null}
                 </div>
                 <AddOrder/>
