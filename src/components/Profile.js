@@ -23,6 +23,11 @@ class Profile extends Component{
     };
 
     render(){
+        if(this.props.user === null || this.props.user === undefined){
+            return(
+            <h1>Sinun pitää kirjautua sisään, että näet profiilisivun</h1>
+        )}
+        else
         return(
                 <div>
                     <button onClick={this.getUser}>Klikkaa</button>
