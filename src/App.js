@@ -4,6 +4,7 @@ import {Grid} from 'react-bootstrap';
 import Navigation from './Navigation';
 import Home from './components/Home';
 import AddO from './components/AddOrder';
+import AddS from './components/AddSale';
 import Login from './components/Login';
 import Register from './components/Register';
 import Profile from './components/Profile';
@@ -76,6 +77,8 @@ class App extends Component {
                         <Switch>
                             <Route exact path='/' render={(props) =>
                                 (<Home {...props} auth={this.state.auth} user={this.state.user}/>)}/>
+                            <Route exact path='/addsale' render={(props) =>
+                                (<AddS {...props} auth={this.state.auth} user={this.state.user}/>)}/>
                             <Route exact path='/addorder' render={(props) =>
                                 (<AddO {...props} auth={this.state.auth} user={this.state.user}/>)}/>
                             <Route exact path='/test' render={(props) =>
