@@ -59,10 +59,10 @@ class Navigation extends Component {
                 </Navbar.Header>
                 <Navbar.Collapse>
                     <Nav>
-                        <LinkContainer to="/addorder">
+                        <LinkContainer to="/test">
                         <NavItem eventKey={1}>Uusi myynti-ilmoitus</NavItem>
                         </LinkContainer>
-                        <LinkContainer to="/test">
+                        <LinkContainer to="/addorder">
                         <NavItem eventKey={2}>Uusi tilaus</NavItem>
                         </LinkContainer>
                         <LinkContainer to="/profile">

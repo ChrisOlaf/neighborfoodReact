@@ -25,29 +25,13 @@ var cachedUser = "";
 
 class App extends Component {
 
+    //
     verifyUser = (e) => {
         window.sessionStorage.setItem('storedUser', JSON.stringify(e));
         this.setState({user: e});
         this.state.user.id === null || this.state.user.id === undefined ? this.setState({auth: false}) : this.setState({auth: true});
         console.log(this.state);
     }
-
-    // reset() {
-    //     this.setState({user: [], auth: false});
-    //     sessionStorage.clear();
-    //     console.log(cachedUser);
-    //     console.log("TOimiiko???");
-    // }
-    logoutUser = (q) => {
-        this.setState({user: [], auth: false});
-        window.sessionStorage.clear();
-        console.log("LogoutUser: Toimiiko tämäkään???");
-        console.log(cachedUser);
-        // this.setState({user: "", auth: false});
-        console.log(this.state);
-    }
-
-    // state = {user: [], auth: false};
 
     constructor(props) {
         super(props);
@@ -56,6 +40,7 @@ class App extends Component {
         console.log("Ei kai tätä construktoria taas kutsuta?");
     }
 
+    // Alustetaan state tarkistamalla onko sessioon kirjautunut käyttäjää.
     InitialState() {
         cachedUser = window.sessionStorage.getItem('storedUser');
         const x = this;
@@ -70,6 +55,13 @@ class App extends Component {
             // x.state({auth: false});
             console.log("Käyttäjää ei löytynyt storagesta..?");
         }
+    }
+
+    logoutUser = (q) => {
+        this.setState({user: [], auth: false});
+        window.sessionStorage.clear();
+        console.log("LogoutUser: Toimiiko tämäkään???");
+        console.log(this.state);
     }
 
     render() {
