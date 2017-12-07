@@ -21,39 +21,60 @@ const PrivateRoute = ({component: Component, ...rest}) => (
     )}/>
 )
 
-
-// const InitialState = {
-//     user: [], auth: false
-// };
+var cachedUser = "";
 
 class App extends Component {
 
-    // constructor(props) {
-    //     super(props)
-    //     this.state = InitialState;
-    //     console.log("Ei kai tätä kutsuta?");
-    // }
-    //
-    // reset() {
-    //     this.setState(InitialState);
-    // }
-
-    state = {user: [], auth: false};
-
     verifyUser = (e) => {
+        window.sessionStorage.setItem('storedUser', JSON.stringify(e));
         this.setState({user: e});
         this.state.user.id === null || this.state.user.id === undefined ? this.setState({auth: false}) : this.setState({auth: true});
         console.log(this.state);
     }
 
-    logoutUser = () => {
-        // this.reset();
-        this.setState({user: "", auth: false});
+    // reset() {
+    //     this.setState({user: [], auth: false});
+    //     sessionStorage.clear();
+    //     console.log(cachedUser);
+    //     console.log("TOimiiko???");
+    // }
+    logoutUser = (q) => {
+        this.setState({user: [], auth: false});
+        window.sessionStorage.clear();
+        console.log("LogoutUser: Toimiiko tämäkään???");
+        console.log(cachedUser);
+        // this.setState({user: "", auth: false});
         console.log(this.state);
+    }
+
+    // state = {user: [], auth: false};
+
+    constructor(props) {
+        super(props);
+        this.state = {auth: false};
+        this.InitialState();
+        console.log("Ei kai tätä construktoria taas kutsuta?");
+    }
+
+    InitialState() {
+        cachedUser = window.sessionStorage.getItem('storedUser');
+        const x = this;
+        if (cachedUser) {
+            x.state = {user: JSON.parse(cachedUser), auth: true};
+            // x.state = ({auth: true});
+            console.log(cachedUser);
+            console.log("Haki käyttäjän storagesta!");
+        }
+        else {
+            x.state = {user: [], auth: false};
+            // x.state({auth: false});
+            console.log("Käyttäjää ei löytynyt storagesta..?");
+        }
     }
 
     render() {
         console.log("App.js tarkistaa tilaa tässä moi!");
+        console.log(cachedUser);
         console.log(this.state);
         return (
             <Router>
@@ -62,41 +83,43 @@ class App extends Component {
                     <Grid>
                         <Switch>
                             <Route exact path='/' render={(props) =>
-                                (<Home {...props} auth={this.state.auth} user={this.state.user} />)} />
+                                (<Home {...props} auth={this.state.auth} user={this.state.user}/>)}/>
                             <Route exact path='/addorder' render={(props) =>
-                                (<AddO {...props} auth={this.state.auth} user={this.state.user} />)} />
+                                (<AddO {...props} auth={this.state.auth} user={this.state.user}/>)}/>
                             <Route exact path='/test' render={(props) =>
-                                (<Test {...props} auth={this.state.auth} user={this.state.user} />)} />
+                                (<Test {...props} auth={this.state.auth} user={this.state.user}/>)}/>
                             <Route exact path='/login' render={(props) =>
-                                (<Login {...props} user={this.state.user} callback={this.verifyUser} />)} />
+                                (<Login {...props} user={this.state.user} callback={this.verifyUser}/>)}/>
                             <Route exact path='/register' render={(props) =>
-                                (<Register {...props} auth={this.state.auth} user={this.state.user} />)} />
+                                (<Register {...props} auth={this.state.auth} user={this.state.user}/>)}/>
                             <Route exact path='/profile' render={(props) =>
-                                (<Profile {...props} auth={this.state.auth} user={this.state.user} />)} />
-                                    {/*<Route exact name="index" path="/" component={Home}/>*/}
-                                    {/*<Route path="/login" callback={this.verifyUser} component={Login}/>*/}
-                                    {/*<Route path="/test" component={Test}/>*/}
-                                    {/*<Route path="/register" component={Register}/>*/}
-                                    {/*<Route path="/profile" component={Profile}/>*/}
-                                    <Route component={NotFound}/>
+                                (<Profile {...props} auth={this.state.auth} user={this.state.user}/>)}/>
+                            {/*<Route exact name="index" path="/" component={Home}/>*/}
+                            {/*<Route path="/login" callback={this.verifyUser} component={Login}/>*/}
+                            {/*<Route path="/test" component={Test}/>*/}
+                            {/*<Route path="/register" component={Register}/>*/}
+                            {/*<Route path="/profile" component={Profile}/>*/}
+                            <Route component={NotFound}/>
                         </Switch>
                     </Grid>
                     <hr/>
                 </div>
             </Router>
-    // render() {
-        //   return (
-        //     <div className="App">
-        //       {/*<header className="App-header">*/}
-        //         {/*<img src={logo} className="App-logo" alt="logo" />*/}
-        //         {/*<h1 className="App-title">Welcome to React</h1>*/}
-        //       {/*</header>*/}
-        //       {/*<p className="App-intro">*/}
-        //       {/*</p>*/}
-        //     </div>
-        //   );
-        // }
-    );}}
+            // render() {
+            //   return (
+            //     <div className="App">
+            //       {/*<header className="App-header">*/}
+            //         {/*<img src={logo} className="App-logo" alt="logo" />*/}
+            //         {/*<h1 className="App-title">Welcome to React</h1>*/}
+            //       {/*</header>*/}
+            //       {/*<p className="App-intro">*/}
+            //       {/*</p>*/}
+            //     </div>
+            //   );
+            // }
+        );
+    }
+}
 
 
-    export default App;
+export default App;
