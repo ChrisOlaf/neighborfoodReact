@@ -47,6 +47,7 @@ class Register extends Component {
 
 
     render(){
+
         return (
             <div>
             <form>
@@ -123,10 +124,6 @@ class Register extends Component {
                 <br />
                 <input type="reset" value="tyhjennä"/>
             </form>
-                <br />
-                <Login/>
-                <br />
-                <Profile/>
             </div>
         );
     }
