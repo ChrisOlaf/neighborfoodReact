@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
-import {BrowserRouter as Redirect} from 'react-router-dom';
 import Orderlist from './Orderlist';
 import '../App.css';
 
-class AddSale extends React.Component {
+class AddSale extends Component {
     render() {
         return (
             <div className="Home">

@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
-import {BrowserRouter as Redirect} from 'react-router-dom';
 import Orderlist from './Orderlist';
 import AddOrder from './AddOrder';
 import '../App.css';
 
-class Test extends React.Component {
+class Test extends Component {
     render() {
         return (
             <div className="Home">
