@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-import Login from './Login';
-import Profile from './Profile';
 
 class Register extends Component {
     state = {name:'', lastName:'', phoneNumber:'',

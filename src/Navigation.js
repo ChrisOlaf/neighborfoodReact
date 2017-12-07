@@ -1,9 +1,10 @@
 import React, {Component} from 'react';
-import {BrowserRouter as Router, Route, Link, Redirect, withRouter} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import {Navbar, Nav, NavItem, NavDropdown, MenuItem} from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 
 import LogOutButton from './components/LogOutButton';
+
 
 // Right hand side navigation options when user isn't logged in
 const IsGuest = () => (
@@ -34,10 +35,14 @@ const IsUser = (props) => (
 
 class Navigation extends Component {
 
+
+    // Return logout callback to App.js
     logout = (e) => {
         this.props.callback(e)
-    }
+    };
 
+
+    // Render navbar with brand-link on far left, followed by links for new sale and new order. On right content will be rendered based on user authentication status.
     render() {
         return (
             <Navbar staticTop>
@@ -54,9 +59,6 @@ class Navigation extends Component {
                         </LinkContainer>
                         <LinkContainer to="/addorder">
                         <NavItem eventKey={2}>Uusi tilaus</NavItem>
-                        </LinkContainer>
-                        <LinkContainer to="/profile">
-                        <NavItem eventKey={3}>Profile</NavItem>
                         </LinkContainer>
                     </Nav>
                     {this.props.auth === true ? <IsUser {...this.props} callback={this.logout}/> : <IsGuest/>}
