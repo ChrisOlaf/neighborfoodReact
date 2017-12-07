@@ -5,6 +5,7 @@ import { LinkContainer } from 'react-router-bootstrap';
 
 import LogOutButton from './components/LogOutButton';
 
+
 // Right hand side navigation options when user isn't logged in
 const IsGuest = () => (
     <Nav pullRight>
@@ -34,10 +35,14 @@ const IsUser = (props) => (
 
 class Navigation extends Component {
 
+
+    // Return logout callback to App.js
     logout = (e) => {
         this.props.callback(e)
-    }
+    };
 
+
+    // Render navbar with brand-link on far left, followed by links for new sale and new order. On right content will be rendered based on user authentication status.
     render() {
         return (
             <Navbar staticTop>

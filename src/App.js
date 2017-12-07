@@ -14,15 +14,6 @@ import NotFound from './NotFound';
 
 import './App.css';
 
-
-const PrivateRoute = ({component: Component, ...rest}) => (
-    <Route {...rest} render={(props) => (
-        this.state.auth === true
-            ? <Component {...props} />
-            : <Redirect to='/login'/>
-    )}/>
-)
-
 var cachedUser = "";
 
 class App extends Component {
@@ -34,6 +25,8 @@ class App extends Component {
         this.state.user.id === null || this.state.user.id === undefined ? this.setState({auth: false}) : this.setState({auth: true});
         // console.log(this.state);
     }
+
+
     // Verifies user logout on a callback and clears session. Reverts authentication to guest-status.
     logoutUser = () => {
         this.setState({user: [], auth: false});
@@ -42,15 +35,17 @@ class App extends Component {
         // console.log(this.state);
     }
 
+
     constructor(props) {
         super(props);
         this.state = {auth: false};
-        this.InitialState();
+        this.initialState();
         // console.log("App.constructorin tarkistus!");
     }
 
+
     // Initializing state for App.js. If nothing is stored in session, defaults to guest-user.
-    InitialState() {
+    initialState() {
         cachedUser = window.sessionStorage.getItem('storedUser');
         const x = this;
         if (cachedUser) {
@@ -63,6 +58,7 @@ class App extends Component {
             // console.log("App.initialstate ei hakenut käyttäjää storagesta!");
         }
     }
+
 
     // Render navigation and route content.
     render() {
@@ -88,7 +84,10 @@ class App extends Component {
                             <Route exact path='/register' render={(props) =>
                                 (<Register {...props} auth={this.state.auth} user={this.state.user}/>)}/>
                             <Route exact path='/profile' render={(props) =>
-                                (<Profile {...props} auth={this.state.auth} user={this.state.user}/>)}/>
+                                ( this.state.auth === true
+                                        ? <Profile {...props} auth={this.state.auth} user={this.state.user}/>
+                                        : <Redirect to='/login'/>
+                                )}/>
                             {/*<Route exact name="index" path="/" component={Home}/>*/}
                             {/*<Route path="/login" callback={this.verifyUser} component={Login}/>*/}
                             {/*<Route path="/test" component={Test}/>*/}
