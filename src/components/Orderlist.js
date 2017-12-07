@@ -10,15 +10,16 @@ class Orderlist extends Component {
                 return response.json();
             })
             .then((function (jsonobject) {
-                console.dir(jsonobject)
                 this.setState({data: jsonobject});
             }).bind(this));
     }
 
     render() {
+        console.log("Auth: " +this.props.auth)
+        console.log("User: " + this.props.user)
         var orders = this.state.data.map(function (order) {
-            return (<Orders info={order} key={order.id}/>);
-        });
+            return (<Orders info={order} key={order.id} auth={this.props.auth} user={this.props.user}/>);
+        }, this);
         return (
             <div className="OrderList">
                 {orders}
