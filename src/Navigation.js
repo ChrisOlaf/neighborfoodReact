@@ -5,18 +5,7 @@ import { LinkContainer } from 'react-router-bootstrap';
 
 import LogOutButton from './components/LogOutButton';
 
-// const fakeAuth = {
-//     isAuthenticated: false,
-//     authenticate(cb) {
-//         this.isAuthenticated = true
-//         setTimeout(cb, 100) // fake async
-//     },
-//     signout(cb) {
-//         this.isAuthenticated = false
-//         setTimeout(cb, 100) // fake async
-//     }
-// }
-
+// Right hand side navigation options when user isn't logged in
 const IsGuest = () => (
     <Nav pullRight>
         <LinkContainer to="/login">
@@ -28,15 +17,16 @@ const IsGuest = () => (
     </Nav>
 );
 
+// Right hand side navigation options when user is logged in
 const IsUser = (props) => (
     <Nav pullRight>
-        <NavDropdown eventKey={1} title="Asetukset" id="basic-nav-dropdown">
+        <NavDropdown title="Asetukset" id="basic-nav-dropdown">
             <LinkContainer to="/profile">
-            <MenuItem eventKey={1.1}>Profiili</MenuItem>
+            <MenuItem>Profiili</MenuItem>
             </LinkContainer>
             <MenuItem divider/>
             <LinkContainer to="/">
-            <MenuItem eventKey={1.2}><LogOutButton {...props} callback={props.callback}/></MenuItem>
+            <MenuItem><LogOutButton {...props} callback={props.callback}/></MenuItem>
             </LinkContainer>
         </NavDropdown>
     </Nav>
@@ -59,7 +49,7 @@ class Navigation extends Component {
                 </Navbar.Header>
                 <Navbar.Collapse>
                     <Nav>
-                        <LinkContainer to="/test">
+                        <LinkContainer to="/addsale">
                         <NavItem eventKey={1}>Uusi myynti-ilmoitus</NavItem>
                         </LinkContainer>
                         <LinkContainer to="/addorder">
@@ -69,7 +59,6 @@ class Navigation extends Component {
                         <NavItem eventKey={3}>Profile</NavItem>
                         </LinkContainer>
                     </Nav>
-                    {/*{this.props.auth === false ? " " : <LogOutButton {...this.props} callback={this.logout}/>}*/}
                     {this.props.auth === true ? <IsUser {...this.props} callback={this.logout}/> : <IsGuest/>}
                 </Navbar.Collapse>
             </Navbar>
