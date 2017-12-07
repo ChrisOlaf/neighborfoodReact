@@ -26,36 +26,10 @@ const IsUser = () => (
         <NavDropdown title="Asetukset" id="basic-nav-dropdown">
             <MenuItem href="/profile">Profiili</MenuItem>
             <MenuItem divider/>
-            <MenuItem href="/logout">Kirjaudu ulos</MenuItem>
+            <MenuItem href="/logout"><LogOutButton {...this.props} callback={this.logout}/></MenuItem>
         </NavDropdown>
     </Nav>
 );
-
-class LogInButton extends Component {
-    state = {
-        redirectToReferrer: false
-    }
-    login = () => {
-        this.props.auth.authenticate(() => {
-            this.setState(() => ({
-                redirectToReferrer: true
-            }))
-        })
-    }
-
-    render() {
-        const {redirectToReferrer} = this.state
-
-        if (redirectToReferrer === true) {
-            <Redirect to='/' />
-        }
-        return (
-            <div>
-                <button onClick={this.login}>Log in</button>
-            </div>
-        )
-    }
-}
 
 class LogOutButton extends Component {
     state = {id:'',name:'', lastName:'', phoneNumber:'',
@@ -69,7 +43,7 @@ class LogOutButton extends Component {
     render() {
         return (
             <div>
-                <button onClick={this.logout}>Log out</button>
+                <span onClick={this.logout}>Kirjaudu ulos</span>
             </div>
         )
     }
@@ -92,11 +66,12 @@ class Navigation extends Component {
                 </Navbar.Header>
                 <Navbar.Collapse>
                     <Nav>
-                        <NavItem href="/test">Uusi myynti-ilmoitus</NavItem>
-                        <NavItem href="/test">Uusi tilaus</NavItem>
+                        <NavItem><Link to="/addorder">Uusi myynti-ilmoitus</Link></NavItem>
+                        <NavItem><Link to="/test">Uusi tilaus</Link></NavItem>
+                        <NavItem><Link to="/profile">Profile</Link></NavItem>
                     </Nav>
-                    {this.props.auth === false ? <LogInButton {...this.props}/> : <LogOutButton {...this.props} callback={this.logout}/>}
-                    {this.props.auth === false ? <IsGuest/> : <IsUser/>}
+                    {/*{this.props.auth === false ? " " : <LogOutButton {...this.props} callback={this.logout}/>}*/}
+                    {this.props.auth === false ? <IsGuest/> : <IsUser {...this.props} callback={this.logout}/>}
                 </Navbar.Collapse>
             </Navbar>
         );
