@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {BrowserRouter as Router, Route, Link, Redirect, withRouter} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import {Navbar, Nav, NavItem, NavDropdown, MenuItem} from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 
@@ -59,9 +59,6 @@ class Navigation extends Component {
                         </LinkContainer>
                         <LinkContainer to="/addorder">
                         <NavItem eventKey={2}>Uusi tilaus</NavItem>
-                        </LinkContainer>
-                        <LinkContainer to="/profile">
-                        <NavItem eventKey={3}>Profile</NavItem>
                         </LinkContainer>
                     </Nav>
                     {this.props.auth === true ? <IsUser {...this.props} callback={this.logout}/> : <IsGuest/>}
