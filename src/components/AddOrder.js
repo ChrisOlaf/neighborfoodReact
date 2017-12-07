@@ -1,17 +1,18 @@
 import React, {Component} from 'react';
 var cachedUser;
 class AddOrder extends Component {
-    state = {orders: {content: '', user:{}, requirements:[]}};
+    state = {orders: {content: '', user:{}, requirements:[{requirement:''}]}};
 
     componentDidMount = () =>{
         cachedUser = window.sessionStorage.getItem('storedUser');
         const x = this;
         if (cachedUser) {
-            this.setState(x.state.orders = {user: JSON.parse(cachedUser)});
-            // x.state = ({auth: true});
-            console.log(cachedUser);
+            var user = JSON.parse(cachedUser);
+            x.setState({orders: {content: '',user: user, requirements:[{}]}});
+
+            console.log();
+            console.log(x.state);
             console.log("Haki käyttäjän storagesta!");
-            return(this.state.orders.user);
         }
         else {
             console.log("Käyttäjää ei löytynyt storagesta..?");
@@ -23,34 +24,39 @@ class AddOrder extends Component {
         this.setState({
             [this.state.orders.content] : e.target.value
         });
+        console.log("Handleinput: " +this.state);
     };
 
     addRequirement = (e) => {
-        this.state.orders.requirements.push(e.target.value);
+        this.state.orders.requirements.push({requirement:e.target.value});
+        console.log("addreq: " +this.state);
     };
 
     addxtrReq = (e) =>{
-        this.state.orders.requirements.push(e.target.value);
+        this.state.orders.requirements.push({requirement: e.target.value});
     }
 
     addMessage = () => {
         "Käyttäjää ei löytynyt"
     }
     addOrder = (e) => {
-        e.preventDefault()
-        fetch('addorder',
+        var x = this;
+        console.log("Tätä yritetään lähettää" + this.state.orders);
+        e.preventDefault();
+        fetch('addorderwithreqs',
         {
             headers: {
                 'Accept': 'application/json',
-                    'Content-Type': 'application/json'
+                'Content-Type': 'application/json'
             },
             method: "POST",
-                body: JSON.stringify(this.state.orders)
+            body: JSON.stringify(this.state.orders)
         })
-        .then(function(res){ console.log(res) })
+        .then(function(res){ console.log(res)
+            x.setState({orders: {content: '', user:{id:''}, requirements:[]}})})
         .catch(function(res){ console.log(res) })
 
-        this.setState({orders: {content: '', user:{id:'1'}, requirements:[]}})
+
     };
 
 
@@ -59,20 +65,16 @@ class AddOrder extends Component {
         if(cachedUser){
         return(
             <div>
-                <h1>{this.componentDidMount}</h1>
-            <form>
-                <input type="textarea" placeholder="Tilaus" name="content" value={this.state.value} onChange={this.handleInput}/><br/>
-                <input type="checkbox" name="requirements" value="gluteeniton" onChange={this.addRequirement} />gluteeniton<br/>
+                <form>
+                <input type="text" name="content" value={this.state.orders.content.value} onChange={e => this.handleInput(e)}/><br/>
+                <input type="checkbox" name="requirements" value= "gluteeniton" onChange={this.addRequirement} />gluteeniton<br/>
                 <input type="checkbox" name="requirements" value="laktoositon" onChange={this.addRequirement}/>laktoositon<br/>
                 <input type="checkbox" name="requirements" value="maidoton" onChange={this.addRequirement} />maidoton<br/>
                 <input type="checkbox" name="requirements" value="viljaton" onChange={this.addRequirement}/>viljaton<br/>
                 <input type="checkbox" name="requirements" value="vegaani" onChange={this.addRequirement}/>vegaani<br/>
-                Joku muu, mikä?<input type="text" name="requirements" value={this.state.value} onChange={this.addxtrReq}/><br/>
-                <input type="submit" onSubmit={this.addOrder} value="Lisää tilaus"/>
-            </form>
-                <p>Tähän pitäisi tulla tulokset:</p>
-                <p>sisältö: {this.state.orders.content}</p>
-                <p>reqs: {this.state.orders.requirements}</p>
+                <input defaultValue="joku muu, mikä?" type="text" name="requirements" value={this.state.orders.requirements.requirement} onChange={e => this.addxtrReq(e)}/><br/>
+                <input type="submit" onClick={e => this.addOrder(e)} value="Lisää tilaus"/>
+                </form>
             </div>
         );
     }
