@@ -1,8 +1,9 @@
-import React, { Component } from 'react';
-import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
-import { Grid } from 'react-bootstrap';
+import React, {Component} from 'react';
+import {BrowserRouter as Router, Switch, Route, Redirect} from 'react-router-dom';
+import {Grid} from 'react-bootstrap';
 import Navigation from './Navigation';
 import Home from './components/Home';
+import AddO from './components/AddOrder';
 import Login from './components/Login';
 import Register from './components/Register';
 import Profile from './components/Profile';
@@ -11,90 +12,91 @@ import NotFound from './NotFound';
 
 import './App.css';
 
-const Auth = {
-    isAuthenticated: false,
-    authenticate(cb) {
-        this.isAuthenticated = true
-        setTimeout(cb, 100) // fake async
-    },
-    signout(cb) {
-        this.isAuthenticated = false
-        setTimeout(cb, 100) // fake async
-    }
-}
 
-const PrivateRoute = ({ component: Component, ...rest }) => (
+const PrivateRoute = ({component: Component, ...rest}) => (
     <Route {...rest} render={(props) => (
         this.state.auth === true
             ? <Component {...props} />
-            : <Redirect to='/login' />
-    )} />
+            : <Redirect to='/login'/>
+    )}/>
 )
 
 
-
-const InitialState = {
-    user:[], auth: false
-};
+// const InitialState = {
+//     user: [], auth: false
+// };
 
 class App extends Component {
 
-    constructor(props) {
-        super(props)
-        this.state = InitialState;
+    // constructor(props) {
+    //     super(props)
+    //     this.state = InitialState;
+    //     console.log("Ei kai tätä kutsuta?");
+    // }
+    //
+    // reset() {
+    //     this.setState(InitialState);
+    // }
+
+    state = {user: [], auth: false};
+
+    verifyUser = (e) => {
+        this.setState({user: e});
+        this.state.user.id === null || this.state.user.id === undefined ? this.setState({auth: false}) : this.setState({auth: true});
+        console.log(this.state);
     }
-    reset() {
-        this.setState(InitialState);
+
+    logoutUser = () => {
+        // this.reset();
+        this.setState({user: "", auth: false});
+        console.log(this.state);
     }
 
-verifyUser = (e) => {
-    this.setState({user: e});
-    console.log(this.state);
-    this.state.user.id === null ? this.setState({auth: false}): this.setState({auth: true});
-    console.log(this.state);
-}
-
-logoutUser = () => {
-    this.reset();
-    console.log(this.state);
-    // this.setState({auth:false});
-    // this.state.user.id === null || this.state.user.id === undefined ? this.setState({auth: false}): this.setState({auth: true});
-    // console.log(this.state);
-}
-
-render () {
-    return(
-    <Router>
-        <div className="App">
-            <Navigation auth={this.state.auth} user={this.state.user} callback={this.logoutUser}/>
-            <Grid>
-                <Switch>
-                    <Route exact name="index" path="/" component={Home} />
-                    <Route path="/test" component={Test}/>
-                    {/*<Route path="/login" callback={this.verifyUser} component={Login}/>*/}
-                    <Route exact path='/login' render={(props) =>
-                        (<Login {...props} user={this.state.user} callback={this.verifyUser} />)}/>
-                    <Route path="/register" component ={Register}/>
-                    <Route path="/profile" component ={Profile}/>
-                    <Route component={NotFound} />
-                </Switch>
-            </Grid>
-            <hr/>
-        </div>
-    </Router>
-  // render() {
-  //   return (
-  //     <div className="App">
-  //       {/*<header className="App-header">*/}
-  //         {/*<img src={logo} className="App-logo" alt="logo" />*/}
-  //         {/*<h1 className="App-title">Welcome to React</h1>*/}
-  //       {/*</header>*/}
-  //       {/*<p className="App-intro">*/}
-  //       {/*</p>*/}
-  //     </div>
-  //   );
-  // }
-);}}
+    render() {
+        console.log("App.js tarkistaa tilaa tässä moi!");
+        console.log(this.state);
+        return (
+            <Router>
+                <div className="App">
+                    <Navigation auth={this.state.auth} user={this.state.user} callback={this.logoutUser}/>
+                    <Grid>
+                        <Switch>
+                            <Route exact path='/' render={(props) =>
+                                (<Home {...props} auth={this.state.auth} user={this.state.user} />)} />
+                            <Route exact path='/addorder' render={(props) =>
+                                (<AddO {...props} auth={this.state.auth} user={this.state.user} />)} />
+                            <Route exact path='/test' render={(props) =>
+                                (<Test {...props} auth={this.state.auth} user={this.state.user} />)} />
+                            <Route exact path='/login' render={(props) =>
+                                (<Login {...props} user={this.state.user} callback={this.verifyUser} />)} />
+                            <Route exact path='/register' render={(props) =>
+                                (<Register {...props} auth={this.state.auth} user={this.state.user} />)} />
+                            <Route exact path='/profile' render={(props) =>
+                                (<Profile {...props} auth={this.state.auth} user={this.state.user} />)} />
+                                    {/*<Route exact name="index" path="/" component={Home}/>*/}
+                                    {/*<Route path="/login" callback={this.verifyUser} component={Login}/>*/}
+                                    {/*<Route path="/test" component={Test}/>*/}
+                                    {/*<Route path="/register" component={Register}/>*/}
+                                    {/*<Route path="/profile" component={Profile}/>*/}
+                                    <Route component={NotFound}/>
+                        </Switch>
+                    </Grid>
+                    <hr/>
+                </div>
+            </Router>
+    // render() {
+        //   return (
+        //     <div className="App">
+        //       {/*<header className="App-header">*/}
+        //         {/*<img src={logo} className="App-logo" alt="logo" />*/}
+        //         {/*<h1 className="App-title">Welcome to React</h1>*/}
+        //       {/*</header>*/}
+        //       {/*<p className="App-intro">*/}
+        //       {/*</p>*/}
+        //     </div>
+        //   );
+        // }
+    );}}
 
 
-export default App;
+    export default App;
