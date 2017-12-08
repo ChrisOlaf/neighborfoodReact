@@ -15,8 +15,6 @@ class Orderlist extends Component {
     }
 
     render() {
-        console.log("Auth: " +this.props.auth)
-        console.log("User: " + this.props.user)
         var orders = this.state.data.map(function (order) {
             return (<Orders info={order} key={order.id} auth={this.props.auth} user={this.props.user}/>);
         }, this);

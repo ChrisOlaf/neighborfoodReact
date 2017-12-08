@@ -62,7 +62,6 @@ class Orders extends Component {
 
 
         this.setState({isFormVisible: false})
-console.log(responseItem)
     };
 
     changetime = () => {
@@ -114,6 +113,7 @@ console.log(responseItem)
                 <p>Ilmoitus jätetty: {this.changetime()}</p>
                 <p>Ilmoituksen tiedot: {this.props.info.content}</p>
                 <p>Käyttäjä: {this.props.info.user.name}</p>
+                <h4>Tarjoukset</h4>
                 {responses}
                 {responseButton}
                 <br/>

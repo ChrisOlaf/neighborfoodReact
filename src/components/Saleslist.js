@@ -17,8 +17,8 @@ class Saleslist extends Component {
 
     render() {
         var sales = this.state.data.map(function (sale) {
-            return (<Sales info={sale} key={sale.id}/>);
-        });
+            return (<Sales info={sale} key={sale.id} auth={this.props.auth} user={this.props.user}/>);
+        }, this);
         return (
             <div className="SalesList">
                 {sales}
