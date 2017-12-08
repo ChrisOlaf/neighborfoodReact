@@ -1,14 +1,8 @@
 import React, {Component} from 'react';
 var cachedUser;
-var orderAdded;
 class AddOrder extends Component {
-    state = {orders: {content: '', user: {}, requirements: [{requirement: ''}]}};
-
-    constructor(props) {
-        super(props);
-        orderAdded = false;
-    }
-
+    state = {orders: {content: '', user: {}, requirements: [{requirement: ''}]},
+                orderAdded: false};
 
     componentDidMount = () => {
         cachedUser = window.sessionStorage.getItem('storedUser');
@@ -17,8 +11,6 @@ class AddOrder extends Component {
             var user = JSON.parse(cachedUser);
             x.setState({orders: {content: '', user: user, requirements: [{}]}});
 
-            console.log();
-            console.log(x.state);
             console.log("Haki käyttäjän storagesta!");
         }
         else {
@@ -29,13 +21,10 @@ class AddOrder extends Component {
 
     handleInput = (e) => {
         this.state.orders.content = e.target.value;
-        console.log("Handleinput: " + this.state);
-        console.log("Handleinput: " + this.state.orders.content);
     };
 
     addRequirement = (e) => {
         this.state.orders.requirements.push({requirement: e.target.value});
-        console.log("addreq: " + this.state);
     };
 
     //
@@ -61,35 +50,32 @@ class AddOrder extends Component {
             })
             .then(function (res) {
                 console.log(res)
-                x.setState({orders: {content: '', user: {id: ''}, requirements: []}})
-
+                x.setState({orders: {content: '', user: {id: ''}, requirements: []},
+                    orderAdded: true});
+                x.render();
             })
             .catch(function (res) {
                 console.log(res)
             })
-        orderAdded = true;
-        this.render();
     };
 
-    // changeorderAdded = () =>{
-    //     console.log("Täällä ollaan");
-    //     console.log(orderAdded)
-    //     orderAdded = false;
-    //     console.log(orderAdded)
-    //     this.render()
-    // };
+    changeorderAdded = () =>{
+        console.log("Täällä ollaan");
+        this.setState({orders: {content: '', user: {id: ''}, requirements: []},
+            orderAdded: false})
+    };
 
     render() {
-        if (orderAdded) {
+        if (this.state.orderAdded) {
             return (
                 <div>
                     <h2>Tilauksesi on nyt lisätty!</h2>
-                    {/*<button onClick={this.changeorderAdded}>Lisää uusi tilaus</button> <br />*/}
+                    <button onClick={this.changeorderAdded}>Lisää uusi tilaus</button> <br />
                     {/*<button>Palaa etusivulle</button>*/}
                 </div>
             )
         }
-        else if (!orderAdded) {
+        else {
             if (cachedUser) {
                 return (
                     <div>
