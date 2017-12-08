@@ -21,10 +21,9 @@ class AddOrder extends Component {
     };
 
     handleInput = (e) => {
-        this.setState({
-            [this.state.orders.content] : e.target.value
-        });
+        this.state.orders.content = e.target.value;
         console.log("Handleinput: " +this.state);
+        console.log("Handleinput: " +this.state.orders.content);
     };
 
     addRequirement = (e) => {
@@ -32,9 +31,10 @@ class AddOrder extends Component {
         console.log("addreq: " +this.state);
     };
 
-    addxtrReq = (e) =>{
-        this.state.orders.requirements.push({requirement: e.target.value});
-    }
+    //
+    // addxtrReq = (e) =>{
+    //     this.state.orders.requirements.push({requirement: e.target.value});
+    // }
 
     addMessage = () => {
         "Käyttäjää ei löytynyt"
@@ -70,7 +70,7 @@ class AddOrder extends Component {
                 <input type="checkbox" name="requirements" value="maidoton" onChange={this.addRequirement} />maidoton<br/>
                 <input type="checkbox" name="requirements" value="viljaton" onChange={this.addRequirement}/>viljaton<br/>
                 <input type="checkbox" name="requirements" value="vegaani" onChange={this.addRequirement}/>vegaani<br/>
-                <input defaultValue="joku muu, mikä?" type="text" name="requirements" value={this.state.orders.requirements.requirement} onChange={e => this.addxtrReq(e)}/><br/>
+                {/*<input defaultValue="joku muu, mikä?" type="text" name="requirements" value={this.state.orders.requirements.requirement} onChange={e => this.addxtrReq(e)}/><br/>*/}
                 <input type="submit" onClick={e => this.addOrder(e)} value="Lisää tilaus"/>
                 </form>
             </div>
