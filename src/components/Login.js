@@ -58,7 +58,7 @@ class Login extends Component{
                                value={this.state.email}/>
                     <br />
                         salasana:
-                        <input type="text"
+                        <input type="password"
                                name="password"
                                placeholder="*******"
                                value={this.state.password}
