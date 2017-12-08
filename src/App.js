@@ -77,8 +77,8 @@ class App extends Component {
                                 (<AddS {...props} auth={this.state.auth} user={this.state.user}/>)}/>
                             <Route exact path='/addorder' render={(props) =>
                                 (<AddO {...props} auth={this.state.auth} user={this.state.user}/>)}/>
-                            <Route exact path='/test' render={(props) =>
-                                (<Test {...props} auth={this.state.auth} user={this.state.user}/>)}/>
+                            {/*<Route exact path='/test' render={(props) =>*/}
+                                {/*(<Test {...props} auth={this.state.auth} user={this.state.user}/>)}/>*/}
                             <Route exact path='/login' render={(props) =>
                                 (<Login {...props} user={this.state.user} callback={this.verifyUser}/>)}/>
                             <Route exact path='/register' render={(props) =>
@@ -93,6 +93,7 @@ class App extends Component {
                             {/*<Route path="/test" component={Test}/>*/}
                             {/*<Route path="/register" component={Register}/>*/}
                             {/*<Route path="/profile" component={Profile}/>*/}
+
                             <Route component={NotFound}/>
                         </Switch>
                     </Grid>
