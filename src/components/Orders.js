@@ -4,14 +4,30 @@ var time = undefined;
 
 class Orders extends Component {
 
-    constructor() {
-        super()
+    constructor(props) {
+        super(props)
         this.state = {
             content: '',
             order_id: '',
             isFormVisible: false,
+            responses: []
         }
         this.handleClick = this.handleClick.bind(this);
+    }
+
+    componentDidMount() {
+        this.goAndFetchData();
+    }
+
+    goAndFetchData = () => {
+        fetch('order/'+this.props.info.id+'/responses')
+            .then(function (response) {
+                return response.json();
+            })
+            .then((function (jsonobject) {
+                this.setState({responses: jsonobject});
+            }).bind(this));
+
     }
 
     handleClick() {
@@ -30,10 +46,9 @@ class Orders extends Component {
     addResponse() {
         const responseItem = {
             content: this.state.content,
-            order_id: this.props.info.id,
             responder: this.props.user
         }
-        fetch('addresponse',
+        fetch('order/'+this.props.info.id+'/responses',
             {
                 headers: {
                     'Accept': 'application/json',
@@ -41,11 +56,13 @@ class Orders extends Component {
                 },
                 method: "POST",
                 body: JSON.stringify(responseItem)
-            })
+            }).then((function (response) {
+            this.goAndFetchData();
+        }).bind(this))
 
 
         this.setState({isFormVisible: false})
-
+console.log(responseItem)
     };
 
     changetime = () => {
@@ -64,6 +81,13 @@ class Orders extends Component {
 
     render() {
         let form = null;
+        var responses = this.state.responses.map(function (response) {
+            return (
+                <div key={response.id}>
+                    {response.content}<br/>{response.responder.name}
+                </div>
+            )
+        })
         if (this.state.isFormVisible) {
             form =
                 <form>
@@ -90,6 +114,7 @@ class Orders extends Component {
                 <p>Ilmoitus jätetty: {this.changetime()}</p>
                 <p>Ilmoituksen tiedot: {this.props.info.content}</p>
                 <p>Käyttäjä: {this.props.info.user.name}</p>
+                {responses}
                 {responseButton}
                 <br/>
                 <div>
