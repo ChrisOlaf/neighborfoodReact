@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 class Register extends Component {
     state = {name:'', lastName:'', phoneNumber:'',
-        location:'',presentation:'',userStatus:'',
+        location:'etelä',presentation:'',userStatus:'',
         email:'',password:''};
 
     change = (e) =>{
@@ -73,7 +73,7 @@ class Register extends Component {
                 Valitse sijainti:
                 <br />
                 <select name="location" onChange={e => this.handleChange(e)}>
-                    <option value="etelä">Etelä</option>
+                    <option value="etelä" selected="selected">Etelä</option>
                     <option value="pohjoinen">Pohjoinen</option>
                     <option value="lansi">Länsi</option>
                     <option value="ita">Itä</option>

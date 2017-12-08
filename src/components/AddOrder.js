@@ -55,8 +55,6 @@ class AddOrder extends Component {
         .then(function(res){ console.log(res)
             x.setState({orders: {content: '', user:{id:''}, requirements:[]}})})
         .catch(function(res){ console.log(res) })
-
-
     };
 
 
