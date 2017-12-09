@@ -1,21 +1,28 @@
 import React, {Component} from 'react';
+//Contains userinformation from Sessionstorage
 var cachedUser;
-class AddOrder extends Component {
-    state = {orders: {content: '', user: {}, requirements: [{requirement: ''}]},
-                orderAdded: false};
 
+//this component lets user(if logged in) to add an order.
+// When form is submitted, adds the order to a database and then asks if user wants to add more orders.
+class AddOrder extends Component {
+
+    state = {
+        orders: {content: '', user: {}, requirements: [{requirement: ''}]},
+        orderAdded: false
+    };
+
+    //looks for the logged in user from sessionStorage. If not found,
+    // puts it in the cachedUser variable
     componentDidMount = () => {
         cachedUser = window.sessionStorage.getItem('storedUser');
         const x = this;
         if (cachedUser) {
             var user = JSON.parse(cachedUser);
             x.setState({orders: {content: '', user: user, requirements: [{}]}});
-
             console.log("Haki käyttäjän storagesta!");
         }
         else {
             console.log("Käyttäjää ei löytynyt storagesta..?");
-            this.addMessage();
         }
     };
 
@@ -23,18 +30,19 @@ class AddOrder extends Component {
         this.state.orders.content = e.target.value;
     };
 
+    //Adds requirement to the requirement array when selected
     addRequirement = (e) => {
         this.state.orders.requirements.push({requirement: e.target.value});
     };
 
+    //TODO -> Method that adds extra requirement to the array
     //
     // addxtrReq = (e) =>{
     //     this.state.orders.requirements.push({requirement: e.target.value});
     // }
 
-    addMessage = () => {
-        "Käyttäjää ei löytynyt"
-    }
+    //Adds order (in state) to the database
+    // then clears the state and changes the state to Orderadded state.
     addOrder = (e) => {
         var x = this;
         console.log("Tätä yritetään lähettää" + this.state.orders);
@@ -50,8 +58,10 @@ class AddOrder extends Component {
             })
             .then(function (res) {
                 console.log(res)
-                x.setState({orders: {content: '', user: {id: ''}, requirements: []},
-                    orderAdded: true});
+                x.setState({
+                    orders: {content: '', user: {id: ''}, requirements: []},
+                    orderAdded: true
+                });
                 x.render();
             })
             .catch(function (res) {
@@ -59,19 +69,25 @@ class AddOrder extends Component {
             })
     };
 
-    changeorderAdded = () =>{
+
+   //Changes the state to orderAdded : false, if user wants to
+    //add a new order
+    changeorderAdded = () => {
         console.log("Täällä ollaan");
-        this.setState({orders: {content: '', user: {id: ''}, requirements: []},
-            orderAdded: false})
+        this.setState({
+            orders: {content: '', user: {id: ''}, requirements: []},
+            orderAdded: false
+        })
     };
 
+    //Shows to a user who's logged in a Order -form, if not logged in, doesn't show a form
     render() {
         if (this.state.orderAdded) {
             return (
                 <div>
                     <h2>Tilauksesi on nyt lisätty!</h2>
-                    <button onClick={this.changeorderAdded}>Lisää uusi tilaus</button> <br />
-                    {/*<button>Palaa etusivulle</button>*/}
+                    <button onClick={this.changeorderAdded}>Lisää uusi tilaus</button>
+                    <br/>
                 </div>
             )
         }

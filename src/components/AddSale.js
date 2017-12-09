@@ -1,13 +1,22 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import Orderlist from './Orderlist';
 import '../App.css';
+
+//Contains userinformation from Sessionstorage
+
 var cachedUser;
+
+//this component lets user(if logged in) to add a Sale.
+// When form is submitted, adds the sale to a database and then asks if user wants to add more sales.
+
 class AddSale extends Component {
     state = {
         sale: {content: '', user: {}, requirements: [{requirement: ''}]},
         saleAdded: false
     };
 
+    //looks for the logged in user from sessionStorage. If not found,
+    // puts it in the cachedUser variable
     componentDidMount = () => {
         cachedUser = window.sessionStorage.getItem('storedUser');
         const x = this;
@@ -26,23 +35,25 @@ class AddSale extends Component {
             this.addMessage();
         }
     };
-
+    //TODO otsikon lisäys
+    //Handles the form text inputs
     handleInput = (e) => {
         this.state.sale.content = e.target.value;
     };
 
+    //Adds requirement to the requirement array when selected
     addRequirement = (e) => {
         this.state.sale.requirements.push({requirement: e.target.value});
     };
 
-    //
+    //TODO -> Method that adds extra requirement to the array
+
     // addxtrReq = (e) =>{
-    //     this.state.orders.requirements.push({requirement: e.target.value});
+    //     this.state.sale.requirements.push({requirement: e.target.value});
     // }
 
-    addMessage = () => {
-        console.log("Käyttäjää ei löytynyt");
-    }
+    //Adds sale(in state) to the database
+    // then clears the state and changes the state to saleAdded state.
     addSale = (e) => {
         var x = this;
         console.log("Tätä yritetään lähettää" + this.state.sale);
@@ -67,10 +78,13 @@ class AddSale extends Component {
             })
         this.setState({
             sale: {content: '', user: {id: ''}, requirements: []},
-            saleAdded: true});
+            saleAdded: true
+        });
         this.render();
     };
 
+    //Changes the state to saleAdded : false, if user wants to
+    //add a new sale
     changeSaleAdded = () => {
         console.log("Täällä ollaan");
         this.setState({
@@ -79,6 +93,8 @@ class AddSale extends Component {
         })
     };
 
+    //Shows to a user who's logged in a Sale -form,
+    // if not logged in, doesn't show a form
     render() {
         if (this.state.saleAdded) {
             return (

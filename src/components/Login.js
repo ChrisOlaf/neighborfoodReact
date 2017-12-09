@@ -1,16 +1,21 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 
+// Login-component lets you input username(email) and password.
+// Sends data to REST where data is retrieved from database and username and password are verified
+class Login extends Component {
+    //state containing empty user-information.
+    state = {
+        id: '', name: '', lastName: '', phoneNumber: '',
+        location: '', presentation: '', userStatus: '',
+        email: '', password: ''
+    };
 
-class Login extends Component{
-
-    state = {id:'',name:'', lastName:'', phoneNumber:'',
-        location:'',presentation:'',userStatus:'',
-        email:'',password:''};
-
+    //method is called in the login form. checks if user
+    // exists in the database and sets it to state.
     verify = e => {
         e.preventDefault();
         console.log("verify..");
-        var joku = this;
+        var x = this;
         fetch('verify',
             {
                 headers: {
@@ -20,62 +25,66 @@ class Login extends Component{
                 method: "POST",
                 body: JSON.stringify(this.state)
             })
-            .then(function(res){
-                if(res.ok){
-                    console.dir("moimoi");
+            .then(function (res) {
+                if (res.ok) {
                     return res.json();
                 }
-                else{
+                else {
                     throw new Error("something wrong with the response");
                 }
             })
-            .then(function(json){
-                console.dir("moi");
-                joku.setState(json);
-                joku.send();
-
-     });
+            .then(function (json) {
+                x.setState(json);
+                x.send();
+            });
     };
-    send = () =>{
+
+    //Send this.state (which is the verified user from the method verify)
+    // to App.js where it is moved to the Sessionstorage
+    send = () => {
         this.props.callback(this.state);
     };
 
+    //Changes the state of the target
+    // name(email or password) to a target value
     change = (e) => {
         this.setState({
-            [e.target.name]: e.target.value});
+            [e.target.name]: e.target.value
+        });
     };
 
-
-    render(){
-        return(
-                <div>
-                    <form>
-                        sähköposti:
-                        <input type="text"
-                               name="email"
-                               placeholder="moi@koi"
-                               onChange={e => this.change(e)}
-                               value={this.state.email}/>
-                    <br />
-                        salasana:
-                        <input type="password"
-                               name="password"
-                               placeholder="*******"
-                               value={this.state.password}
-                               onChange={e => this.change(e)}/>
-                        <br />
-                        <input type="submit"
-                               value="Kirjaudu sisään"
-                               onClick={this.verify}/>
-                    </form>
-                    <p>
-                       Nimi: {this.state.name}<br />
-                       maili: {this.state.email}<br />
-                       salasana {this.state.password}<br />
-                    </p>
-                </div>
+    //Returns a simple login form
+    render() {
+        return (
+            <div>
+                <form>
+                    sähköposti:
+                    <input type="text"
+                           name="email"
+                           placeholder="moi@koi"
+                           onChange={e => this.change(e)}
+                           value={this.state.email}/>
+                    <br/>
+                    salasana:
+                    <input type="password"
+                           name="password"
+                           placeholder="*******"
+                           value={this.state.password}
+                           onChange={e => this.change(e)}/>
+                    <br/>
+                    <input type="submit"
+                           value="Kirjaudu sisään"
+                           onClick={this.verify}/>
+                </form>
+                <p>
+                    Nimi: {this.state.name}<br/>
+                    maili: {this.state.email}<br/>
+                    salasana {this.state.password}<br/>
+                </p>
+            </div>
         )
 
-    }};
+    }
+};
 
 export default Login;
