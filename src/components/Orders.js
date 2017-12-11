@@ -10,13 +10,15 @@ class Orders extends Component {
             content: '',
             order_id: '',
             isFormVisible: false,
-            responses: []
+            responses: [],
+            requirements: []
         }
         this.handleClick = this.handleClick.bind(this);
     }
 
     componentDidMount() {
         this.goAndFetchData();
+        this.getRequirement();
     }
 
     goAndFetchData = () => {
@@ -29,6 +31,16 @@ class Orders extends Component {
             }).bind(this));
 
     }
+    getRequirement = () => {
+        fetch('order/'+this.props.info.id+'/requirements')
+            .then(function (requirement) {
+                return requirement.json();
+            })
+            .then((function (jsonobject) {
+                this.setState({requirements: jsonobject});
+            }).bind(this));
+
+    };
 
     handleClick() {
         console.log("ORDER isFormVisible " + this.state.isFormVisible);
@@ -79,6 +91,14 @@ class Orders extends Component {
 
     render() {
         let form = null;
+        var requirements = this.state.requirements.map(function (requirement) {
+            return (
+                <div key={requirement.id}>
+                    {requirement.requirement}
+                </div>
+            )
+        }, this);
+
         var responses = this.state.responses.map(function (response) {
             return (
                 <div key={response.id}>
@@ -87,7 +107,7 @@ class Orders extends Component {
                     <p>Lähettäjä: {response.responder.name}</p>
                 </div>
             )
-        }, this)
+        }, this);
         if (this.state.isFormVisible) {
             form =
                 <form>
@@ -114,6 +134,7 @@ class Orders extends Component {
                 <p>Ilmoitus jätetty: {this.changeTime(this.props.info.createDate)}</p>
                 <p>Ilmoituksen otsikko: {this.props.info.title}</p>
                 <p>Ilmoituksen tiedot: {this.props.info.content}</p>
+                Erityisvaatimukset: {requirements}
                 <p>Käyttäjä: {this.props.info.user.name}</p>
                 <h4>Vastaukset</h4>
                 {responses}
