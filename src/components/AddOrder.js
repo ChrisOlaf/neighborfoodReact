@@ -1,14 +1,17 @@
 import React, {Component} from 'react';
+import AddSale, {Added} from './AddSale'
 //Contains userinformation from Sessionstorage
 var cachedUser;
-
+var requirs='';
 //this component lets user(if logged in) to add an order.
 // When form is submitted, adds the order to a database and then asks if user wants to add more orders.
 class AddOrder extends Component {
 
     state = {
         orders: {title: '', content: '', user: {}, requirements: [{requirement: ''}]},
-        orderAdded: false
+        orderAdded: false,
+        reqs: ''
+
     };
 
     //looks for the logged in user from sessionStorage. If found,
@@ -81,9 +84,26 @@ class AddOrder extends Component {
         var ok = this.state.orders.user;
         this.setState({
             orders: {title: '', content: '', user: ok, requirements: []},
-            orderAdded: false
+            orderAdded: false,
+            reqs: ''
         })
     };
+
+    addRmt = (e) => {
+        this.setState(
+            {reqs: e.target.value}
+        );
+    };
+
+    addRqrmt = (e) => {
+        e.preventDefault();
+        requirs = requirs+ this.state.reqs +'\n';
+        this.state.orders.requirements.push({requirement: this.state.reqs});
+        this.setState({reqs: ''});
+        console.dir(this.state.orders.requirements);
+        console.dir(requirs);
+    };
+
 
     //Shows to a user who's logged in a Order -form, if not logged in, doesn't show a form
     render() {
@@ -120,8 +140,15 @@ class AddOrder extends Component {
                             <input type="checkbox" name="requirements" value="maidoton" onChange={this.addRequirement}/>maidoton<br/>
                             <input type="checkbox" name="requirements" value="viljaton" onChange={this.addRequirement}/>viljaton<br/>
                             <input type="checkbox" name="requirements" value="vegaani" onChange={this.addRequirement}/>vegaani<br/>
+                            <div>{requirs !== undefined && requirs.length > 2 ? <Added callback={this.addRequirement} regus={requirs}/> : ''}</div>
+                            <input defaultValue="joku muu, mikä?" type="text" name="requirements"
+                                   onChange={this.addRmt}/>
+                            <button onClick={e => this.addRqrmt(e)}>Lisää vaatimus</button>
+                            <br/><br/>
+
                             {/*<input defaultValue="joku muu, mikä?" type="text" name="requirements" value={this.state.orders.requirements.requirement} onChange={e => this.addxtrReq(e)}/><br/>*/}
                             <input type="submit" onClick={e => this.addOrder(e)} value="Lisää tilaus"/>
+
                         </form>
                     </div>
                 );
