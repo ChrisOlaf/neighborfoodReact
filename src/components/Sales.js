@@ -51,7 +51,7 @@ class Sales extends Component {
             <div>
                 <p>Ilmoitus jätetty: {this.changetime()}</p>
                 <p>Ilmoituksen sisältö: {this.props.info.content}</p>
-                <p>Käyttäjä: {this.props.info.seller.name}</p>
+                {/*<p>Käyttäjä: {this.props.info.seller.name}</p>*/}
                 <h4>Vastaukset</h4>
                 {responseButton}
                 <div>

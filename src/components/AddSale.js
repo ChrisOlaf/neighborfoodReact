@@ -25,14 +25,10 @@ class AddSale extends Component {
             x.setState({
                 sale: {content: '', user: user, requirements: [{}]}
             });
-
-            console.log();
-            console.log(x.state);
             console.log("Haki käyttäjän storagesta!");
         }
         else {
             console.log("Käyttäjää ei löytynyt storagesta..?");
-            this.addMessage();
         }
     };
     //TODO otsikon lisäys
@@ -55,7 +51,6 @@ class AddSale extends Component {
     //Adds sale(in state) to the database
     // then clears the state and changes the state to saleAdded state.
     addSale = (e) => {
-        var x = this;
         console.log("Tätä yritetään lähettää" + this.state.sale);
         e.preventDefault();
         fetch('addsale',
@@ -69,9 +64,6 @@ class AddSale extends Component {
             })
             .then(function (res) {
                 console.log(res);
-                console.log("Olen tässä");
-
-
             })
             .catch(function (res) {
                 console.log(res)
