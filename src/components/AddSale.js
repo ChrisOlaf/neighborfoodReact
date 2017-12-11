@@ -51,7 +51,8 @@ class AddSale extends Component {
     //Adds sale(in state) to the database
     // then clears the state and changes the state to saleAdded state.
     addSale = (e) => {
-        console.log("Tätä yritetään lähettää" + this.state.sale);
+        console.log("Tätä yritetään lähettää");
+        console.dir(this.state.sale);
         e.preventDefault();
         fetch('addsale',
             {
@@ -68,11 +69,11 @@ class AddSale extends Component {
             .catch(function (res) {
                 console.log(res)
             })
+        var kja = this.state.sale.user;
         this.setState({
-            sale: {content: '', user: {id: ''}, requirements: []},
+            sale: {content: '', user: kja, requirements: []},
             saleAdded: true
         });
-        this.render();
     };
 
     //Changes the state to saleAdded : false, if user wants to

@@ -11,7 +11,7 @@ class AddOrder extends Component {
         orderAdded: false
     };
 
-    //looks for the logged in user from sessionStorage. If not found,
+    //looks for the logged in user from sessionStorage. If found,
     // puts it in the cachedUser variable
     componentDidMount = () => {
         cachedUser = window.sessionStorage.getItem('storedUser');
@@ -45,7 +45,8 @@ class AddOrder extends Component {
     // then clears the state and changes the state to Orderadded state.
     addOrder = (e) => {
         var x = this;
-        console.log("Tätä yritetään lähettää" + this.state.orders);
+        console.log("Tätä yritetään lähettää");
+        console.dir(this.state.orders);
         e.preventDefault();
         fetch('addorderwithreqs',
             {
@@ -58,11 +59,11 @@ class AddOrder extends Component {
             })
             .then(function (res) {
                 console.log(res)
+                var joku = x.state.orders.user;
                 x.setState({
-                    orders: {content: '', user: {id: ''}, requirements: []},
+                    orders: {content: '', user: joku, requirements: []},
                     orderAdded: true
                 });
-                x.render();
             })
             .catch(function (res) {
                 console.log(res)
@@ -74,8 +75,9 @@ class AddOrder extends Component {
     //add a new order
     changeorderAdded = () => {
         console.log("Täällä ollaan");
+        var ok = this.state.orders.user;
         this.setState({
-            orders: {content: '', user: {id: ''}, requirements: []},
+            orders: {content: '', user: ok, requirements: []},
             orderAdded: false
         })
     };
