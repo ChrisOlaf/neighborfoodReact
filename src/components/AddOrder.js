@@ -7,7 +7,7 @@ var cachedUser;
 class AddOrder extends Component {
 
     state = {
-        orders: {content: '', user: {}, requirements: [{requirement: ''}]},
+        orders: {title: '', content: '', user: {}, requirements: [{requirement: ''}]},
         orderAdded: false
     };
 
@@ -18,7 +18,7 @@ class AddOrder extends Component {
         const x = this;
         if (cachedUser) {
             var user = JSON.parse(cachedUser);
-            x.setState({orders: {content: '', user: user, requirements: [{}]}});
+            x.setState({orders: {title: '', content: '', user: user, requirements: [{}]}});
             console.log("Haki käyttäjän storagesta!");
         }
         else {
@@ -26,7 +26,10 @@ class AddOrder extends Component {
         }
     };
 
-    handleInput = (e) => {
+    handleTitleInput = (e) =>{
+        this.state.orders.title = e.target.value;
+    };
+    handleContentInput = (e) => {
         this.state.orders.content = e.target.value;
     };
 
@@ -61,7 +64,7 @@ class AddOrder extends Component {
                 console.log(res)
                 var joku = x.state.orders.user;
                 x.setState({
-                    orders: {content: '', user: joku, requirements: []},
+                    orders: {title: '', content: '', user: joku, requirements: []},
                     orderAdded: true
                 });
             })
@@ -77,7 +80,7 @@ class AddOrder extends Component {
         console.log("Täällä ollaan");
         var ok = this.state.orders.user;
         this.setState({
-            orders: {content: '', user: ok, requirements: []},
+            orders: {title: '', content: '', user: ok, requirements: []},
             orderAdded: false
         })
     };
@@ -106,8 +109,10 @@ class AddOrder extends Component {
                             <li>hintahintahaarukka</li>
                         </ul>
                         <form>
+                            <input type="text" name="title" value={this.state.orders.title.value}
+                                   onChange={e => this.handleTitleInput(e)}/><br />
                             <textarea rows="4" cols="50" name="content" value={this.state.orders.content.value}
-                                      onChange={e => this.handleInput(e)}/><br/>
+                                      onChange={e => this.handleContentInput(e)}/><br/>
                             <input type="checkbox" name="requirements" value="gluteeniton"
                                    onChange={this.addRequirement}/>gluteeniton<br/>
                             <input type="checkbox" name="requirements" value="laktoositon"

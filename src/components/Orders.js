@@ -111,6 +111,7 @@ class Orders extends Component {
         return (
             <div>
                 <p>Ilmoitus jätetty: {this.changetime()}</p>
+                <p>Ilmoituksen otsikko: {this.props.info.title}</p>
                 <p>Ilmoituksen tiedot: {this.props.info.content}</p>
                 <p>Käyttäjä: {this.props.info.user.name}</p>
                 <h4>Tarjoukset</h4>

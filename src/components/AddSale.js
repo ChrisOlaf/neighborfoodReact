@@ -11,7 +11,7 @@ var cachedUser;
 
 class AddSale extends Component {
     state = {
-        sale: {content: '', user: {}, requirements: [{requirement: ''}]},
+        sale: {title: '', content: '', user: {}, requirements: [{requirement: ''}]},
         saleAdded: false
     };
 
@@ -23,7 +23,7 @@ class AddSale extends Component {
         if (cachedUser) {
             var user = JSON.parse(cachedUser);
             x.setState({
-                sale: {content: '', user: user, requirements: [{}]}
+                sale: {title: '', content: '', user: user, requirements: [{}]}
             });
             console.log("Haki käyttäjän storagesta!");
         }
@@ -32,8 +32,12 @@ class AddSale extends Component {
         }
     };
     //TODO otsikon lisäys
+    //Handles the form title input
+    handleTitleInput = (e) =>{
+        this.state.sale.title = e.target.value;
+    };
     //Handles the form text inputs
-    handleInput = (e) => {
+    handleContentInput = (e) => {
         this.state.sale.content = e.target.value;
     };
 
@@ -71,7 +75,7 @@ class AddSale extends Component {
             })
         var kja = this.state.sale.user;
         this.setState({
-            sale: {content: '', user: kja, requirements: []},
+            sale: {title: '', content: '', user: kja, requirements: []},
             saleAdded: true
         });
     };
@@ -80,10 +84,11 @@ class AddSale extends Component {
     //add a new sale
     changeSaleAdded = () => {
         console.log("Täällä ollaan");
+        var kja = this.state.sale.user;
         this.setState({
-            orders: {content: '', user: {id: ''}, requirements: []},
+            sale: {title: '', content: '', user: kja, requirements: []},
             saleAdded: false
-        })
+        });
     };
 
     //Shows to a user who's logged in a Sale -form,
@@ -113,8 +118,11 @@ class AddSale extends Component {
                         </ul>
 
                         <form>
+
+                            <input type="text" name="title" value={this.state.sale.title.value}
+                                   onChange={e => this.handleTitleInput(e)}/><br />
                         <textarea rows="5" cols="50" name="content" value={this.state.sale.content.value}
-                                  onChange={e => this.handleInput(e)}/><br/>
+                                  onChange={e => this.handleContentInput(e)}/><br/>
                             <input type="checkbox" name="requirements" value="gluteeniton"
                                    onChange={this.addRequirement}/>gluteeniton<br/>
                             <input type="checkbox" name="requirements" value="laktoositon"
