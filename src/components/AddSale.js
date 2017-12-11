@@ -8,12 +8,36 @@ var cachedUser;
 
 //this component lets user(if logged in) to add a Sale.
 // When form is submitted, adds the sale to a database and then asks if user wants to add more sales.
+var requs ='';
+
+class Added extends Component {
+    addReq = (e) =>{
+        this.props.callback(e);
+    };
+    render() {
+        var text = requs.substring(0,requs.length-1);
+        return (
+            <div>
+                    {text.split("\n").map(i => {
+                        return(
+                        <div>
+                            <input type="checkbox" name="requirements" value={i} onSelect={this.addReq}/>{i}<br/>
+                        </div>)
+                            })}
+            </div>);
+
+        };
+        // requirementin poistosta <p>  </p><button onClick={this.removeWord(i)}>x</button>
+}
 
 class AddSale extends Component {
+
     state = {
         sale: {title: '', content: '', user: {}, requirements: [{requirement: ''}]},
-        saleAdded: false
+        saleAdded: false,
+        reqs: ''
     };
+
 
     //looks for the logged in user from sessionStorage. If not found,
     // puts it in the cachedUser variable
@@ -33,7 +57,7 @@ class AddSale extends Component {
     };
     //TODO otsikon lisäys
     //Handles the form title input
-    handleTitleInput = (e) =>{
+    handleTitleInput = (e) => {
         this.state.sale.title = e.target.value;
     };
     //Handles the form text inputs
@@ -46,11 +70,22 @@ class AddSale extends Component {
         this.state.sale.requirements.push({requirement: e.target.value});
     };
 
+    addRmt = (e) => {
+        this.setState(
+            {reqs: e.target.value}
+        );
+    };
+
     //TODO -> Method that adds extra requirement to the array
 
-    // addxtrReq = (e) =>{
-    //     this.state.sale.requirements.push({requirement: e.target.value});
-    // }
+    addRqrmt = (e) => {
+        e.preventDefault();
+        requs = requs+ this.state.reqs +'\n';
+        this.state.sale.requirements.push({requirement: this.state.reqs});
+        this.setState({reqs: ''});
+        console.dir(this.state.sale.requirements);
+        console.dir(requs);
+    };
 
     //Adds sale(in state) to the database
     // then clears the state and changes the state to saleAdded state.
@@ -90,8 +125,7 @@ class AddSale extends Component {
             saleAdded: false
         });
     };
-
-    //Shows to a user who's logged in a Sale -form,
+//Shows to a user who's logged in a Sale -form,
     // if not logged in, doesn't show a form
     render() {
         if (this.state.saleAdded) {
@@ -119,10 +153,12 @@ class AddSale extends Component {
 
                         <form>
 
-                            <input type="text" name="title" value={this.state.sale.title.value}
-                                   onChange={e => this.handleTitleInput(e)}/><br />
-                        <textarea rows="5" cols="50" name="content" value={this.state.sale.content.value}
-                                  onChange={e => this.handleContentInput(e)}/><br/>
+                            Otsikko: <input type="text" name="title" value={this.state.sale.title.value}
+                                            onChange={e => this.handleTitleInput(e)}/><br/>
+                            Sisältö:
+                            <textarea rows="5" cols="50" name="content" value={this.state.sale.content.value}
+                                      onChange={e => this.handleContentInput(e)}/><br/>
+
                             <input type="checkbox" name="requirements" value="gluteeniton"
                                    onChange={this.addRequirement}/>gluteeniton<br/>
                             <input type="checkbox" name="requirements" value="laktoositon"
@@ -130,7 +166,16 @@ class AddSale extends Component {
                             <input type="checkbox" name="requirements" value="maidoton" onChange={this.addRequirement}/>maidoton<br/>
                             <input type="checkbox" name="requirements" value="viljaton" onChange={this.addRequirement}/>viljaton<br/>
                             <input type="checkbox" name="requirements" value="vegaani" onChange={this.addRequirement}/>vegaani<br/>
-                            {/*<input defaultValue="joku muu, mikä?" type="text" name="requirements" value={this.state.sale.requirements.requirement} onChange={e => this.addxtrReq(e)}/><br/>*/}
+                            <div>{requs !== undefined && requs.length > 2 ? <Added callback={this.addRequirement}/> : ''}</div>
+
+                            <input defaultValue="joku muu, mikä?" type="text" name="requirements"
+                                   onChange={this.addRmt}/>
+                            <button onClick={e => this.addRqrmt(e)}>Lisää vaatimus</button>
+                            <br/><br/>
+
+
+                            {/*<div>{requs != undefined && requs.length > 2 ? <Added/> : ''}</div>*/}
+
                             <input type="submit" onClick={e => this.addSale(e)} value="Lisää ilmoitus"/>
                         </form>
                     </div>
