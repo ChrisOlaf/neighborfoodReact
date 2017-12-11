@@ -20,7 +20,7 @@ class Orders extends Component {
         this.goAndFetchData();
         this.getRequirement();
     }
-
+    // Fetches responses for an order using order id
     goAndFetchData = () => {
         fetch('order/'+this.props.info.id+'/responses')
             .then(function (response) {
@@ -30,7 +30,8 @@ class Orders extends Component {
                 this.setState({responses: jsonobject});
             }).bind(this));
 
-    }
+    };
+    // Fetches requirement for an order using order id
     getRequirement = () => {
         fetch('order/'+this.props.info.id+'/requirements')
             .then(function (requirement) {
@@ -42,8 +43,8 @@ class Orders extends Component {
 
     };
 
+    // shows the response form when user presses the button "Lähetä"
     handleClick() {
-        console.log("ORDER isFormVisible " + this.state.isFormVisible);
         this.setState({
             isFormVisible: true
         });
@@ -54,7 +55,7 @@ class Orders extends Component {
         this.addResponse(e);
 
     };
-
+    // adds users response to the database
     addResponse() {
         const responseItem = {
             content: this.state.content,
@@ -72,10 +73,11 @@ class Orders extends Component {
             this.goAndFetchData();
         }).bind(this))
 
-
+        // Hides the form after sending
         this.setState({isFormVisible: false})
     };
 
+    // Timestamp formating
     changeTime = (e) => {
         var a = new Date(e);
         var months = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'];
@@ -91,6 +93,7 @@ class Orders extends Component {
 
     render() {
         let form = null;
+        // Searching for the requirement text
         var requirements = this.state.requirements.map(function (requirement) {
             return (
                 <div key={requirement.id}>
@@ -98,7 +101,7 @@ class Orders extends Component {
                 </div>
             )
         }, this);
-
+        // Searching for timestamp, content and writer for a response
         var responses = this.state.responses.map(function (response) {
             return (
                 <div key={response.id}>
@@ -108,6 +111,7 @@ class Orders extends Component {
                 </div>
             )
         }, this);
+        //If the user has pressed the button "Vastaa ilmoitukseen", isFormVisible is true and the response form is visible
         if (this.state.isFormVisible) {
             form =
                 <form>
@@ -126,10 +130,13 @@ class Orders extends Component {
                 </form>;
         }
         let responseButton = null;
+        // Checks if the user has logged in. If yes, shows the button so that the user can send a message.
+        // If the user hasn't logged in, the button is not visible.
         if (this.props.auth === true) {
             responseButton = <button onClick={this.handleClick}>Vastaa tilaukseen</button>
         }
         return (
+            //Shows information about the order (including requirements and responses).
             <div>
                 <p>Ilmoitus jätetty: {this.changeTime(this.props.info.createDate)}</p>
                 <p>Ilmoituksen otsikko: {this.props.info.title}</p>
