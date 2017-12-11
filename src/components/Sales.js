@@ -60,7 +60,7 @@ class Sales extends Component {
         this.setState({isFormVisible: false})
     };
 
-    changetime = (e) => {
+    changeTime = (e) => {
         var a = new Date(e);
         var months = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'];
         var year = a.getFullYear();
@@ -78,12 +78,13 @@ class Sales extends Component {
         var responses = this.state.responses.map(function (response) {
             return (
                 <div key={response.id}>
+                    <p>Vastaus jätetty: {this.changeTime(response.createDate)} </p>
                     <p>Vastauksen sisältö: {response.content}</p>
                     <p>Lähettäjä: {response.responder.name}</p>
-                    <p>Vastaus jätetty: {response.createDate} </p>
                 </div>
             )
-        })
+        }, this)
+
         if (this.state.isFormVisible) {
             form =
                 <form>
@@ -107,7 +108,7 @@ class Sales extends Component {
         }
         return (
             <div>
-                <p>Ilmoitus jätetty: {this.changetime(this.props.info.createDate)}</p>
+                <p>Ilmoitus jätetty: {this.changeTime(this.props.info.createDate)}</p>
                 <p>Ilmoituksen otsikko: {this.props.info.title}</p>
                 <p>Ilmoituksen sisältö: {this.props.info.content}</p>
                 <p>Käyttäjä: {this.props.info.user.name}</p>
