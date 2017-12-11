@@ -104,7 +104,7 @@ class Sales extends Component {
         }
         let responseButton = null;
         if (this.props.auth === true) {
-            responseButton = <button onClick={this.handleClick}>Vastaa tilaukseen</button>
+            responseButton = <button onClick={this.handleClick}>Vastaa ilmoitukseen</button>
         }
         return (
             <div>

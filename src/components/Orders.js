@@ -64,29 +64,30 @@ class Orders extends Component {
         this.setState({isFormVisible: false})
     };
 
-    changetime = () => {
-        var o = this.props.info.createDate;
-        var a = new Date(o);
-        var months = ['1','2','3','4','5','6','7','8','9','10','11','12'];
+    changeTime = (e) => {
+        var a = new Date(e);
+        var months = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'];
         var year = a.getFullYear();
         var month = months[a.getMonth()];
         var date = a.getDate();
         var hour = a.getHours();
         var min = a.getMinutes();
         var sec = a.getSeconds();
-        time = date + '.' + month + '.' + year + ' ' + hour + ':' + min + ':' + sec ;
+        time = date + '.' + month + '.' + year + ' ' + hour + ':' + min + ':' + sec;
         return time;
-    }
+    };
 
     render() {
         let form = null;
         var responses = this.state.responses.map(function (response) {
             return (
                 <div key={response.id}>
-                    {response.content}<br/>{response.responder.name}
+                    <p>Vastaus jätetty: {this.changeTime(response.createDate)} </p>
+                    <p>Vastauksen sisältö: {response.content}</p>
+                    <p>Lähettäjä: {response.responder.name}</p>
                 </div>
             )
-        })
+        }, this)
         if (this.state.isFormVisible) {
             form =
                 <form>
@@ -110,11 +111,11 @@ class Orders extends Component {
         }
         return (
             <div>
-                <p>Ilmoitus jätetty: {this.changetime()}</p>
+                <p>Ilmoitus jätetty: {this.changeTime(this.props.info.createDate)}</p>
                 <p>Ilmoituksen otsikko: {this.props.info.title}</p>
                 <p>Ilmoituksen tiedot: {this.props.info.content}</p>
                 <p>Käyttäjä: {this.props.info.user.name}</p>
-                <h4>Tarjoukset</h4>
+                <h4>Vastaukset</h4>
                 {responses}
                 {responseButton}
                 <br/>
