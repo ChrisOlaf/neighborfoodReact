@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import Orderlist from './Orderlist';
 import '../App.css';
 
 //Contains userinformation from Sessionstorage
@@ -35,7 +34,7 @@ export class Added extends Component {
 class AddSale extends Component {
 
     state = {
-        sale: {title: '', content: '', user: {}, requirements: [{requirement: ''}]},
+        sale: {title: '', content: '', when_ready: '', user: {}, requirements: [{requirement: ''}]},
         saleAdded: false,
         reqs: ''
     };
@@ -49,7 +48,7 @@ class AddSale extends Component {
         if (cachedUser) {
             var user = JSON.parse(cachedUser);
             x.setState({
-                sale: {title: '', content: '', user: user, requirements: [{}]}
+                sale: {title: '', content: '', when_ready: '' , user: user, requirements: [{}]}
             });
             console.log("Haki käyttäjän storagesta!");
         }
@@ -89,6 +88,12 @@ class AddSale extends Component {
         console.dir(requs);
     };
 
+    addWhenReady = (e) => {
+        this.setState(
+            {when_ready: e.target.value}
+        )
+    }
+
     //Adds sale(in state) to the database
     // then clears the state and changes the state to saleAdded state.
     addSale = (e) => {
@@ -112,7 +117,7 @@ class AddSale extends Component {
             })
         var kja = this.state.sale.user;
         this.setState({
-            sale: {title: '', content: '', user: kja, requirements: []},
+            sale: {title: '', content: '', when_ready: '', user: kja, requirements: []},
             saleAdded: true
         });
     };
@@ -174,8 +179,7 @@ class AddSale extends Component {
                                    onChange={this.addRmt}/>
                             <button onClick={e => this.addRqrmt(e)}>Lisää vaatimus</button>
                             <br/><br/>
-
-
+                            Valitse päivä: <input type="date" name="when_ready" onChange={e => this.addWhenReady(e)}/><br/>
                             {/*<div>{requs != undefined && requs.length > 2 ? <Added/> : ''}</div>*/}
 
                             <input type="submit" onClick={e => this.addSale(e)} value="Lisää ilmoitus"/>
