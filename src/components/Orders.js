@@ -1,18 +1,19 @@
 import React, {Component} from 'react';
+import AcceptResponse from "./AcceptResponse";
 
 var time = undefined;
 
 class Orders extends Component {
 
     constructor(props) {
-        super(props)
+        super(props);
         this.state = {
             content: '',
             order_id: '',
             isFormVisible: false,
             responses: [],
             requirements: []
-        }
+        };
         this.handleClick = this.handleClick.bind(this);
     }
 
@@ -101,16 +102,20 @@ class Orders extends Component {
                 </div>
             )
         }, this);
-        // Searching for timestamp, content and writer for a response
+
+        // Searching for timestamp, content and writer for a response.
+        // A button to accept the response appears when the order is made by the user who is logged in.
         var responses = this.state.responses.map(function (response) {
             return (
                 <div key={response.id}>
                     <p>Vastaus jätetty: {this.changeTime(response.createDate)} </p>
                     <p>Vastauksen sisältö: {response.content}</p>
                     <p>Lähettäjä: {response.responder.name}</p>
+                    {this.props.user.id === this.props.info.user.id ? <AcceptResponse responder={response.responder}/> : null}
                 </div>
             )
         }, this);
+
         //If the user has pressed the button "Vastaa ilmoitukseen", isFormVisible is true and the response form is visible
         if (this.state.isFormVisible) {
             form =
