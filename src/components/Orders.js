@@ -137,7 +137,7 @@ class Orders extends Component {
         let responseButton = null;
         // Checks if the user has logged in. If yes, shows the button so that the user can send a message.
         // If the user hasn't logged in, the button is not visible.
-        if (this.props.auth === true) {
+        if (this.props.auth === true && this.props.user.userStatus === "chef") {
             responseButton = <button onClick={this.handleClick}>Vastaa tilaukseen</button>
         }
         return (
