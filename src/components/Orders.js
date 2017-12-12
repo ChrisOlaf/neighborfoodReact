@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import {Link} from 'react-router-dom';
 import AcceptResponse from "./AcceptResponse";
 
 var time = undefined;
@@ -110,7 +111,7 @@ class Orders extends Component {
                 <div key={response.id}>
                     <p>Vastaus jätetty: {this.changeTime(response.createDate)} </p>
                     <p>Vastauksen sisältö: {response.content}</p>
-                    <p>Lähettäjä: {response.responder.name}</p>
+                    <p>Lähettäjä: <Link to={'/user/' + response.responder.id}>{response.responder.name}</Link></p>
                     {this.props.user.id === this.props.info.user.id ? <AcceptResponse responder={response.responder}/> : null}
                 </div>
             )
@@ -147,7 +148,7 @@ class Orders extends Component {
                 <p>Ilmoituksen otsikko: {this.props.info.title}</p>
                 <p>Ilmoituksen tiedot: {this.props.info.content}</p>
                 Erityisvaatimukset: {requirements}
-                <p>Käyttäjä: {this.props.info.user.name}</p>
+                <p>Käyttäjä: <Link to={'/user/' + this.props.info.user.id}>{this.props.info.user.name}</Link></p>
                 <h4>Vastaukset</h4>
                 {responses}
                 {responseButton}
