@@ -34,7 +34,7 @@ export class Added extends Component {
 class AddSale extends Component {
 
     state = {
-        sale: {title: '', content: '', when_ready: '', user: {}, requirements: [{requirement: ''}]},
+        sale: {title: '', content: '', whenReady: '', user: {}, requirements: [{requirement: ''}]},
         saleAdded: false,
         reqs: ''
     };
@@ -48,7 +48,7 @@ class AddSale extends Component {
         if (cachedUser) {
             var user = JSON.parse(cachedUser);
             x.setState({
-                sale: {title: '', content: '', when_ready: '' , user: user, requirements: [{}]}
+                sale: {title: '', content: '', whenReady: '' , user: user, requirements: [{}]}
             });
             console.log("Haki käyttäjän storagesta!");
         }
@@ -59,11 +59,14 @@ class AddSale extends Component {
     //TODO otsikon lisäys
     //Handles the form title input
     handleTitleInput = (e) => {
-        this.state.sale.title = e.target.value;
+        this.setState(
+            {title: e.target.value
+    });
     };
     //Handles the form text inputs
     handleContentInput = (e) => {
-        this.state.sale.content = e.target.value;
+        this.setState(
+        {content: e.target.value});
     };
 
     //Adds requirement to the requirement array when selected
@@ -89,17 +92,23 @@ class AddSale extends Component {
     };
 
     addWhenReady = (e) => {
+        console.log("addwhenready...")
+        console.dir(this.state);
         this.setState(
-            {when_ready: e.target.value}
+            {whenReady: e.target.value}
         )
-    }
+        console.dir(this.state);
+    };
 
     //Adds sale(in state) to the database
     // then clears the state and changes the state to saleAdded state.
     addSale = (e) => {
+        e.preventDefault();
+        // this.setState(
+        //     {whenReady: e.target.value.whenReady}
+        // )
         console.log("Tätä yritetään lähettää");
         console.dir(this.state.sale);
-        e.preventDefault();
         fetch('addsale',
             {
                 headers: {
@@ -117,7 +126,7 @@ class AddSale extends Component {
             })
         var kja = this.state.sale.user;
         this.setState({
-            sale: {title: '', content: '', when_ready: '', user: kja, requirements: []},
+            sale: {title: '', content: '', whenReady: '', user: kja, requirements: []},
             saleAdded: true
         });
     };
@@ -128,7 +137,7 @@ class AddSale extends Component {
         console.log("Täällä ollaan");
         var kja = this.state.sale.user;
         this.setState({
-            sale: {title: '', content: '', user: kja, requirements: []},
+            sale: {title: '', content: '', whenReady: '', user: kja, requirements: []},
             saleAdded: false
         });
     };
@@ -179,7 +188,7 @@ class AddSale extends Component {
                                    onChange={this.addRmt}/>
                             <button onClick={e => this.addRqrmt(e)}>Lisää vaatimus</button>
                             <br/><br/>
-                            Valitse päivä: <input type="date" name="when_ready" onChange={e => this.addWhenReady(e)}/><br/>
+                            Valitse päivä: <input type="date" name="whenReady" value={this.state.sale.whenReady.value} onChange={this.addWhenReady}/><br/>
                             {/*<div>{requs != undefined && requs.length > 2 ? <Added/> : ''}</div>*/}
 
                             <input type="submit" onClick={e => this.addSale(e)} value="Lisää ilmoitus"/>
