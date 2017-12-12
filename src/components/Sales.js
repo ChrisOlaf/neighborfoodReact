@@ -105,12 +105,12 @@ class Sales extends Component {
         var responses = this.state.responses.map(function (response) {
             return (
                 <div key={response.id}>
-                    <Row className="order-response" key={response.id}>
+                    <Row className="sale-response" key={response.id}>
                         <Col sm={9} smOffset={2}>
                             {response.content}
                         </Col>
                     </Row>
-                    <Row className="order-response-author">
+                    <Row className="sale-response-author">
                         <Col sm={5} smOffset={2}>
                             <p>Tarjoaja: <Link to={'/user/' + response.responder.id}>{response.responder.name}</Link>
                             </p>
