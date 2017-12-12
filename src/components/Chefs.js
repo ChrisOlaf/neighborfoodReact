@@ -51,3 +51,5 @@ class Chefs extends Component {
     )
     }
 }
+
+export default Chefs;
