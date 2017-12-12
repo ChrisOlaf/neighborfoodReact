@@ -12,6 +12,7 @@ import Register from './components/Register';
 import Profile from './components/Profile';
 import Test from './components/Test';
 import NotFound from './NotFound';
+import User from './components/User'
 
 import './App.css';
 
@@ -86,6 +87,8 @@ class App extends Component {
                                 {/*(<Test {...props} auth={this.state.auth} user={this.state.user}/>)}/>*/}
                             <Route exact path='/login' render={(props) =>
                                 (<Login {...props} user={this.state.user} callback={this.verifyUser}/>)}/>
+                            <Route path='/user/:id' render={(props) =>
+                                (<User{...props}  user={this.state.user} callback={this.verifyUser}/>)}/>
                             <Route exact path='/register' render={(props) =>
                                 (<Register {...props} auth={this.state.auth} user={this.state.user}/>)}/>
                             <Route exact path='/profile' render={(props) =>

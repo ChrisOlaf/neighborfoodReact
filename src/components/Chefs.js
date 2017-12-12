@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import Chef from './Chef';
 
 var cachedUser;
 class Chefs extends Component {
@@ -40,13 +41,15 @@ class Chefs extends Component {
     //     );
     // }
     render() {
-        // var chefs = this.state.chefs.map(function (chef) {
-        //     return (<Chef chef={chefs.user} key={chefs.user.id) user={user}>
-        // })
-    return(
+         var chefs = this.state.chefs.map(function (user) {
+             return (<Chef kokki={user} key={user.id} user={this.state.user}/>);}
+         ,this);
+
+         return(
         <div>
-            <h1>{this.state.user.location}</h1>
-            <h1>{this.state.chefs}</h1>
+            <h1>Kokit lähellä sinua (alue: {this.state.user.location})</h1>
+                <div>{chefs}</div>
+
         </div>
     )
     }

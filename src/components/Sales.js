@@ -1,5 +1,8 @@
 import React, {Component} from 'react';
+import {Link} from 'react-router-dom';
+
 var time = undefined;
+
 class Sales extends Component {
 
     constructor(props) {
@@ -9,7 +12,8 @@ class Sales extends Component {
             order_id: '',
             isFormVisible: false,
             responses: [],
-            requirements: []
+            requirements: [],
+            userID: ''
         };
         this.handleClick = this.handleClick.bind(this);
     }
@@ -100,7 +104,7 @@ class Sales extends Component {
                 <div key={response.id}>
                     <p>Vastaus jätetty: {this.changeTime(response.createDate)} </p>
                     <p>Vastauksen sisältö: {response.content}</p>
-                    <p>Lähettäjä: {response.responder.name}</p>
+                    <p>Lähettäjä: <Link to={'/user/' + response.responder.id}>{response.responder.name}</Link></p>
                 </div>
             )
         }, this);
@@ -132,7 +136,7 @@ class Sales extends Component {
                 <p>Ilmoituksen otsikko: {this.props.info.title}</p>
                 <p>Ilmoituksen sisältö: {this.props.info.content}</p>
                 Erityisruokavaliot: {requirements}
-                <p>Käyttäjä: {this.props.info.user.name}</p>
+                <p>Käyttäjä: <Link to={'/user/' + this.props.info.user.id}>{this.props.info.user.name}</Link></p>
                 <h4>Vastaukset</h4>
                 {responses}
                 {responseButton}
