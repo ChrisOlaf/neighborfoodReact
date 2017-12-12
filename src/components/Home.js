@@ -38,13 +38,21 @@ class Home extends Component {
                 <Row className="home-row">
                     <Col xs={12} sm={6} md={5} mdOffset={1} lg={4} lgOffset={2}>
                         <div className="content-div">
-                            <h1>Myynnit</h1>
+                            <Row className="content-header">
+                                <Col sm={10} smOffset={1}>
+                                    <h1>Myynnit</h1>
+                                </Col>
+                            </Row>
                             <Saleslist auth={this.props.auth} user={this.props.user}/>
                         </div>
                     </Col>
                     <Col xs={12} sm={6} md={5} lg={4}>
                         <div className="content-div">
-                            <h1>Tilaukset</h1>
+                            <Row className="content-header">
+                                <Col sm={10} smOffset={1}>
+                                    <h1>Tilaukset</h1>
+                                </Col>
+                            </Row>
                             <Orderlist auth={this.props.auth} user={this.props.user}/>
                         </div>
                     </Col>
