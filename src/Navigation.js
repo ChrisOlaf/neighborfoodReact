@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
-import { Link } from 'react-router-dom';
+import {Link} from 'react-router-dom';
 import {Navbar, Nav, NavItem, NavDropdown, MenuItem} from 'react-bootstrap';
-import { LinkContainer } from 'react-router-bootstrap';
+import {LinkContainer} from 'react-router-bootstrap';
 
 import LogOutButton from './components/LogOutButton';
 
@@ -10,10 +10,10 @@ import LogOutButton from './components/LogOutButton';
 const IsGuest = () => (
     <Nav pullRight>
         <LinkContainer to="/login">
-        <NavItem eventKey={1}>Kirjaudu sisään</NavItem>
+            <NavItem eventKey={1}>Kirjaudu sisään</NavItem>
         </LinkContainer>
         <LinkContainer to="/register">
-        <NavItem eventKey={2}>Rekisteröidy</NavItem>
+            <NavItem eventKey={2}>Rekisteröidy</NavItem>
         </LinkContainer>
     </Nav>
 );
@@ -22,13 +22,13 @@ const IsGuest = () => (
 const IsUser = (props) => (
     <Nav pullRight>
         {/*<NavDropdown title="Asetukset" id="basic-nav-dropdown">*/}
-            <LinkContainer to="/profile">
+        <LinkContainer to="/profile">
             <NavItem>Profiili</NavItem>
-            </LinkContainer>
-            {/*<NavItem divider/>*/}
-            <LinkContainer to="/home">
+        </LinkContainer>
+        {/*<NavItem divider/>*/}
+        <LinkContainer to="/home">
             <NavItem><LogOutButton {...props} callback={props.callback}/></NavItem>
-            </LinkContainer>
+        </LinkContainer>
         {/*</NavDropdown>*/}
     </Nav>
 );
@@ -54,11 +54,16 @@ class Navigation extends Component {
                 </Navbar.Header>
                 <Navbar.Collapse>
                     <Nav>
+                        {this.props.user.userStatus === "chef" &&
                         <LinkContainer to="/addsale">
-                        <NavItem eventKey={1}>Uusi myynti-ilmoitus</NavItem>
+                            <NavItem eventKey={1}>Uusi myynti-ilmoitus</NavItem>
                         </LinkContainer>
+                        }
                         <LinkContainer to="/addorder">
-                        <NavItem eventKey={2}>Uusi tilaus</NavItem>
+                            <NavItem eventKey={2}>Uusi tilaus</NavItem>
+                        </LinkContainer>
+                        <LinkContainer to="/chefs">
+                            <NavItem eventKey={3}>Chefs</NavItem>
                         </LinkContainer>
                     </Nav>
                     {this.props.auth === true ? <IsUser {...this.props} callback={this.logout}/> : <IsGuest/>}
