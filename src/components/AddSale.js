@@ -21,7 +21,7 @@ export class Added extends Component {
                     {text.split("\n").map(i => {
                         return(
                         <div>
-                            <input type="checkbox" name="requirements" value={i} onSelect={this.addReq}/>{i}<br/>
+                            <input type="checkbox" key={i} name="requirements" value={i} onSelect={this.addReq}/>{i}<br/>
                         </div>)
                             })}
             </div>);
@@ -188,7 +188,7 @@ class AddSale extends Component {
                                    onChange={this.addRmt}/>
                             <button onClick={e => this.addRqrmt(e)}>Lisää vaatimus</button>
                             <br/><br/>
-                            Valitse päivä: <input type="date" name="whenReady" value={this.state.sale.whenReady.value} onChange={this.addWhenReady}/><br/>
+                            {/*Valitse päivä: <input type="date" name="whenReady" value={this.state.sale.whenReady.value} onChange={this.addWhenReady}/><br/>*/}
                             {/*<div>{requs != undefined && requs.length > 2 ? <Added/> : ''}</div>*/}
 
                             <input type="submit" onClick={e => this.addSale(e)} value="Lisää ilmoitus"/>
