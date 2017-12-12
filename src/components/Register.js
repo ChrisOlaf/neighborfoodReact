@@ -226,8 +226,7 @@ class Register extends Component {
                     {this.state.falseEmail === true && "Tarkista antamasi sähköpostiosoite."}
                     {this.state.invalidName === true && "Tarkista, että olet kirjoittanut nimesi oikein."}
                     {this.state.nameLength === true && "Tarkista, että olet kirjoittanut nimesi oikein."}
-                    {this.state.numberLength === true && "Tarkista, että olet kirjoittanut puhelinnumerosi oikein." +
-                    "\n Se on tärkeää yhteydenpitoa varten."}
+                    {this.state.numberLength === true && "Tarkista, että olet kirjoittanut puhelinnumerosi oikein. Se on tärkeää yhteydenpitoa varten."}
                     {this.state.invalidPword === true && <PwReminder/>}
                 </div>
             </div>
