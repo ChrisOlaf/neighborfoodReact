@@ -137,9 +137,9 @@ class Sales extends Component {
                 <p>Ilmoituksen sisältö: {this.props.info.content}</p>
                 Erityisruokavaliot: {requirements}
                 <p>Käyttäjä: <Link to={'/user/' + this.props.info.user.id}>{this.props.info.user.name}</Link></p>
+                {responseButton}
                 <h4>Vastaukset</h4>
                 {responses}
-                {responseButton}
                 <div>
                     {form}
                 </div>

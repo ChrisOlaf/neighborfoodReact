@@ -149,9 +149,9 @@ class Orders extends Component {
                 <p>Ilmoituksen tiedot: {this.props.info.content}</p>
                 Erityisvaatimukset: {requirements}
                 <p>Käyttäjä: <Link to={'/user/' + this.props.info.user.id}>{this.props.info.user.name}</Link></p>
+                {responseButton}
                 <h4>Vastaukset</h4>
                 {responses}
-                {responseButton}
                 <br/>
                 <div>
                     {form}
