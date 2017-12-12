@@ -1,5 +1,8 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
+import {Row, Col} from 'react-bootstrap';
+
+import '../App.css';
 import AcceptResponse from "./AcceptResponse";
 
 var time = undefined;
@@ -22,9 +25,10 @@ class Orders extends Component {
         this.goAndFetchData();
         this.getRequirements();
     }
+
     // Fetches responses for an order using order id
     goAndFetchData = () => {
-        fetch('order/'+this.props.info.id+'/responses')
+        fetch('order/' + this.props.info.id + '/responses')
             .then(function (response) {
                 return response.json();
             })
@@ -35,7 +39,7 @@ class Orders extends Component {
     };
     // Fetches requirement for an order using order id
     getRequirements = () => {
-        fetch('order/'+this.props.info.id+'/requirements')
+        fetch('order/' + this.props.info.id + '/requirements')
             .then(function (requirement) {
                 return requirement.json();
             })
@@ -57,13 +61,14 @@ class Orders extends Component {
         this.addResponse(e);
 
     };
+
     // adds users response to the database
     addResponse() {
         const responseItem = {
             content: this.state.content,
             responder: this.props.user
         };
-        fetch('order/'+this.props.info.id+'/responses',
+        fetch('order/' + this.props.info.id + '/responses',
             {
                 headers: {
                     'Accept': 'application/json',
@@ -109,10 +114,27 @@ class Orders extends Component {
         var responses = this.state.responses.map(function (response) {
             return (
                 <div key={response.id}>
-                    <p>Vastaus jätetty: {this.changeTime(response.createDate)} </p>
-                    <p>Vastauksen sisältö: {response.content}</p>
-                    <p>Lähettäjä: <Link to={'/user/' + response.responder.id}>{response.responder.name}</Link></p>
-                    {this.props.user.id === this.props.info.user.id ? <AcceptResponse responder={response.responder}/> : null}
+                    <Row className="order-response" key={response.id}>
+                        <Col sm={9} smOffset={2}>
+                            {response.content}
+                        </Col>
+                    </Row>
+                    <Row className="order-response-author">
+                        <Col sm={5} smOffset={2}>
+                            <p>Lähettäjä: <Link to={'/user/' + response.responder.id}>{response.responder.name}</Link>
+                            </p>
+                        </Col>
+                        <Col sm={4}>
+                            {this.changeTime(response.createDate)}
+                        </Col>
+                    </Row>
+                    <Row className="order-response-accept">
+                        <Col sm={9} smOffset={2}>
+                            {this.props.user.id === this.props.info.user.id ?
+                                <AcceptResponse responder={response.responder}/> : null}
+                        </Col>
+                    </Row>
+                    <Row><Col><hr className="order-response-hr"/></Col></Row>
                 </div>
             )
         }, this);
@@ -143,20 +165,48 @@ class Orders extends Component {
         }
         return (
             //Shows information about the order (including requirements and responses).
-            <div>
-                <p>Ilmoitus jätetty: {this.changeTime(this.props.info.createDate)}</p>
-                <p>Ilmoituksen otsikko: {this.props.info.title}</p>
-                <p>Ilmoituksen tiedot: {this.props.info.content}</p>
-                Erityisvaatimukset: {requirements}
-                <p>Käyttäjä: <Link to={'/user/' + this.props.info.user.id}>{this.props.info.user.name}</Link></p>
-                {responseButton}
-                <h4>Vastaukset</h4>
-                {responses}
-                <br/>
-                <div>
-                    {form}
-                </div>
-            </div>
+            <Row className="order-row">
+                <Col xs={12}>
+                    <Row className="order-header">
+                        <Col sm={10} smOffset={1}>
+                            {this.props.info.title}
+                        </Col>
+                    </Row>
+                    <Row className="order-content">
+                        <Col sm={10} smOffset={1}>
+                            {this.props.info.content}
+                            <p>Erityisvaatimukset: {requirements}</p>
+                        </Col>
+                    </Row>
+                    <Row className="order-author">
+                        <Col sm={6} smOffset={1}>
+                            Käyttäjä: <Link to={'/user/' + this.props.info.user.id}>{this.props.info.user.name}</Link>
+                        </Col>
+                        <Col sm={4}>
+                            {this.changeTime(this.props.info.createDate)}
+                        </Col>
+                    </Row>
+                    <Row className="order-responses-header">
+                        <Col sm={10} smOffset={1}>
+                            {(this.state.responses.length > 0) && <h5>Vastaukset ({(this.state.responses.length)})</h5>}
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col sm={12}>
+                            {responses}
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col sm={4} smOffset={7}>
+                            {responseButton}
+                        </Col>
+                    </Row>
+                    <br/>
+                    <div>
+                        {form}
+                    </div>
+                </Col>
+            </Row>
         );
     }
 }

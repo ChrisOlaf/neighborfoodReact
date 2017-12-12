@@ -22,11 +22,13 @@
   font-size: large;
 }
 
-@keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+.content-div {
+  background-color: #e7e7e7;
+  border-radius: 5px;
+  text-align: left;
 }
 
-.content-div {
-  background-color: antiquewhite;
+.order-response-hr {
+  width: 80%;
+  color: black;
 }

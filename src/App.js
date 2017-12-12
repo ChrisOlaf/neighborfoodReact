@@ -71,7 +71,7 @@ class App extends Component {
             <Router>
                 <div className="App">
                     <Navigation auth={this.state.auth} user={this.state.user} callback={this.logoutUser}/>
-                    <Grid>
+                    <Grid fluid>
                         <Switch>
                             <Route exact path='/' render={(props) =>
                                 (<Home {...props} auth={this.state.auth} user={this.state.user}/>)}/>
@@ -105,7 +105,6 @@ class App extends Component {
                             <Route component={NotFound}/>
                         </Switch>
                     </Grid>
-                    <hr/>
                 </div>
             </Router>
         );

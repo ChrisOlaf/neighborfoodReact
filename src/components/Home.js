@@ -9,40 +9,46 @@ class Home extends Component {
     render() {
         if (this.props.user.userStatus === "chef") {
             return (
-                <div className="container-fluid">
-                    <Row className="show-grid">
-                        <Col xs={12} md={4} mdOffset={1}>
-                            <div className="content-div">
-                                <h1>Tilaukset</h1>
-                                <Orderlist auth={this.props.auth} user={this.props.user}/>
-                            </div>
-                        </Col>
-                        <Col xs={12} md={4} mdOffset={2}>
-                            <div className="content-div">
-                                <h1>Myynnit</h1>
-                                <Saleslist auth={this.props.auth} user={this.props.user}/>
-                            </div>
-                        </Col>
-                    </Row>
-                </div>
+                <Row className="home-row">
+                    <Col xs={12} sm={6} md={5} mdOffset={1} lg={4} lgOffset={2}>
+                        <div className="content-div">
+                            <Row className="content-header">
+                                <Col sm={10} smOffset={1}>
+                                    <h1>Tilaukset</h1>
+                                </Col>
+                            </Row>
+                            <Orderlist auth={this.props.auth} user={this.props.user}/>
+                        </div>
+                    </Col>
+                    <Col xs={12} sm={6} md={5} lg={4}>
+                        <div className="content-div">
+                            <Row className="content-header">
+                                <Col sm={10} smOffset={1}>
+                                    <h1>Myynnit</h1>
+                                </Col>
+                            </Row>
+                            <Saleslist auth={this.props.auth} user={this.props.user}/>
+                        </div>
+                    </Col>
+                </Row>
             );
         }
         else {
             return (
-                    <Row className="show-grid">
-                        <Col xs={12} sm={6} md={5} mdOffset={1}>
-                            <div className="content-div">
-                                <h1>Myynnit</h1>
-                                <Saleslist auth={this.props.auth} user={this.props.user}/>
-                            </div>
-                        </Col>
-                        <Col xs={12} sm={6} md={5}>
-                            <div className="content-div">
-                                <h1>Tilaukset</h1>
-                                <Orderlist auth={this.props.auth} user={this.props.user}/>
-                            </div>
-                        </Col>
-                    </Row>
+                <Row className="home-row">
+                    <Col xs={12} sm={6} md={5} mdOffset={1} lg={4} lgOffset={2}>
+                        <div className="content-div">
+                            <h1>Myynnit</h1>
+                            <Saleslist auth={this.props.auth} user={this.props.user}/>
+                        </div>
+                    </Col>
+                    <Col xs={12} sm={6} md={5} lg={4}>
+                        <div className="content-div">
+                            <h1>Tilaukset</h1>
+                            <Orderlist auth={this.props.auth} user={this.props.user}/>
+                        </div>
+                    </Col>
+                </Row>
             );
         }
     }
