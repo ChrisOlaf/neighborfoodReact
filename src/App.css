@@ -23,12 +23,12 @@
 }
 
 .content-div {
-  background-color: #e7e7e7;
-  border-radius: 5px;
+  background-color: #f0f0f0;
+  border-radius: 3px;
   text-align: left;
 }
 
 .order-response-hr {
   width: 80%;
-  color: black;
+  border-color: lightgray;
 }

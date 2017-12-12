@@ -121,7 +121,7 @@ class Orders extends Component {
                     </Row>
                     <Row className="order-response-author">
                         <Col sm={5} smOffset={2}>
-                            <p>Lähettäjä: <Link to={'/user/' + response.responder.id}>{response.responder.name}</Link>
+                            <p>Tarjoaja: <Link to={'/user/' + response.responder.id}>{response.responder.name}</Link>
                             </p>
                         </Col>
                         <Col sm={4}>
@@ -169,7 +169,7 @@ class Orders extends Component {
                 <Col xs={12}>
                     <Row className="order-header">
                         <Col sm={10} smOffset={1}>
-                            {this.props.info.title}
+                            <h4>{this.props.info.title}</h4>
                         </Col>
                     </Row>
                     <Row className="order-content">
@@ -180,7 +180,7 @@ class Orders extends Component {
                     </Row>
                     <Row className="order-author">
                         <Col sm={6} smOffset={1}>
-                            Käyttäjä: <Link to={'/user/' + this.props.info.user.id}>{this.props.info.user.name}</Link>
+                            Tilaaja: <Link to={'/user/' + this.props.info.user.id}>{this.props.info.user.name}</Link>
                         </Col>
                         <Col sm={4}>
                             {this.changeTime(this.props.info.createDate)}
@@ -188,7 +188,7 @@ class Orders extends Component {
                     </Row>
                     <Row className="order-responses-header">
                         <Col sm={10} smOffset={1}>
-                            {(this.state.responses.length > 0) && <h5>Vastaukset ({(this.state.responses.length)})</h5>}
+                            {(this.state.responses.length > 0) && <h5>Vastaukset ({(this.state.responses.length)}) :</h5>}
                         </Col>
                     </Row>
                     <Row>
