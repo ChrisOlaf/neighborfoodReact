@@ -7,11 +7,11 @@ class Home extends Component {
     render() {
         return (
             <div className="Home">
-                <div className="ordersdiv">
+                <div className="ordersDiv">
                     <h1>Tilaukset</h1>
                     <Orderlist auth={this.props.auth} user={this.props.user}/>
                 </div>
-                <div className="salesdiv">
+                <div className="salesDiv">
                     <h1>Myynnit</h1>
                     <Saleslist auth={this.props.auth} user={this.props.user}/>
                 </div>

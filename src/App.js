@@ -6,6 +6,7 @@ import Navigation from './Navigation';
 import Home from './components/Home';
 import AddO from './components/AddOrder';
 import AddS from './components/AddSale';
+// import Chefs from './components/Chefs';
 import Login from './components/Login';
 import Register from './components/Register';
 import Profile from './components/Profile';
@@ -79,6 +80,8 @@ class App extends Component {
                                 (<AddS {...props} auth={this.state.auth} user={this.state.user}/>)}/>
                             <Route exact path='/addorder' render={(props) =>
                                 (<AddO {...props} auth={this.state.auth} user={this.state.user}/>)}/>
+                            {/*<Route exact path='/chefs' render={(props) =>*/}
+                                {/*(<Chefs {...props} auth={this.state.auth} user={this.state.user}/>)}/>*/}
                             {/*<Route exact path='/test' render={(props) =>*/}
                                 {/*(<Test {...props} auth={this.state.auth} user={this.state.user}/>)}/>*/}
                             <Route exact path='/login' render={(props) =>
