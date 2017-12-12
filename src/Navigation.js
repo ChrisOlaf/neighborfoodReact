@@ -21,15 +21,15 @@ const IsGuest = () => (
 // Right hand side navigation options when user is logged in
 const IsUser = (props) => (
     <Nav pullRight>
-        <NavDropdown title="Asetukset" id="basic-nav-dropdown">
+        {/*<NavDropdown title="Asetukset" id="basic-nav-dropdown">*/}
             <LinkContainer to="/profile">
-            <MenuItem>Profiili</MenuItem>
+            <NavItem>Profiili</NavItem>
             </LinkContainer>
-            <MenuItem divider/>
-            <LinkContainer to="/">
-            <MenuItem><LogOutButton {...props} callback={props.callback}/></MenuItem>
+            {/*<NavItem divider/>*/}
+            <LinkContainer to="/home">
+            <NavItem><LogOutButton {...props} callback={props.callback}/></NavItem>
             </LinkContainer>
-        </NavDropdown>
+        {/*</NavDropdown>*/}
     </Nav>
 );
 

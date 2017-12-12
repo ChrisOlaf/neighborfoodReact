@@ -3,18 +3,20 @@ var time = undefined;
 class Sales extends Component {
 
     constructor(props) {
-        super(props)
+        super(props);
         this.state = {
             content: '',
             order_id: '',
             isFormVisible: false,
-            responses: []
-        }
+            responses: [],
+            requirements: []
+        };
         this.handleClick = this.handleClick.bind(this);
     }
 
     componentDidMount() {
         this.goAndFetchData();
+        this.getRequirements();
     }
 
     goAndFetchData = () => {
@@ -26,7 +28,18 @@ class Sales extends Component {
                 this.setState({responses: jsonobject});
             }).bind(this));
 
-    }
+    };
+
+    getRequirements = () => {
+        fetch('sale/'+this.props.info.id+'/requirements')
+            .then(function (requirement) {
+                return requirement.json();
+            })
+            .then((function (jsonobject) {
+                this.setState({requirements: jsonobject});
+            }).bind(this));
+
+    };
 
     handleClick() {
         this.setState({
@@ -54,7 +67,7 @@ class Sales extends Component {
                 body: JSON.stringify(responseItem)
             }).then((function (response) {
             this.goAndFetchData();
-        }).bind(this))
+        }).bind(this));
 
 
         this.setState({isFormVisible: false})
@@ -75,6 +88,13 @@ class Sales extends Component {
 
     render() {
         let form = null;
+        var requirements = this.state.requirements.map(function (requirement) {
+            return (
+                <div key={requirement.id}>
+                    {requirement.requirement}
+                </div>
+            )
+        }, this);
         var responses = this.state.responses.map(function (response) {
             return (
                 <div key={response.id}>
@@ -83,7 +103,7 @@ class Sales extends Component {
                     <p>Lähettäjä: {response.responder.name}</p>
                 </div>
             )
-        }, this)
+        }, this);
 
         if (this.state.isFormVisible) {
             form =
@@ -111,6 +131,7 @@ class Sales extends Component {
                 <p>Ilmoitus jätetty: {this.changeTime(this.props.info.createDate)}</p>
                 <p>Ilmoituksen otsikko: {this.props.info.title}</p>
                 <p>Ilmoituksen sisältö: {this.props.info.content}</p>
+                Erityisruokavaliot: {requirements}
                 <p>Käyttäjä: {this.props.info.user.name}</p>
                 <h4>Vastaukset</h4>
                 {responses}

@@ -18,7 +18,7 @@ class Orders extends Component {
 
     componentDidMount() {
         this.goAndFetchData();
-        this.getRequirement();
+        this.getRequirements();
     }
     // Fetches responses for an order using order id
     goAndFetchData = () => {
@@ -32,7 +32,7 @@ class Orders extends Component {
 
     };
     // Fetches requirement for an order using order id
-    getRequirement = () => {
+    getRequirements = () => {
         fetch('order/'+this.props.info.id+'/requirements')
             .then(function (requirement) {
                 return requirement.json();
@@ -60,7 +60,7 @@ class Orders extends Component {
         const responseItem = {
             content: this.state.content,
             responder: this.props.user
-        }
+        };
         fetch('order/'+this.props.info.id+'/responses',
             {
                 headers: {
@@ -71,7 +71,7 @@ class Orders extends Component {
                 body: JSON.stringify(responseItem)
             }).then((function (response) {
             this.goAndFetchData();
-        }).bind(this))
+        }).bind(this));
 
         // Hides the form after sending
         this.setState({isFormVisible: false})
