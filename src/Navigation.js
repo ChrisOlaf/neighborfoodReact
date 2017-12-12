@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
-import {Navbar, Nav, NavItem, NavDropdown, MenuItem} from 'react-bootstrap';
+import {Navbar, Nav, NavItem } from 'react-bootstrap';
 import {LinkContainer} from 'react-router-bootstrap';
 
 import LogOutButton from './components/LogOutButton';
@@ -45,7 +45,7 @@ class Navigation extends Component {
     // Render navbar with brand-link on far left, followed by links for new sale and new order. On right content will be rendered based on user authentication status.
     render() {
         return (
-            <Navbar staticTop>
+            <Navbar staticTop collapseOnSelect>
                 <Navbar.Header>
                     <Navbar.Brand>
                         <Link to="/">Neighborfood</Link>
