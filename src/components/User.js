@@ -77,9 +77,10 @@ class User extends Component {
 
     render() {
         var reviews = this.state.reviews.map(function (rev) {
-             return (
+            return (
                     <div key={rev.id}>
-                        {rev.content}
+                            <p>Arvostelu: {rev.content}</p>
+                            <p>Tähdet: {rev.stars}</p>
                     </div>
                 )
         })
@@ -98,7 +99,7 @@ class User extends Component {
                 <div>
                     <p>Reviews</p>
                     <p>Tähän tulee saadut arvostelut</p>
-                    <p>{reviews}</p>
+                    <p>{reviews}</p>>
                 </div>
                 <div>
                     <h1>Lisää arvostelu</h1>
