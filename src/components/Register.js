@@ -1,4 +1,7 @@
 import React, {Component} from 'react';
+import {Row, Col, Form, FormGroup, FormControl, ControlLabel, Radio, Button} from 'react-bootstrap';
+
+import '../App.css';
 
 const PwReminder = () => {
     return (
@@ -131,105 +134,254 @@ class Register extends Component {
 
     render() {
         return (
-            <div>
-                <form autoComplete="on">
-                    etunimi: <input name="name"
-                                    type="text"
-                                    placeholder="Etunimi"
-                                    id="name"
-                                    required="required"
-                                    value={this.state.name}
-                                    onChange={e => this.change(e)}
-                />
-                    <br/>
-                    sukunimi: <input name="lastName"
-                                     type="text"
-                                     placeholder="Sukunimi"
-                                     id="lastName"
-                                     required="required"
-                                     value={this.state.lastName}
-                                     onChange={e => this.change(e)}
-                />
-                    <br/>
-                    puhelinnumero: <input name="phoneNumber"
-                                          type="number"
-                                          placeholder="0400440440"
-                                          id="phoneNumber"
-                                          required="required"
-                                          value={this.state.phoneNumber}
-                                          onKeyPress={this.onKeyPress.bind(this)}
-                                          onChange={e => this.change(e)}
-                />
-                    <br/>
-                    Valitse sijainti:
-                    <br/>
-                    <select value={this.state.location} name="location" onChange={e => this.handleChange(e)}>
-                        <option value="Etelä">Etelä</option>
-                        <option value="Pohjoinen">Pohjoinen</option>
-                        <option value="Lansi">Länsi</option>
-                        <option value="Ita">Itä</option>
-                    </select>
-                    <br/>
-                    Oma esittely: <input name="presentation"
-                                         type="textarea"
-                                         rows="300px"
-                                         cols="400px"
-                                         placeholder="Kerro itsestäsi."
-                                         id="presentation"
-                                         value={this.state.presentation}
-                                         onChange={e => this.change(e)}/>
-                    <br/>
-                    Oletko ruokailija vai kokki?
-                    <br/>
-                    <input name="userStatus"
-                           type="radio"
-                           id="userStatus"
-                           required="required"
-                           value="dude"
-                           onChange={e => this.handleStatus(e)}
-                    />Ruokailija
-                    <br/>
-                    <input name="userStatus"
-                           type="radio"
-                           id="userStatus"
-                           required="required"
-                           value="chef"
-                           onChange={e => this.handleStatus(e)}
-                    />Kokki
-                    <br/>
-                    sähköposti: <input name="email"
-                                       type="email"
-                                       placeholder="dough@neighborfood.com"
-                                       id="email"
-                                       required="required"
-                                       value={this.state.email}
-                                       onChange={e => this.change(e)}
-                />
-                    <br/>
-                    salasana: <input name="password"
-                                     type="password"
-                                     placeholder="********"
-                                     id="password"
-                                     required="required"
-                                     value={this.state.password}
-                                     onChange={e => this.change(e)}
-                />
-                    <br/>
-                    <input type="submit"
-                           value="lähetä"
-                           onClick={e => this.handleClick(e)}/>
-                    <br/>
-                    <input type="reset" value="tyhjennä"/>
-                </form>
-                <div className="errorMsg">
-                    {this.state.invalidEmail === true && "Antamallasi sähköpostilla on jo käyttäjätunnus."}
-                    {this.state.falseEmail === true && "Tarkista antamasi sähköpostiosoite."}
-                    {this.state.invalidName === true && "Tarkista, että olet kirjoittanut nimesi oikein."}
-                    {this.state.nameLength === true && "Tarkista, että olet kirjoittanut nimesi oikein."}
-                    {this.state.numberLength === true && "Tarkista, että olet kirjoittanut puhelinnumerosi oikein. Se on tärkeää yhteydenpitoa varten."}
-                    {this.state.invalidPword === true && <PwReminder/>}
-                </div>
-            </div>
+            <Row className="register-content">
+                <Col xs={10} xsOffset={1}>
+                    <Form horizontal>
+                        <FormGroup controlId="formHorizontalName">
+                            <Col componentClass={ControlLabel} sm={4}>
+                                Etunimi
+                            </Col>
+                            <Col sm={7}>
+                                <FormControl name="name"
+                                             type="text"
+                                             placeholder="Etunimi"
+                                             id="name"
+                                             required="required"
+                                             value={this.state.name}
+                                             onChange={e => this.change(e)}/>
+                            </Col>
+                        </FormGroup>
+
+                        <FormGroup controlId="formHorizontalLastname">
+                            <Col componentClass={ControlLabel} sm={4}>
+                                Sukunimi
+                            </Col>
+                            <Col sm={7}>
+                                <FormControl name="lastName"
+                                             type="text"
+                                             placeholder="Sukunimi"
+                                             id="lastName"
+                                             required="required"
+                                             value={this.state.lastName}
+                                             onChange={e => this.change(e)}/>
+                            </Col>
+                        </FormGroup>
+
+                        <FormGroup controlId="formHorizontalPhonenumber">
+                            <Col componentClass={ControlLabel} sm={4}>
+                                Puhelinnumero
+                            </Col>
+                            <Col sm={7}>
+                                <FormControl name="phoneNumber"
+                                             type="number"
+                                             placeholder="0400440440"
+                                             id="phoneNumber"
+                                             required="required"
+                                             value={this.state.phoneNumber}
+                                             onKeyPress={this.onKeyPress.bind(this)}
+                                             onChange={e => this.change(e)}/>
+                            </Col>
+                        </FormGroup>
+
+                        <FormGroup controlId="formHorizontalEmail">
+                            <Col componentClass={ControlLabel} sm={4}>
+                                Sähköposti
+                            </Col>
+                            <Col sm={7}>
+                                <FormControl name="email"
+                                             type="email"
+                                             placeholder="dough@neighborfood.com"
+                                             id="email"
+                                             required="required"
+                                             value={this.state.email}
+                                             onChange={e => this.change(e)}/>
+                            </Col>
+                        </FormGroup>
+
+                        <FormGroup controlId="formControlsTextarea">
+                            <Col componentClass={ControlLabel} sm={4}>
+                                Oma esittely
+                            </Col>
+                            <Col sm={7}>
+                                <FormControl componentClass="textarea"
+                                             name="presentation"
+                                             type="textarea"
+                                             rows="300px"
+                                             cols="400px"
+                                             placeholder="Kerro itsestäsi."
+                                             id="presentation"
+                                             value={this.state.presentation}
+                                             onChange={e => this.change(e)}/>
+                            </Col>
+                        </FormGroup>
+
+                        <FormGroup controlId="formControlsLocation">
+                            <Col componentClass={ControlLabel} sm={4}>
+                                Sijainti
+                            </Col>
+                            <Col sm={7}>
+                                <FormControl componentClass="select" placeholder="select" value={this.state.location}
+                                             name="location" onChange={e => this.handleChange(e)}>
+                                    <option value="Etelä">Etelä</option>
+                                    <option value="Pohjoinen">Pohjoinen</option>
+                                    <option value="Lansi">Länsi</option>
+                                    <option value="Ita">Itä</option>
+                                </FormControl>
+                            </Col>
+                        </FormGroup>
+
+                        <ControlLabel>Oletko ruokailija vai kokki?</ControlLabel>
+                        <FormGroup controlId="forControlStatus">
+                            <Radio name="userStatus"
+                                   inline
+                                   type="radio"
+                                   id="userStatus"
+                                   required="required"
+                                   value="dude"
+                                   onChange={e => this.handleStatus(e)}>Ruokailija</Radio>
+                            {' '}
+                            <Radio name="userStatus"
+                                   inline
+                                   type="radio"
+                                   id="userStatus"
+                                   required="required"
+                                   value="chef"
+                                   onChange={e => this.handleStatus(e)}>Kokki</Radio>
+                        </FormGroup>
+
+                        <FormGroup controlId="formHorizontalPassword">
+                            <Col componentClass={ControlLabel} sm={4}>
+                                Salasana
+                            </Col>
+                            <Col sm={7}>
+                                <FormControl name="password"
+                                             type="password"
+                                             placeholder="********"
+                                             id="password"
+                                             required="required"
+                                             value={this.state.password}
+                                             onChange={e => this.change(e)}/>
+                            </Col>
+                        </FormGroup>
+
+                        <FormGroup>
+                            <Col componentClass={ControlLabel} sm={11}>
+                                <Button type="submit" onClick={e => this.handleClick(e)}>
+                                    Lähetä
+                                </Button>
+                            </Col>
+                        </FormGroup>
+
+                    </Form>
+                    <div className="errorMsg">
+                        {this.state.invalidEmail === true && "Antamallasi sähköpostilla on jo käyttäjätunnus."}
+                        {this.state.falseEmail === true && "Tarkista antamasi sähköpostiosoite."}
+                        {this.state.invalidName === true && "Tarkista, että olet kirjoittanut nimesi oikein."}
+                        {this.state.nameLength === true && "Tarkista, että olet kirjoittanut nimesi oikein."}
+                        {this.state.numberLength === true && "Tarkista, että olet kirjoittanut puhelinnumerosi oikein. Se on tärkeää yhteydenpitoa varten."}
+                        {this.state.invalidPword === true && <PwReminder/>}
+                    </div>
+                </Col>
+            </Row>
+            // <div>
+            //     <form autoComplete="on">
+            //         etunimi: <input name="name"
+            //                         type="text"
+            //                         placeholder="Etunimi"
+            //                         id="name"
+            //                         required="required"
+            //                         value={this.state.name}
+            //                         onChange={e => this.change(e)}
+            //     />
+            //         <br/>
+            //         sukunimi: <input name="lastName"
+            //                          type="text"
+            //                          placeholder="Sukunimi"
+            //                          id="lastName"
+            //                          required="required"
+            //                          value={this.state.lastName}
+            //                          onChange={e => this.change(e)}
+            //     />
+            //         <br/>
+            //         puhelinnumero: <input name="phoneNumber"
+            //                               type="number"
+            //                               placeholder="0400440440"
+            //                               id="phoneNumber"
+            //                               required="required"
+            //                               value={this.state.phoneNumber}
+            //                               onKeyPress={this.onKeyPress.bind(this)}
+            //                               onChange={e => this.change(e)}
+            //     />
+            //         <br/>
+            //         Valitse sijainti:
+            //         <br/>
+            //         <select value={this.state.location} name="location" onChange={e => this.handleChange(e)}>
+            //             <option value="Etelä">Etelä</option>
+            //             <option value="Pohjoinen">Pohjoinen</option>
+            //             <option value="Lansi">Länsi</option>
+            //             <option value="Ita">Itä</option>
+            //         </select>
+            //         <br/>
+            //         Oma esittely: <input name="presentation"
+            //                              type="textarea"
+            //                              rows="300px"
+            //                              cols="400px"
+            //                              placeholder="Kerro itsestäsi."
+            //                              id="presentation"
+            //                              value={this.state.presentation}
+            //                              onChange={e => this.change(e)}/>
+            //         <br/>
+            //         Oletko ruokailija vai kokki?
+            //         <br/>
+            //         <input name="userStatus"
+            //                type="radio"
+            //                id="userStatus"
+            //                required="required"
+            //                value="dude"
+            //                onChange={e => this.handleStatus(e)}
+            //         />Ruokailija
+            //         <br/>
+            //         <input name="userStatus"
+            //                type="radio"
+            //                id="userStatus"
+            //                required="required"
+            //                value="chef"
+            //                onChange={e => this.handleStatus(e)}
+            //         />Kokki
+            //         <br/>
+            //         sähköposti: <input name="email"
+            //                            type="email"
+            //                            placeholder="dough@neighborfood.com"
+            //                            id="email"
+            //                            required="required"
+            //                            value={this.state.email}
+            //                            onChange={e => this.change(e)}
+            //     />
+            //         <br/>
+            //         salasana: <input name="password"
+            //                          type="password"
+            //                          placeholder="********"
+            //                          id="password"
+            //                          required="required"
+            //                          value={this.state.password}
+            //                          onChange={e => this.change(e)}
+            //     />
+            //         <br/>
+            //         <input type="submit"
+            //                value="lähetä"
+            //                onClick={e => this.handleClick(e)}/>
+            //         <br/>
+            //         <input type="reset" value="tyhjennä"/>
+            //     </form>
+            //     <div className="errorMsg">
+            //         {this.state.invalidEmail === true && "Antamallasi sähköpostilla on jo käyttäjätunnus."}
+            //         {this.state.falseEmail === true && "Tarkista antamasi sähköpostiosoite."}
+            //         {this.state.invalidName === true && "Tarkista, että olet kirjoittanut nimesi oikein."}
+            //         {this.state.nameLength === true && "Tarkista, että olet kirjoittanut nimesi oikein."}
+            //         {this.state.numberLength === true && "Tarkista, että olet kirjoittanut puhelinnumerosi oikein. Se on tärkeää yhteydenpitoa varten."}
+            //         {this.state.invalidPword === true && <PwReminder/>}
+            //     </div>
+            // </div>
         );
     }
 }
