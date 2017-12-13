@@ -25,9 +25,9 @@ class User extends Component {
             })
             .then((function (jsonobject) {
                 this.setState({reviews: jsonobject});
-
                 console.log("get reviews then...")
             }).bind(this));
+        this.setState({review:{content:'',stars:'',whiter:'',target:''}})
     }
 
     componentDidMount = () => {
@@ -84,13 +84,13 @@ class User extends Component {
                     </div>
                 )
         })
-        if(reviews === undefined){
+        if(!cachedUser){
             return (
                 <div>
-                    <p>review undefined</p>
+                    <h1>Kirjaudu sisään nähdäksesi käyttäjien tiedot</h1>
                 </div>
             )
-        }
+        }else{
         return (
             <div>
                 <h1>Kirjautuneen käyttäjän nimi:{this.state.user.name}</h1>
@@ -111,6 +111,7 @@ class User extends Component {
                 </div>
             </div>
         );
+        }
     }
 }
 
