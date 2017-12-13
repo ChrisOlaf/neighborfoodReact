@@ -3,6 +3,7 @@ import {Link} from 'react-router-dom';
 import {Row, Col} from 'react-bootstrap';
 
 import '../App.css';
+import AcceptResponse from "./AcceptResponse";
 
 var time = undefined;
 
@@ -112,11 +113,17 @@ class Sales extends Component {
                     </Row>
                     <Row className="sale-response-author">
                         <Col xs={5} xsOffset={2}>
-                            <p>Tarjoaja: <Link to={'/user/' + response.responder.id}>{response.responder.name}</Link>
+                            <p>Tilaaja: <Link to={'/user/' + response.responder.id}>{response.responder.name}</Link>
                             </p>
                         </Col>
                         <Col xs={4}>
                             {this.changeTime(response.createDate)}
+                        </Col>
+                    </Row>
+                    <Row className="order-response-accept">
+                        <Col xs={9} xsOffset={2}>
+                            {this.props.user.id === this.props.info.user.id ?
+                                <AcceptResponse responder={response.responder}/> : null}
                         </Col>
                     </Row>
                     <Row><Col>
