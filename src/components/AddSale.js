@@ -34,7 +34,7 @@ export class Added extends Component {
 class AddSale extends Component {
 
     state = {
-        sale: {title: '', content: '', whenReady: '', user: {}, requirements: [{requirement: ''}]},
+        sale: {title: '', content: '', user: {}, requirements: [{requirement: ''}]},
         saleAdded: false,
         reqs: ''
     };
@@ -48,7 +48,7 @@ class AddSale extends Component {
         if (cachedUser) {
             var user = JSON.parse(cachedUser);
             x.setState({
-                sale: {title: '', content: '', whenReady: '' , user: user, requirements: [{}]}
+                sale: {title: '', content: '', user: user, requirements: [{}]}
             });
             console.log("Haki käyttäjän storagesta!");
         }
@@ -59,14 +59,11 @@ class AddSale extends Component {
     //TODO otsikon lisäys
     //Handles the form title input
     handleTitleInput = (e) => {
-        this.setState(
-            {title: e.target.value
-    });
+        this.state.sale.title = e.target.value;
     };
     //Handles the form text inputs
     handleContentInput = (e) => {
-        this.setState(
-        {content: e.target.value});
+        this.state.sale.content = e.target.value;
     };
 
     //Adds requirement to the requirement array when selected
@@ -90,15 +87,15 @@ class AddSale extends Component {
         console.dir(this.state.sale.requirements);
         console.dir(requs);
     };
-
-    addWhenReady = (e) => {
-        console.log("addwhenready...")
-        console.dir(this.state);
-        this.setState(
-            {whenReady: e.target.value}
-        )
-        console.dir(this.state);
-    };
+    //
+    // addWhenReady = (e) => {
+    //     console.log("addwhenready...")
+    //     console.dir(this.state);
+    //     this.setState(
+    //         {whenReady: e.target.value}
+    //     )
+    //     console.dir(this.state);
+    // };
 
     //Adds sale(in state) to the database
     // then clears the state and changes the state to saleAdded state.
@@ -124,9 +121,10 @@ class AddSale extends Component {
             .catch(function (res) {
                 console.log(res)
             })
+
         var kja = this.state.sale.user;
         this.setState({
-            sale: {title: '', content: '', whenReady: '', user: kja, requirements: []},
+            sale: {title: '', content: '', user: kja, requirements: []},
             saleAdded: true
         });
     };
@@ -137,7 +135,7 @@ class AddSale extends Component {
         console.log("Täällä ollaan");
         var kja = this.state.sale.user;
         this.setState({
-            sale: {title: '', content: '', whenReady: '', user: kja, requirements: []},
+            sale: {title: '', content: '', user: kja, requirements: []},
             saleAdded: false
         });
     };
