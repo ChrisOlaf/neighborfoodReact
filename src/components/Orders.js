@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
-import {Row, Col} from 'react-bootstrap';
+import {Row, Col, Glyphicon} from 'react-bootstrap';
 
 import '../App.css';
 import AcceptResponse from "./AcceptResponse";
@@ -163,7 +163,7 @@ class Orders extends Component {
         // Checks if the user has logged in. If yes, shows the button so that the user can send a message.
         // If the user hasn't logged in, the button is not visible.
         if (this.props.auth === true && this.props.user.userStatus === "chef") {
-            responseButton = <button onClick={this.handleClick}>Vastaa tilaukseen</button>
+            responseButton = <button onClick={this.handleClick}>Vastaa</button>
         }
         return (
             //Shows information about the order (including requirements and responses).
@@ -177,7 +177,7 @@ class Orders extends Component {
                     <Row className="order-content">
                         <Col xs={10} xsOffset={1}>
                             {this.props.info.content}
-                            <p>Erityisvaatimukset: {requirements}</p>
+                            <p>Erityisvaatimukset:</p> {requirements}
                         </Col>
                     </Row>
                     <Row className="order-author">

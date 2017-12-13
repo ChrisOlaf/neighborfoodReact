@@ -145,7 +145,7 @@ class Sales extends Component {
         }
         let responseButton = null;
         if (this.props.auth === true) {
-            responseButton = <button onClick={this.handleClick}>Vastaa ilmoitukseen</button>
+            responseButton = <button onClick={this.handleClick}>Vastaa</button>
         }
         return (
             <Row className="sale-row">
@@ -158,14 +158,14 @@ class Sales extends Component {
                     <Row className="sale-content">
                         <Col xs={10} xsOffset={1}>
                             {this.props.info.content}
-                            <p>Erityisruokavaliot: {requirements}</p>
+                            <p>Erityisruokavaliot:</p> {requirements}
                         </Col>
                     </Row>
                     <Row className="sale-author">
-                        <Col xs={6} xsOffset={1}>
+                        <Col xs={10} xsOffset={1} md={6} mdOffset={1}>
                             Kokki: <Link to={'/user/' + this.props.info.user.id}>{this.props.info.user.name}</Link>
                         </Col>
-                        <Col xs={4}>
+                        <Col xs={10} xsOffset={1} md={4}>
                             {this.changeTime(this.props.info.createDate)}
                         </Col>
                     </Row>
