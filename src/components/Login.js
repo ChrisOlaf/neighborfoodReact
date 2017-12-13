@@ -1,4 +1,7 @@
 import React, {Component} from 'react';
+import {Row, Col, FormControl, FormGroup, Form, ControlLabel, Button} from 'react-bootstrap';
+
+import '../App.css';
 
 // Login-component lets you input username(email) and password.
 // Sends data to REST where data is retrieved from database and username and password are verified
@@ -56,32 +59,49 @@ class Login extends Component {
     //Returns a simple login form
     render() {
         return (
-            <div>
-                <form>
-                    sähköposti:
-                    <input type="text"
-                           name="email"
-                           placeholder="moi@koi"
-                           onChange={e => this.change(e)}
-                           value={this.state.email}/>
-                    <br/>
-                    salasana:
-                    <input type="password"
-                           name="password"
-                           placeholder="*******"
-                           value={this.state.password}
-                           onChange={e => this.change(e)}/>
-                    <br/>
-                    <input type="submit"
-                           value="Kirjaudu sisään"
-                           onClick={this.verify}/>
-                </form>
-                <p>
-                    Nimi: {this.state.name}<br/>
-                    maili: {this.state.email}<br/>
-                    salasana {this.state.password}<br/>
-                </p>
-            </div>
+            <Row className="login-content">
+                <Col className="login-content-col" xs={10} xsOffset={1}>
+                    <Row className="login-form">
+                        <Col xs={10} xsOffset={1}>
+                            <Form horizontal>
+                                <FormGroup controlId="formHorizontalEmail">
+                                    <Col componentClass={ControlLabel} sm={4}>
+                                        Sähköpostiosoite
+                                    </Col>
+                                    <Col sm={8}>
+                                        <FormControl name="email"
+                                                     type="email"
+                                                     placeholder="buns@neighborfood.fi"
+                                                     value={this.state.email}
+                                                     onChange={e => this.change(e)}/>
+                                    </Col>
+                                </FormGroup>
+
+                                <FormGroup controlId="formHorizontalPassword">
+                                    <Col componentClass={ControlLabel} sm={4}>
+                                        Salasana
+                                    </Col>
+                                    <Col sm={8}>
+                                        <FormControl name="password"
+                                                     type="password"
+                                                     placeholder="********"
+                                                     value={this.state.password}
+                                                     onChange={e => this.change(e)}/>
+                                    </Col>
+                                </FormGroup>
+
+                                <FormGroup>
+                                    <Col componentClass={ControlLabel} sm={12}>
+                                        <Button type="submit" onClick={this.verify}>
+                                            Kirjaudu
+                                        </Button>
+                                    </Col>
+                                </FormGroup>
+                            </Form>
+                        </Col>
+                    </Row>
+                </Col>
+            </Row>
         )
 
     }
