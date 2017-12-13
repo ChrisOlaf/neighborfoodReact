@@ -17,14 +17,14 @@ export class Added extends Component {
         var o = this.props.regus;
         var text = o.substring(0,o.length-1);
         return (
-            <div>
+            <p>
                     {text.split("\n").map(i => {
                         return(
                         <div>
-                            <input type="checkbox" key={i} name="requirements" value={i} onSelect={this.addReq}/>{i}<br/>
+                            <input type="checkbox" key={i} name="requirements" value={i} onChange={this.addReq}/>{i}<br/>
                         </div>)
                             })}
-            </div>);
+            </p>);
 
         };
         // requirementin poistosta <p>  </p><button onClick={this.removeWord(i)}>x</button>
@@ -34,7 +34,7 @@ export class Added extends Component {
 class AddSale extends Component {
 
     state = {
-        sale: {title: '', content: '', user: {}, requirements: [{requirement: ''}]},
+        sale: {title: '', content: '', user: {}, requirements: [{}]},
         saleAdded: false,
         reqs: ''
     };
@@ -82,10 +82,10 @@ class AddSale extends Component {
     addRqrmt = (e) => {
         e.preventDefault();
         requs = requs+ this.state.reqs +'\n';
-        this.state.sale.requirements.push({requirement: this.state.reqs});
+        // this.state.sale.requirements.push({requirement: this.state.reqs});
         this.setState({reqs: ''});
-        console.dir(this.state.sale.requirements);
-        console.dir(requs);
+        // console.dir(this.state.sale.requirements);
+        // console.dir(requs);
     };
     //
     // addWhenReady = (e) => {
