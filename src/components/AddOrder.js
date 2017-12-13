@@ -54,7 +54,7 @@ class AddOrder extends Component {
         console.log("Tätä yritetään lähettää");
         console.dir(this.state.orders);
         e.preventDefault();
-        fetch('addorder',
+        fetch('addorderwithreqs',
             {
                 headers: {
                     'Accept': 'application/json',
@@ -64,7 +64,7 @@ class AddOrder extends Component {
                 body: JSON.stringify(this.state.orders)
             })
             .then(function (res) {
-                console.log(res)
+                console.log(res);
                 var joku = x.state.orders.user;
                 x.setState({
                     orders: {title: '', content: '', user: joku, requirements: []},
