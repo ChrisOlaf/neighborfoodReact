@@ -140,10 +140,10 @@ class User extends Component {
     render() {
         var reviews = this.state.reviews.map(function (rev) {
             return (
-                <div key={rev.id}>
+                <p key={rev.id}>
                     <p>Arvostelu: {rev.content}</p>
                     <p>Tähdet: <Star rev={rev.stars}/></p>
-                </div>
+                </p>
             )
         })
         if (!cachedUser) {
