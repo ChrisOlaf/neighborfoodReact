@@ -68,7 +68,16 @@ class AddSale extends Component {
 
     //Adds requirement to the requirement array when selected
     addRequirement = (e) => {
-        this.state.sale.requirements.push({requirement: e.target.value});
+        let i = this.state.sale.requirements.length;
+        while (i--) {
+            if (this.state.sale.requirements[i] === {requirement: e.target.value}) {
+                this.state.sale.requirements.splice(i,1);
+            }
+        }
+        if(e.target.value.length>2){
+            this.state.sale.requirements.push({requirement: e.target.value});
+        }
+
     };
 
     addRmt = (e) => {

@@ -54,7 +54,7 @@ class AddOrder extends Component {
         console.log("Tätä yritetään lähettää");
         console.dir(this.state.orders);
         e.preventDefault();
-        fetch('addorderwithreqs',
+        fetch('addorder',
             {
                 headers: {
                     'Accept': 'application/json',
