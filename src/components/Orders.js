@@ -103,9 +103,9 @@ class Orders extends Component {
         // Searching for the requirement text
         var requirements = this.state.requirements.map(function (requirement) {
             return (
-                <div key={requirement.id}>
+                <p key={requirement.id}>
                     {requirement.requirement}
-                </div>
+                </p>
             )
         }, this);
 
