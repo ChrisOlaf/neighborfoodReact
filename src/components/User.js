@@ -1,9 +1,73 @@
 import React, {Component} from 'react';
+import {Glyphicon} from 'react-bootstrap';
+
 var cachedUser;
 
+const Star = (props) => {
+    if (props.rev < 1 || props.rev > 5) {
+        return (
+            <span className="review-stars-x">
+            <Glyphicon glyph="fire"/>
+            </span>
+        )
+    }
+    if (props.rev === 1) {
+        return (
+            <span className="review-stars-1">
+            <Glyphicon glyph="star"/>
+            </span>
+        )
+    }
+    if (props.rev === 2) {
+        return (
+            <span className="review-stars-2">
+            <Glyphicon glyph="star"/>
+            <Glyphicon glyph="star"/>
+            </span>
+        )
+    }
+    if (props.rev === 3) {
+        return (
+            <span className="review-stars-3">
+            <Glyphicon glyph="star"/>
+            <Glyphicon glyph="star"/>
+            <Glyphicon glyph="star"/>
+            </span>
+        )
+    }
+    if (props.rev === 4) {
+        return (
+            <span className="review-stars-4">
+            <Glyphicon glyph="star"/>
+            <Glyphicon glyph="star"/>
+            <Glyphicon glyph="star"/>
+            <Glyphicon glyph="star"/>
+            </span>
+        )
+    }
+    if (props.rev === 5) {
+        return (
+            <span className="review-stars-5">
+            <Glyphicon glyph="star"/>
+            <Glyphicon glyph="star"/>
+            <Glyphicon glyph="star"/>
+            <Glyphicon glyph="star"/>
+            <Glyphicon glyph="star"/>
+            </span>
+        )
+    }
+    return (
+        <span className="review-stars-x">
+            <Glyphicon glyph="fire"/>
+            </span>
+    )
+}
+
 class User extends Component {
-    state = {user: '', data: '', reviews:[],
-                review:{content:'',stars:'',whiter:'',target:''}};
+    state = {
+        user: '', data: '', reviews: [],
+        review: {content: '', stars: '', whiter: '', target: ''}
+    };
 
     getUser() {
         fetch(this.props.match.params.id)
@@ -16,32 +80,23 @@ class User extends Component {
             }).bind(this));
         this.getReviews();
     }
-
-    getReviews() {
-        console.log("get reviews...")
-        fetch(this.props.match.params.id+'/reviews')
-            .then(function (response) {
-                return response.json();
-            })
-            .then((function (jsonobject) {
-                this.setState({reviews: jsonobject});
-                console.log("get reviews then...")
-            }).bind(this));
-        this.setState({review:{content:'',stars:'',whiter:'',target:''}})
-    }
-
     componentDidMount = () => {
         cachedUser = window.sessionStorage.getItem('storedUser');
         const x = this;
         if (cachedUser) {
             var user = JSON.parse(cachedUser);
-            x.setState({user:user});
+            x.setState({user: user});
             console.log("Haki käyttäjän storagesta!");
         }
         else {
             console.log("Käyttäjää ei löytynyt storagesta..?");
         }
         this.getUser();
+    };
+    handleContentChange = (e) => {
+        this.state.review.content = e.target.value;
+        this.state.review.writer = this.state.user;
+        this.state.review.target = this.state.data;
     };
 
     addReview = (e) => {
@@ -65,11 +120,18 @@ class User extends Component {
             })
     };
 
-    handleContentChange = (e) =>{
-     this.state.review.content = e.target.value;
-     this.state.review.writer = this.state.user;
-     this.state.review.target = this.state.data;
-    };
+    getReviews() {
+        console.log("get reviews...")
+        fetch(this.props.match.params.id + '/reviews')
+            .then(function (response) {
+                return response.json();
+            })
+            .then((function (jsonobject) {
+                this.setState({reviews: jsonobject});
+                console.log("get reviews then...")
+            }).bind(this));
+        this.setState({review:{content:'',stars:'',whiter:'',target:''}})
+    }
 
     handleStarChange = (e) => {
         this.state.review.stars = e.target.value;
@@ -78,13 +140,13 @@ class User extends Component {
     render() {
         var reviews = this.state.reviews.map(function (rev) {
             return (
-                    <div key={rev.id}>
-                            <p>Arvostelu: {rev.content}</p>
-                            <p>Tähdet: {rev.stars}</p>
-                    </div>
-                )
+                <div key={rev.id}>
+                    <p>Arvostelu: {rev.content}</p>
+                    <p>Tähdet: <Star rev={rev.stars}/></p>
+                </div>
+            )
         })
-        if(!cachedUser){
+        if (!cachedUser) {
             return (
                 <div>
                     <h1>Kirjaudu sisään nähdäksesi käyttäjien tiedot</h1>
@@ -92,20 +154,22 @@ class User extends Component {
             )
         }else{
         return (
-            <div>
+            <div className="register-content">
                 <h1>Kirjautuneen käyttäjän nimi:{this.state.user.name}</h1>
                 <h1> haettu käyttäjä: {this.state.data.name}</h1>
                 <h1>ID: {this.state.data.id}</h1>
                 <div>
                     <p>Reviews</p>
                     <p>Tähän tulee saadut arvostelut</p>
-                    <p>{reviews}</p>>
+                    <p>{reviews}</p>
                 </div>
                 <div>
                     <h1>Lisää arvostelu</h1>
                     <form>Arvostelu:
-                        <input type="text" name="content" value={this.state.review.content.value} onChange={this.handleContentChange}/><br/>
-                        Tähtiä 1-5: <input type="number" min="1" max="5" name="stars" value={this.state.review.stars.value} onChange={this.handleStarChange}/>
+                        <input type="text" name="content" value={this.state.review.content.value}
+                               onChange={this.handleContentChange}/><br/>
+                        Tähtiä 1-5: <input type="number" min="1" max="5" name="stars"
+                                           value={this.state.review.stars.value} onChange={this.handleStarChange}/>
                         <input type="submit" onClick={this.addReview}/>
                     </form>
                 </div>
