@@ -106,20 +106,22 @@ class Sales extends Component {
             return (
                 <div key={response.id}>
                     <Row className="sale-response" key={response.id}>
-                        <Col sm={9} smOffset={2}>
+                        <Col xs={9} xsOffset={2}>
                             {response.content}
                         </Col>
                     </Row>
                     <Row className="sale-response-author">
-                        <Col sm={5} smOffset={2}>
+                        <Col xs={5} xsOffset={2}>
                             <p>Tarjoaja: <Link to={'/user/' + response.responder.id}>{response.responder.name}</Link>
                             </p>
                         </Col>
-                        <Col sm={4}>
+                        <Col xs={4}>
                             {this.changeTime(response.createDate)}
                         </Col>
                     </Row>
-                    <Row><Col><hr className="order-response-hr"/></Col></Row>
+                    <Row><Col>
+                        <hr className="order-response-hr"/>
+                    </Col></Row>
                 </div>
             )
         }, this);
@@ -149,37 +151,37 @@ class Sales extends Component {
             <Row className="sale-row">
                 <Col xs={12}>
                     <Row className="sale-header">
-                        <Col sm={10} smOffset={1}>
+                        <Col xs={10} xsOffset={1}>
                             <h4>{this.props.info.title}</h4>
                         </Col>
                     </Row>
                     <Row className="sale-content">
-                        <Col sm={10} smOffset={1}>
+                        <Col xs={10} xsOffset={1}>
                             {this.props.info.content}
                             <p>Erityisruokavaliot: {requirements}</p>
                         </Col>
                     </Row>
                     <Row className="sale-author">
-                        <Col sm={6} smOffset={1}>
+                        <Col xs={6} xsOffset={1}>
                             Kokki: <Link to={'/user/' + this.props.info.user.id}>{this.props.info.user.name}</Link>
                         </Col>
-                        <Col sm={4}>
+                        <Col xs={4}>
                             {this.changeTime(this.props.info.createDate)}
                         </Col>
                     </Row>
                     <Row className="sale-responses-header">
-                        <Col sm={10} smOffset={1}>
+                        <Col xs={10} xsOffset={1}>
                             {(this.state.responses.length > 0) &&
                             <h5>Vastaukset ({(this.state.responses.length)}) :</h5>}
                         </Col>
                     </Row>
                     <Row>
-                        <Col sm={12}>
+                        <Col xs={12}>
                             {responses}
                         </Col>
                     </Row>
                     <Row>
-                        <Col sm={4} smOffset={7}>
+                        <Col xs={4} xsOffset={7}>
                             {responseButton}
                         </Col>
                     </Row>
