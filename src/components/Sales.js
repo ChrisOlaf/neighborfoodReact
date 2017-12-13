@@ -165,7 +165,7 @@ class Sales extends Component {
                         <Col xs={10} xsOffset={1} md={6} mdOffset={1}>
                             Kokki: <Link to={'/user/' + this.props.info.user.id}>{this.props.info.user.name}</Link>
                         </Col>
-                        <Col xs={10} xsOffset={1} md={4}>
+                        <Col xs={10} xsOffset={1} md={4} mdOffset={0}>
                             {this.changeTime(this.props.info.createDate)}
                         </Col>
                     </Row>
