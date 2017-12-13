@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
-import {Row, Col} from 'react-bootstrap';
+import {Row, Col, Glyphicon} from 'react-bootstrap';
 
 import '../App.css';
 import AcceptResponse from "./AcceptResponse";
@@ -115,26 +115,28 @@ class Orders extends Component {
             return (
                 <div key={response.id}>
                     <Row className="order-response" key={response.id}>
-                        <Col sm={9} smOffset={2}>
+                        <Col xs={9} xsOffset={2}>
                             {response.content}
                         </Col>
                     </Row>
                     <Row className="order-response-author">
-                        <Col sm={5} smOffset={2}>
+                        <Col xs={5} xsOffset={2}>
                             <p>Tarjoaja: <Link to={'/user/' + response.responder.id}>{response.responder.name}</Link>
                             </p>
                         </Col>
-                        <Col sm={4}>
+                        <Col xs={4}>
                             {this.changeTime(response.createDate)}
                         </Col>
                     </Row>
                     <Row className="order-response-accept">
-                        <Col sm={9} smOffset={2}>
+                        <Col xs={9} xsOffset={2}>
                             {this.props.user.id === this.props.info.user.id ?
                                 <AcceptResponse responder={response.responder}/> : null}
                         </Col>
                     </Row>
-                    <Row><Col><hr className="order-response-hr"/></Col></Row>
+                    <Row><Col>
+                        <hr className="order-response-hr"/>
+                    </Col></Row>
                 </div>
             )
         }, this);
@@ -161,43 +163,44 @@ class Orders extends Component {
         // Checks if the user has logged in. If yes, shows the button so that the user can send a message.
         // If the user hasn't logged in, the button is not visible.
         if (this.props.auth === true && this.props.user.userStatus === "chef") {
-            responseButton = <button onClick={this.handleClick}>Vastaa tilaukseen</button>
+            responseButton = <button onClick={this.handleClick}>Vastaa</button>
         }
         return (
             //Shows information about the order (including requirements and responses).
             <Row className="order-row">
                 <Col xs={12}>
                     <Row className="order-header">
-                        <Col sm={10} smOffset={1}>
+                        <Col xs={10} xsOffset={1}>
                             <h4>{this.props.info.title}</h4>
                         </Col>
                     </Row>
                     <Row className="order-content">
-                        <Col sm={10} smOffset={1}>
+                        <Col xs={10} xsOffset={1}>
                             {this.props.info.content}
-                            <p>Erityisvaatimukset: {requirements}</p>
+                            <p>Erityisvaatimukset:</p> {requirements}
                         </Col>
                     </Row>
                     <Row className="order-author">
-                        <Col sm={6} smOffset={1}>
+                        <Col xs={6} xsOffset={1}>
                             Tilaaja: <Link to={'/user/' + this.props.info.user.id}>{this.props.info.user.name}</Link>
                         </Col>
-                        <Col sm={4}>
+                        <Col xs={4}>
                             {this.changeTime(this.props.info.createDate)}
                         </Col>
                     </Row>
                     <Row className="order-responses-header">
-                        <Col sm={10} smOffset={1}>
-                            {(this.state.responses.length > 0) && <h5>Vastaukset ({(this.state.responses.length)}) :</h5>}
+                        <Col xs={10} xsOffset={1}>
+                            {(this.state.responses.length > 0) &&
+                            <h5>Vastaukset ({(this.state.responses.length)}) :</h5>}
                         </Col>
                     </Row>
                     <Row>
-                        <Col sm={12}>
+                        <Col xs={12}>
                             {responses}
                         </Col>
                     </Row>
                     <Row>
-                        <Col sm={4} smOffset={7}>
+                        <Col xs={4} xsOffset={7}>
                             {responseButton}
                         </Col>
                     </Row>
