@@ -100,27 +100,7 @@ class Login extends Component {
                             </Form>
                         </Col>
                     </Row>
-                    {/*<form>*/}
-                    {/*sähköposti:*/}
-                    {/*<input type="text"*/}
-                    {/*name="email"*/}
-                    {/*placeholder="moi@koi"*/}
-                    {/*onChange={e => this.change(e)}*/}
-                    {/*value={this.state.email}/>*/}
-                    {/*<br/>*/}
-                    {/*salasana:*/}
-                    {/*<input type="password"*/}
-                    {/*name="password"*/}
-                    {/*placeholder="*******"*/}
-                    {/*value={this.state.password}*/}
-                    {/*onChange={e => this.change(e)}/>*/}
-                    {/*<br/>*/}
-                    {/*<input type="submit"*/}
-                    {/*value="Kirjaudu sisään"*/}
-                    {/*onClick={this.verify}/>*/}
-                    {/*</form>*/}
                 </Col>
-
             </Row>
         )
 
