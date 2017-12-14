@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import {Link} from 'react-router-dom';
 
 class Profile extends Component {
     state = {id:this.props.user.id, presentation:this.props.user.presentation};
@@ -52,7 +53,7 @@ class Profile extends Component {
                         <tbody>
                         <tr>
                             <td>Nimi:</td>
-                            <td>{this.props.user.name}</td>
+                            <td><Link to={'/user/' + this.props.user.id}>{this.props.user.name}</Link></td>
                         </tr>
                         <tr>
                             <td>Sijainti:</td>
@@ -69,7 +70,7 @@ class Profile extends Component {
                             <td>{this.props.user.userStatus}</td>
                         </tr>
                         <tr>
-                            <td>Ota yhteyttä:</td>
+                            <td>email:</td>
                             <td>{this.props.user.email}</td>
                         </tr>
                        <tr>
