@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {Row, Col, Form, FormGroup, FormControl, ControlLabel, Radio, Button} from 'react-bootstrap';
-
+import { Redirect } from 'react-router';
 import '../App.css';
 
 const PwReminder = () => {
