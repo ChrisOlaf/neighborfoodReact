@@ -153,7 +153,7 @@ class AddSale extends Component {
     render() {
         if (this.state.saleAdded) {
             return (
-                <div>
+                <div className="register-content">
                     <h2>Myynti-ilmoitus on nyt lisätty!</h2>
                     <button onClick={this.changeSaleAdded}>Lisää uusi ilmoitus</button>
                     <br/>
@@ -164,7 +164,7 @@ class AddSale extends Component {
         } else {
             if (cachedUser) {
                 return (
-                    <div>
+                    <div className="register-content">
                         <h1>Lisää myynti-ilmoitus</h1>
                         <h2>ohjeet:</h2>
                         <ul>
@@ -205,7 +205,7 @@ class AddSale extends Component {
             }
             else {
                 return (
-                    <div>
+                    <div className="register-content">
                         <h1>Kirjaudu sisään lisätäksesi myynnin</h1>
                     </div>
                 )

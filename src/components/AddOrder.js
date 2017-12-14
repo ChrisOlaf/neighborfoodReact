@@ -109,7 +109,7 @@ class AddOrder extends Component {
     render() {
         if (this.state.orderAdded) {
             return (
-                <div>
+                <div className="register-content">
                     <h2>Tilauksesi on nyt lisätty!</h2>
                     <button onClick={this.changeorderAdded}>Lisää uusi tilaus</button>
                     <br/>
@@ -119,7 +119,7 @@ class AddOrder extends Component {
         else {
             if (cachedUser) {
                 return (
-                    <div>
+                    <div className="register-content">
                         <h1>Lisää tilaus</h1>
                         <h2>ohjeet:</h2>
                         <ul>
@@ -154,7 +154,7 @@ class AddOrder extends Component {
                 );
             } else {
                 return (
-                    <div>
+                    <div className="register-content">
                         <h1>Kirjaudu sisään lisätäksesi tilauksen</h1>
                     </div>
                 )

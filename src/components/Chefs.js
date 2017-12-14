@@ -46,7 +46,7 @@ class Chefs extends Component {
          ,this);
 
          return(
-        <div>
+        <div className="register-content">
             <h1>Kokit lähellä sinua (alue: {this.state.user.location})</h1>
                 <div>{chefs}</div>
 
