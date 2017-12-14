@@ -30,6 +30,9 @@ export class Added extends Component {
         // requirementin poistosta <p>  </p><button onClick={this.removeWord(i)}>x</button>
 }
 
+var titles ='';
+var contents = '';
+var user = '';
 
 class AddSale extends Component {
 
@@ -46,7 +49,7 @@ class AddSale extends Component {
         cachedUser = window.sessionStorage.getItem('storedUser');
         const x = this;
         if (cachedUser) {
-            var user = JSON.parse(cachedUser);
+            user = JSON.parse(cachedUser);
             x.setState({
                 sale: {title: '', content: '', user: user, requirements: [{}]}
             });
@@ -59,11 +62,17 @@ class AddSale extends Component {
     //TODO otsikon lisäys
     //Handles the form title input
     handleTitleInput = (e) => {
-        this.state.sale.title = e.target.value;
+        titles = e.target.value;
+        this.setState({
+            sale: {title: titles, content: contents, user: user, requirements: [{}]}
+        });
     };
     //Handles the form text inputs
     handleContentInput = (e) => {
-        this.state.sale.content = e.target.value;
+        contents = e.target.value;
+        this.setState({
+            sale: {title: titles, content: contents, user: user, requirements: [{}]}
+        });
     };
 
     //Adds requirement to the requirement array when selected
@@ -162,7 +171,7 @@ class AddSale extends Component {
             )
 
         } else {
-            if (cachedUser) {
+            if (cachedUser && this.props.auth) {
                 return (
                     <div className="register-content">
                         <h1>Lisää myynti-ilmoitus</h1>

@@ -152,10 +152,10 @@ class User extends Component {
     render() {
         var reviews = this.state.reviews.map(function (rev) {
             return (
-                <p key={rev.id}>
-                    <p>Arvostelu: {rev.content}</p>
-                    <p>Tähdet: <Star rev={rev.stars}/></p>
-                </p>
+                <span key={rev.id}>
+                    <p>{rev.content}</p>
+                    <p><Star rev={rev.stars}/></p>
+                </span>
             )
         })
         if (!cachedUser) {
@@ -167,22 +167,25 @@ class User extends Component {
         }else{
         return (
             <div className="register-content">
-                <h1>Kirjautuneen käyttäjän nimi:{this.state.user.name}</h1>
-                <h1> haettu käyttäjä: {this.state.data.name}</h1>
-                <h1>ID: {this.state.data.id}</h1>
+                <h1>Tietoja käyttäjästä {this.state.data.name} </h1>
+                <p> {this.state.data.presentation}</p>
+                <p> Alue: {this.state.data.location}</p>
+                <p> Rooli: {this.state.data.userStatus}</p>
+
                 <div>
-                    <p>Reviews</p>
-                    <p>Tähän tulee saadut arvostelut</p>
-                    <p>{reviews}</p>
+                    <h2>Reviews</h2>
+                    <p>{this.state.data.name} on saanut seuraavat arviot:</p>
+                    <div>{reviews}</div>
                 </div>
                 {this.state.user.name===this.state.data.name?(<p>Et voi lisätä itsellesi arvostelua</p>):(<div>
-                    <h1>Lisää arvostelu</h1>
-                    <form>Arvostelu:
+                    <h2>Lisää arvostelu</h2>
+                    <form>Arvioi asiointisi {this.state.data.name}n kanssa:<br />
                         <input type="text" name="content" value={this.state.review.content.value}
                                onChange={this.handleContentChange}/><br/>
-                        Tähtiä 1-5: <input type="number" min="1" max="5" name="stars"
-                                           value={this.state.review.stars.value} onChange={this.handleStarChange}/>
-                        <input type="submit" onClick={this.addReview}/>
+                        Tähtiä 1-5: <br />
+                        <input type="number" min="1" max="5" name="stars"
+                               value={this.state.review.stars.value} onChange={this.handleStarChange}/><br />
+                        <input type="submit" value="Lisää arvio" onClick={this.addReview}/>
                     </form>
                 </div>)}
             </div>
