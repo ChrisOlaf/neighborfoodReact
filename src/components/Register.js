@@ -30,6 +30,7 @@ class Register extends Component {
         userStatus: '',
         email: '',
         password: '',
+        redirect: false,
         invalidEmail: false,
         falseEmail: false,
         invalidName: false,
@@ -120,8 +121,8 @@ class Register extends Component {
             this.setState({
                 name: '', lastName: '',
                 phoneNumber: '', location: 'Etelä', presentation: '',
-                userStatus: '', email: '', password: ''
-            })
+                userStatus: '', email: '', password: '', redirect: true
+            });
         }
     };
 
@@ -133,6 +134,9 @@ class Register extends Component {
     };
 
     render() {
+        if (this.state.redirect) {
+            return <Redirect to='/login'/>;
+        }
         return (
             <Row className="register-content">
                 <Col xs={10} xsOffset={1}>
@@ -283,105 +287,6 @@ class Register extends Component {
                     </div>
                 </Col>
             </Row>
-            // <div>
-            //     <form autoComplete="on">
-            //         etunimi: <input name="name"
-            //                         type="text"
-            //                         placeholder="Etunimi"
-            //                         id="name"
-            //                         required="required"
-            //                         value={this.state.name}
-            //                         onChange={e => this.change(e)}
-            //     />
-            //         <br/>
-            //         sukunimi: <input name="lastName"
-            //                          type="text"
-            //                          placeholder="Sukunimi"
-            //                          id="lastName"
-            //                          required="required"
-            //                          value={this.state.lastName}
-            //                          onChange={e => this.change(e)}
-            //     />
-            //         <br/>
-            //         puhelinnumero: <input name="phoneNumber"
-            //                               type="number"
-            //                               placeholder="0400440440"
-            //                               id="phoneNumber"
-            //                               required="required"
-            //                               value={this.state.phoneNumber}
-            //                               onKeyPress={this.onKeyPress.bind(this)}
-            //                               onChange={e => this.change(e)}
-            //     />
-            //         <br/>
-            //         Valitse sijainti:
-            //         <br/>
-            //         <select value={this.state.location} name="location" onChange={e => this.handleChange(e)}>
-            //             <option value="Etelä">Etelä</option>
-            //             <option value="Pohjoinen">Pohjoinen</option>
-            //             <option value="Lansi">Länsi</option>
-            //             <option value="Ita">Itä</option>
-            //         </select>
-            //         <br/>
-            //         Oma esittely: <input name="presentation"
-            //                              type="textarea"
-            //                              rows="300px"
-            //                              cols="400px"
-            //                              placeholder="Kerro itsestäsi."
-            //                              id="presentation"
-            //                              value={this.state.presentation}
-            //                              onChange={e => this.change(e)}/>
-            //         <br/>
-            //         Oletko ruokailija vai kokki?
-            //         <br/>
-            //         <input name="userStatus"
-            //                type="radio"
-            //                id="userStatus"
-            //                required="required"
-            //                value="dude"
-            //                onChange={e => this.handleStatus(e)}
-            //         />Ruokailija
-            //         <br/>
-            //         <input name="userStatus"
-            //                type="radio"
-            //                id="userStatus"
-            //                required="required"
-            //                value="chef"
-            //                onChange={e => this.handleStatus(e)}
-            //         />Kokki
-            //         <br/>
-            //         sähköposti: <input name="email"
-            //                            type="email"
-            //                            placeholder="dough@neighborfood.com"
-            //                            id="email"
-            //                            required="required"
-            //                            value={this.state.email}
-            //                            onChange={e => this.change(e)}
-            //     />
-            //         <br/>
-            //         salasana: <input name="password"
-            //                          type="password"
-            //                          placeholder="********"
-            //                          id="password"
-            //                          required="required"
-            //                          value={this.state.password}
-            //                          onChange={e => this.change(e)}
-            //     />
-            //         <br/>
-            //         <input type="submit"
-            //                value="lähetä"
-            //                onClick={e => this.handleClick(e)}/>
-            //         <br/>
-            //         <input type="reset" value="tyhjennä"/>
-            //     </form>
-            //     <div className="errorMsg">
-            //         {this.state.invalidEmail === true && "Antamallasi sähköpostilla on jo käyttäjätunnus."}
-            //         {this.state.falseEmail === true && "Tarkista antamasi sähköpostiosoite."}
-            //         {this.state.invalidName === true && "Tarkista, että olet kirjoittanut nimesi oikein."}
-            //         {this.state.nameLength === true && "Tarkista, että olet kirjoittanut nimesi oikein."}
-            //         {this.state.numberLength === true && "Tarkista, että olet kirjoittanut puhelinnumerosi oikein. Se on tärkeää yhteydenpitoa varten."}
-            //         {this.state.invalidPword === true && <PwReminder/>}
-            //     </div>
-            // </div>
         );
     }
 }
