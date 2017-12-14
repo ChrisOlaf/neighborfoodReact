@@ -10,7 +10,7 @@ class Profile extends Component {
         }
         else
             return (
-                <div>
+                <div className="register-content">
                     <table>
                         <tbody>
                         <tr>
