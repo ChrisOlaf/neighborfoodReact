@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Glyphicon} from 'react-bootstrap';
+import {Glyphicon, ListGroup, ListGroupItem} from 'react-bootstrap';
 
 var cachedUser;
 var content;
@@ -153,6 +153,10 @@ class User extends Component {
         var reviews = this.state.reviews.map(function (rev) {
             return (
                 <span key={rev.id}>
+                    <ListGroup>
+                    <ListGroupItem header={<Star rev={rev.stars}/>}>{rev.content}</ListGroupItem>
+                        <ListGroupItem header={<Star rev={rev.stars}/>}>{rev.content}</ListGroupItem>
+                    </ListGroup>
                     <p>{rev.content}</p>
                     <p><Star rev={rev.stars}/></p>
                 </span>
@@ -170,7 +174,7 @@ class User extends Component {
                 <h1>Tietoja käyttäjästä {this.state.data.name} </h1>
                 <p> {this.state.data.presentation}</p>
                 <p> Alue: {this.state.data.location}</p>
-                <p> Rooli: {this.state.data.userStatus}</p>
+                <p> Rooli: {this.state.data.userStatus === "dude" ? "Ruokailija" : "Kokki"}</p>
 
                 <div>
                     <h2>Arviot</h2>
