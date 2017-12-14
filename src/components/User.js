@@ -173,7 +173,7 @@ class User extends Component {
                 <p> Rooli: {this.state.data.userStatus}</p>
 
                 <div>
-                    <h2>Reviews</h2>
+                    <h2>Arviot</h2>
                     <p>{this.state.data.name} on saanut seuraavat arviot:</p>
                     <div>{reviews}</div>
                 </div>
