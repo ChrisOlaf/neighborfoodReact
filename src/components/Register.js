@@ -228,7 +228,7 @@ class Register extends Component {
                                              name="location" onChange={e => this.handleChange(e)}>
                                     <option value="Etelä">Etelä</option>
                                     <option value="Pohjoinen">Pohjoinen</option>
-                                    <option value="Lansi">Länsi</option>
+                                    <option value="Länsi">Länsi</option>
                                     <option value="Ita">Itä</option>
                                 </FormControl>
                             </Col>
