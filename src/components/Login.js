@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {Row, Col, FormControl, FormGroup, Form, ControlLabel, Button} from 'react-bootstrap';
-
+import { Redirect } from 'react-router';
 import '../App.css';
 
 // Login-component lets you input username(email) and password.
@@ -8,9 +8,17 @@ import '../App.css';
 class Login extends Component {
     //state containing empty user-information.
     state = {
-        id: '', name: '', lastName: '', phoneNumber: '',
-        location: '', presentation: '', userStatus: '',
-        email: '', password: ''
+        id: '',
+        name: '',
+        lastName: '',
+        phoneNumber: '',
+        location: '',
+        presentation: '',
+        userStatus: '',
+        email: '',
+        password: '',
+        redirect: false,
+        authenticated: 0
     };
 
     //method is called in the login form. checks if user
@@ -18,6 +26,17 @@ class Login extends Component {
     verify = e => {
         e.preventDefault();
         console.log("verify..");
+        const user = {
+            id: this.state.id,
+            name: this.state.name,
+            lastName: this.state.lastName,
+            phoneNumber: this.state.phoneNumber,
+            location: this.state.location,
+            presentation: this.state.presentation,
+            userStatus: this.state.userStatus,
+            email: this.state.email,
+            password: this.state.password
+        };
         var x = this;
         fetch('verify',
             {
@@ -26,7 +45,7 @@ class Login extends Component {
                     'Content-Type': 'application/json'
                 },
                 method: "POST",
-                body: JSON.stringify(this.state)
+                body: JSON.stringify(user)
             })
             .then(function (res) {
                 if (res.ok) {
@@ -37,8 +56,15 @@ class Login extends Component {
                 }
             })
             .then(function (json) {
-                x.setState(json);
-                x.send();
+                console.log(json)
+                if(json.id) {
+                    x.setState(json);
+                    x.send();
+                    x.setState({redirect: true});
+                    x.setState({authenticated: 1})
+                } else {
+                    x.setState({authenticated:2})
+                }
             });
     };
 
@@ -58,6 +84,9 @@ class Login extends Component {
 
     //Returns a simple login form
     render() {
+        if (this.state.authenticated===1 && this.state.redirect) {
+            return <Redirect to='/home'/>;
+        }
         return (
             <Row className="login-content">
                 <Col className="login-content-col" xs={10} xsOffset={1}>
@@ -98,6 +127,7 @@ class Login extends Component {
                                     </Col>
                                 </FormGroup>
                             </Form>
+                            {this.state.authenticated===2 ? <p>Käyttäjätunnus tai salasana väärin, yritä uudestaan!</p> : null}
                         </Col>
                     </Row>
                 </Col>
