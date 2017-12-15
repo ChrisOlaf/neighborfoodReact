@@ -10,7 +10,6 @@ import Chefs from './components/Chefs';
 import Login from './components/Login';
 import Register from './components/Register';
 import Profile from './components/Profile';
-import Test from './components/Test';
 import NotFound from './NotFound';
 import User from './components/User'
 
@@ -83,12 +82,10 @@ class App extends Component {
                                 (<AddO {...props} auth={this.state.auth} user={this.state.user}/>)}/>
                             <Route exact path='/chefs' render={(props) =>
                                 (<Chefs {...props} auth={this.state.auth} user={this.state.user}/>)}/>
-                            {/*<Route exact path='/test' render={(props) =>*/}
-                                {/*(<Test {...props} auth={this.state.auth} user={this.state.user}/>)}/>*/}
                             <Route exact path='/login' render={(props) =>
                                 (<Login {...props} user={this.state.user} callback={this.verifyUser}/>)}/>
                             <Route path='/user/:id' render={(props) =>
-                                (<User{...props}  user={this.state.user} callback={this.verifyUser}/>)}/>
+                                (<User{...props} auth={this.state.auth} user={this.state.user} callback={this.verifyUser}/>)}/>
                             <Route exact path='/register' render={(props) =>
                                 (<Register {...props} auth={this.state.auth} user={this.state.user}/>)}/>
                             <Route exact path='/profile' render={(props) =>
@@ -96,12 +93,6 @@ class App extends Component {
                                         ? <Profile {...props} auth={this.state.auth} user={this.state.user}/>
                                         : <Redirect to='/login'/>
                                 )}/>
-                            {/*<Route exact name="index" path="/" component={Home}/>*/}
-                            {/*<Route path="/login" callback={this.verifyUser} component={Login}/>*/}
-                            {/*<Route path="/test" component={Test}/>*/}
-                            {/*<Route path="/register" component={Register}/>*/}
-                            {/*<Route path="/profile" component={Profile}/>*/}
-
                             <Route component={NotFound}/>
                         </Switch>
                     </Grid>

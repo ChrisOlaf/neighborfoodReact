@@ -1,5 +1,8 @@
 import React, {Component} from 'react';
+import {Redirect} from 'react-router';
 import AddSale, {Added} from './AddSale'
+
+
 //Contains userinformation from Sessionstorage
 var cachedUser;
 var requirs = '';
@@ -167,9 +170,7 @@ class AddOrder extends Component {
                 );
             } else {
                 return (
-                    <div className="register-content">
-                        <h1>Kirjaudu sisään lisätäksesi tilauksen</h1>
-                    </div>
+                    <Redirect to='/login'/>
                 )
             }
         }

@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {Glyphicon, ListGroup, ListGroupItem} from 'react-bootstrap';
+import {Redirect} from 'react-router';
 
 var cachedUser;
 var content;
@@ -67,7 +68,8 @@ const Star = (props) => {
 class User extends Component {
     state = {
         user: '', data: '', reviews: [],
-        review: {content: '', stars: '', whiter: '', target: ''}
+        review: {content: '', stars: '', whiter: '', target: ''},
+        redirect: false
     };
 
     getUser() {
@@ -159,13 +161,18 @@ class User extends Component {
                 </span>
             )
         })
-        if (!cachedUser) {
-            return (
-                <div>
-                    <h1>Kirjaudu sisään nähdäksesi käyttäjien tiedot</h1>
-                </div>
-            )
-        }else{
+        // if (!cachedUser) {
+        //     return (
+        //         <div>
+        //             <h1>Kirjaudu sisään nähdäksesi käyttäjien tiedot</h1>
+        //         </div>
+        //     )
+        // }
+
+        if (this.props.auth === false) {
+            return <Redirect to='/login'/>;
+        }
+        else{
         return (
             <div className="reviews-content">
                 <h1>Tietoja käyttäjästä {this.state.data.name} </h1>

@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
-import {Row, Col, Glyphicon} from 'react-bootstrap';
+import {Row, Col} from 'react-bootstrap';
 
 import '../App.css';
 import AcceptResponse from "./AcceptResponse";
