@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import Sales from "./Sales";
 
+// Fetches all sales from database. Component Sales fetches more detailed information about every sale.
 class Saleslist extends Component {
 
     state = {data: []};

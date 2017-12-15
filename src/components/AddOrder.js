@@ -2,16 +2,15 @@ import React, {Component} from 'react';
 import AddSale, {Added} from './AddSale'
 //Contains userinformation from Sessionstorage
 var cachedUser;
-var requirs='';
+var requirs = '';
 //this component lets user(if logged in) to add an order.
 // When form is submitted, adds the order to a database and then asks if user wants to add more orders.
 class AddOrder extends Component {
 
     state = {
-        orders: {title: '', content: '', user: {}, requirements: [{requirement: ''}]},
+        orders: {title: '', content: '', user: {}, requirements: []},
         orderAdded: false,
         reqs: ''
-
     };
 
     //looks for the logged in user from sessionStorage. If found,
@@ -21,7 +20,7 @@ class AddOrder extends Component {
         const x = this;
         if (cachedUser) {
             var user = JSON.parse(cachedUser);
-            x.setState({orders: {title: '', content: '', user: user, requirements: [{}]}});
+            x.setState({orders: {title: '', content: '', user: user, requirements: []}});
             console.log("Haki käyttäjän storagesta!");
         }
         else {
@@ -29,7 +28,7 @@ class AddOrder extends Component {
         }
     };
 
-    handleTitleInput = (e) =>{
+    handleTitleInput = (e) => {
         this.state.orders.title = e.target.value;
     };
     handleContentInput = (e) => {
@@ -38,7 +37,26 @@ class AddOrder extends Component {
 
     //Adds requirement to the requirement array when selected
     addRequirement = (e) => {
-        this.state.orders.requirements.push({requirement: e.target.value});
+        const itemToAdd = {requirement: e.target.value};
+        let requirements = this.state.orders.requirements;
+        if (requirements.length > 0) {
+            if (this.listContainsItem(itemToAdd, requirements)) {
+                requirements.splice(requirements.indexOf(itemToAdd),1)
+            } else {
+                requirements.push(itemToAdd);
+            }
+        } else {
+            requirements.push(itemToAdd);
+        }
+    };
+
+    listContainsItem = (item, list) => {
+        for (let key in list){
+            if (list[key].requirement == item.requirement){
+                return true;
+            }
+        }
+        return false;
     };
 
     //TODO -> Method that adds extra requirement to the array
@@ -51,8 +69,6 @@ class AddOrder extends Component {
     // then clears the state and changes the state to Orderadded state.
     addOrder = (e) => {
         var x = this;
-        console.log("Tätä yritetään lähettää");
-        console.dir(this.state.orders);
         e.preventDefault();
         fetch('addorder',
             {
@@ -64,7 +80,6 @@ class AddOrder extends Component {
                 body: JSON.stringify(this.state.orders)
             })
             .then(function (res) {
-                console.log(res);
                 var joku = x.state.orders.user;
                 x.setState({
                     orders: {title: '', content: '', user: joku, requirements: []},
@@ -77,10 +92,9 @@ class AddOrder extends Component {
     };
 
 
-   //Changes the state to orderAdded : false, if user wants to
+    //Changes the state to orderAdded : false, if user wants to
     //add a new order
     changeorderAdded = () => {
-        console.log("Täällä ollaan");
         var ok = this.state.orders.user;
         this.setState({
             orders: {title: '', content: '', user: ok, requirements: []},
@@ -97,8 +111,7 @@ class AddOrder extends Component {
 
     addRqrmt = (e) => {
         e.preventDefault();
-        requirs = requirs+ this.state.reqs +'\n';
-        this.state.orders.requirements.push({requirement: this.state.reqs});
+        requirs = requirs + this.state.reqs + '\n';
         this.setState({reqs: ''});
         console.dir(this.state.orders.requirements);
         console.dir(requirs);
@@ -117,7 +130,7 @@ class AddOrder extends Component {
             )
         }
         else {
-            if (cachedUser) {
+            if (cachedUser && this.props.auth) {
                 return (
                     <div className="register-content">
                         <h1>Lisää tilaus</h1>
@@ -130,17 +143,17 @@ class AddOrder extends Component {
                         </ul>
                         <form>
                             <input type="text" name="title" value={this.state.orders.title.value}
-                                   onChange={e => this.handleTitleInput(e)}/><br />
+                                   onChange={e => this.handleTitleInput(e)}/><br/>
                             <textarea rows="4" cols="50" name="content" value={this.state.orders.content.value}
                                       onChange={e => this.handleContentInput(e)}/><br/>
                             <input type="checkbox" name="requirements" value="gluteeniton"
-                                   onChange={this.addRequirement}/>gluteeniton<br/>
-                            <input type="checkbox" name="requirements" value="laktoositon"
-                                   onChange={this.addRequirement}/>laktoositon<br/>
-                            <input type="checkbox" name="requirements" value="maidoton" onChange={this.addRequirement}/>maidoton<br/>
-                            <input type="checkbox" name="requirements" value="viljaton" onChange={this.addRequirement}/>viljaton<br/>
-                            <input type="checkbox" name="requirements" value="vegaani" onChange={this.addRequirement}/>vegaani<br/>
-                            <div>{requirs !== undefined && requirs.length > 2 ? <Added callback={this.addRequirement} regus={requirs}/> : ''}</div>
+                                   onClick={this.addRequirement}/>gluteeniton<br/>
+                            <input type="checkbox" name="requirements" value="laktoositon" onClick={this.addRequirement} />laktoositon<br/>
+                            <input type="checkbox" name="requirements" value="maidoton" onClick={this.addRequirement}/>maidoton<br/>
+                            <input type="checkbox" name="requirements" value="viljaton" onClick={this.addRequirement}/>viljaton<br/>
+                            <input type="checkbox" name="requirements" value="vegaani"onClick={this.addRequirement}/>vegaani<br/>
+                            <div>{requirs !== undefined && requirs.length > 2 ?
+                                <Added callback={this.addRequirement} regus={requirs}/> : ''}</div>
                             <input defaultValue="joku muu, mikä?" type="text" name="requirements"
                                    onChange={this.addRmt}/>
                             <button onClick={e => this.addRqrmt(e)}>Lisää vaatimus</button>

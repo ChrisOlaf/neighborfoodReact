@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import Orders from "./Orders";
 
+// Fetches all orders from database. Component Orders fetches more detailed information about every order.
 class Orderlist extends Component {
 
     state = {data: []}

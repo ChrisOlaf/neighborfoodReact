@@ -37,7 +37,7 @@ var user = '';
 class AddSale extends Component {
 
     state = {
-        sale: {title: '', content: '', user: {}, requirements: [{}]},
+        sale: {title: '', content: '', user: {}, requirements: []},
         saleAdded: false,
         reqs: ''
     };
@@ -51,7 +51,7 @@ class AddSale extends Component {
         if (cachedUser) {
             user = JSON.parse(cachedUser);
             x.setState({
-                sale: {title: '', content: '', user: user, requirements: [{}]}
+                sale: {title: '', content: '', user: user, requirements: []}
             });
             console.log("Haki käyttäjän storagesta!");
         }
@@ -64,29 +64,39 @@ class AddSale extends Component {
     handleTitleInput = (e) => {
         titles = e.target.value;
         this.setState({
-            sale: {title: titles, content: contents, user: user, requirements: [{}]}
+            sale: {title: titles, content: contents, user: user, requirements: []}
         });
     };
     //Handles the form text inputs
     handleContentInput = (e) => {
         contents = e.target.value;
         this.setState({
-            sale: {title: titles, content: contents, user: user, requirements: [{}]}
+            sale: {title: titles, content: contents, user: user, requirements: []}
         });
     };
 
     //Adds requirement to the requirement array when selected
     addRequirement = (e) => {
-        let i = this.state.sale.requirements.length;
-        while (i--) {
-            if (this.state.sale.requirements[i] === {requirement: e.target.value}) {
-                this.state.sale.requirements.splice(i,1);
+        const itemToAdd = {requirement: e.target.value};
+        let requirements = this.state.sale.requirements;
+        if (requirements.length > 0) {
+            if (this.listContainsItem(itemToAdd, requirements)) {
+                requirements.splice(requirements.indexOf(itemToAdd),1)
+            } else {
+                requirements.push(itemToAdd);
+            }
+        } else {
+            requirements.push(itemToAdd);
+        }
+    };
+
+    listContainsItem = (item, list) => {
+        for (let key in list){
+            if (list[key].requirement == item.requirement){
+                return true;
             }
         }
-        if(e.target.value.length>2){
-            this.state.sale.requirements.push({requirement: e.target.value});
-        }
-
+        return false;
     };
 
     addRmt = (e) => {
