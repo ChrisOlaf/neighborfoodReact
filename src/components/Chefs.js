@@ -49,12 +49,12 @@ class Chefs extends Component {
 
     render() {
          var chefs = this.state.chefs.map(function (user) {
-             return (<Chef kokki={user} key={user.id} location={this.state.location}/>);}
+             return (<Chef kokki={user} key={user.id} user={this.state.user} location={this.state.location}/>);}
          ,this);
 
          return(
         <div className="register-content">
-            <h1>Kokit lähellä sinua (alue: {this.state.user.location})</h1>
+            <h1>Kokit lähellä sinua </h1>
             <hr/>
             <form>
                 Vaihda aluetta
