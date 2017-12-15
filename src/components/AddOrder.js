@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {Redirect} from 'react-router';
-import AddSale, {Added} from './AddSale'
+import {Added} from './AddSale'
 
 
 //Contains userinformation from Sessionstorage
@@ -55,7 +55,7 @@ class AddOrder extends Component {
 
     listContainsItem = (item, list) => {
         for (let key in list){
-            if (list[key].requirement == item.requirement){
+            if (list[key].requirement === item.requirement){
                 return true;
             }
         }
