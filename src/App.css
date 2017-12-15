@@ -1,26 +1,4 @@
-.App {
-  text-align: center;
-}
-
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 80px;
-}
-
-.App-header {
-  background-color: #222;
-  height: 150px;
-  padding: 20px;
-  color: white;
-}
-
-.App-title {
-  font-size: 1.5em;
-}
-
-.App-intro {
-  font-size: large;
-}
+@import url('https://fonts.googleapis.com/css?family=Open+Sans');
 
 .content-div {
   background-color: #f0f0f0;
@@ -86,10 +64,28 @@
   border-radius: 3px;
 }
 
+.reviews-content {
+  position: absolute;
+  margin: auto;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  padding-top: 2%;
+  width: 80%;
+  height: 80%;
+  background-color: #f0f0f0;
+  border-radius: 3px;
+}
+
+h1 {
+  font-family: 'Open Sans', sans-serif;
+}
+
 h4 {
-  font-size: 2.5vmin;
+  font-family: 'Open Sans', sans-serif;
 }
 
 h5 {
-  font-size: 2vmin;
+  font-family: 'Open Sans', sans-serif;
 }
