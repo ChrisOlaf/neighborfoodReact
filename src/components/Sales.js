@@ -26,7 +26,7 @@ class Sales extends Component {
         this.goAndFetchData();
         this.getRequirements();
     }
-
+    // Fetches responses for a sale using sale id
     goAndFetchData = () => {
         fetch('sale/' + this.props.info.id + '/responses')
             .then(function (response) {
@@ -37,7 +37,7 @@ class Sales extends Component {
             }).bind(this));
 
     };
-
+    // Fetches requirements for a sale using sale id
     getRequirements = () => {
         fetch('sale/' + this.props.info.id + '/requirements')
             .then(function (requirement) {
@@ -48,7 +48,7 @@ class Sales extends Component {
             }).bind(this));
 
     };
-
+    // shows the response form when user presses the button "Lähetä"
     handleClick() {
         this.setState({
             isFormVisible: true
@@ -60,6 +60,7 @@ class Sales extends Component {
         this.addResponse(e);
     };
 
+    // adds users response to the database
     addResponse() {
         const responseItem = {
             content: this.state.content,
@@ -77,10 +78,11 @@ class Sales extends Component {
             this.goAndFetchData();
         }).bind(this));
 
-
+        // Hides the form after sending
         this.setState({isFormVisible: false})
     };
 
+    // Time stamp formating
     changeTime = (e) => {
         var a = new Date(e);
         var months = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'];
@@ -96,6 +98,7 @@ class Sales extends Component {
 
     render() {
         let form = null;
+        // Searching for the requirement text
         var requirements = this.state.requirements.map(function (requirement) {
             return (
                 <p key={requirement.id}>
@@ -103,6 +106,8 @@ class Sales extends Component {
                 </p>
             )
         }, this);
+        // Searching for timestamp, content and writer for a response.
+        // A button to accept the response appears when the sale is made by the user who is logged in.
         var responses = this.state.responses.map(function (response) {
             return (
                 <div key={response.id}>
@@ -132,7 +137,7 @@ class Sales extends Component {
                 </div>
             )
         }, this);
-
+        //If the user has pressed the button "Vastaa", isFormVisible is true and the response form is visible
         if (this.state.isFormVisible) {
             form =
                 <form>
@@ -151,10 +156,13 @@ class Sales extends Component {
                 </form>;
         }
         let responseButton = null;
+        // Checks if the user has logged in. If yes, shows the button so that the user can send a message.
+        // If the user hasn't logged in, the button is not visible.
         if (this.props.auth === true) {
             responseButton = <button onClick={this.handleClick}>Vastaa</button>
         }
         return (
+            //Shows information about the sale (including requirements and responses).
             <Row className="sale-row">
                 <Col xs={12}>
                     <Row className="sale-header">
