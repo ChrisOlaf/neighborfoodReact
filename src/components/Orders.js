@@ -91,9 +91,9 @@ class Orders extends Component {
         var year = a.getFullYear();
         var month = months[a.getMonth()];
         var date = a.getDate();
-        var hour = a.getHours()< 10 ? '0'+a.getHours():a.getHours();
-        var min = a.getMinutes()< 10 ? '0'+a.getMinutes():a.getMinutes();
-        var sec = a.getSeconds()< 10 ? '0'+a.getSeconds(): a.getSeconds();
+        var hour = a.getHours() < 10 ? '0' + a.getHours() : a.getHours();
+        var min = a.getMinutes() < 10 ? '0' + a.getMinutes() : a.getMinutes();
+        var sec = a.getSeconds() < 10 ? '0' + a.getSeconds() : a.getSeconds();
         time = date + '.' + month + '.' + year + ' ' + hour + ':' + min + ':' + sec;
         return time;
     };
@@ -144,20 +144,24 @@ class Orders extends Component {
         //If the user has pressed the button "Vastaa ilmoitukseen", isFormVisible is true and the response form is visible
         if (this.state.isFormVisible) {
             form =
-                <form>
+                <Row className="order-response">
+                    <Col xs={9} xsOffset={2}>
+                        <form>
                     <textarea type="text"
                               placeholder="Teksti"
                               value={this.state.content}
                               onChange={e => this.setState({content: e.target.value})}
                               cols="50"
                               rows="10"/>
-                    <br/>
+                            <br/>
 
-                    <input type="submit"
-                           value="Lähetä"
-                           onClick={e => this.handleSendForm(e)}/>
-                    <button onClick={() => this.setState({isFormVisible: false})}>Sulje</button>
-                </form>;
+                            <input type="submit"
+                                   value="Lähetä"
+                                   onClick={e => this.handleSendForm(e)}/>
+                            <button onClick={() => this.setState({isFormVisible: false})}>Sulje</button>
+                        </form>
+                    </Col>
+                </Row>;
         }
         let responseButton = null;
         // Checks if the user has logged in. If yes, shows the button so that the user can send a message.
@@ -205,9 +209,11 @@ class Orders extends Component {
                         </Col>
                     </Row>
                     <br/>
-                    <div>
-                        {form}
-                    </div>
+                    <Row>
+                        <Col xs={12}>
+                            {form}
+                        </Col>
+                    </Row>
                 </Col>
             </Row>
         );

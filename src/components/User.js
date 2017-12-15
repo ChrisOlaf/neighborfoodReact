@@ -153,12 +153,9 @@ class User extends Component {
         var reviews = this.state.reviews.map(function (rev) {
             return (
                 <span key={rev.id}>
-                    <ListGroup>
                     <ListGroupItem header={<Star rev={rev.stars}/>}>{rev.content}</ListGroupItem>
-                        <ListGroupItem header={<Star rev={rev.stars}/>}>{rev.content}</ListGroupItem>
-                    </ListGroup>
-                    <p>{rev.content}</p>
-                    <p><Star rev={rev.stars}/></p>
+                    {/*<p>{rev.content}</p>*/}
+                    {/*<p><Star rev={rev.stars}/></p>*/}
                 </span>
             )
         })
@@ -170,16 +167,16 @@ class User extends Component {
             )
         }else{
         return (
-            <div className="register-content">
+            <div className="reviews-content">
                 <h1>Tietoja käyttäjästä {this.state.data.name} </h1>
                 <p> {this.state.data.presentation}</p>
                 <p> Alue: {this.state.data.location}</p>
-                <p> Rooli: {this.state.data.userStatus === "dude" ? "Ruokailija" : "Kokki"}</p>
+                <p> Rooli: {this.state.data.userStatus === "chef" ? ((this.state.reviews.length > 5) ? "Mestarikokki" : "Kokki") : ((this.state.reviews.length > 5) ? "Kulinaristi" : "Ruokailija")}</p>
 
                 <div>
                     <h2>Arviot</h2>
                     <p>{this.state.data.name} on saanut seuraavat arviot:</p>
-                    <div>{reviews}</div>
+                    <div><ListGroup>{reviews}</ListGroup></div>
                 </div>
                 {this.state.user.name===this.state.data.name?(<p>Et voi lisätä itsellesi arvostelua</p>):(<div>
                     <h2>Lisää arvostelu</h2>
