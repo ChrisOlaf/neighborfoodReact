@@ -234,6 +234,8 @@ class Register extends Component {
                             </Col>
                         </FormGroup>
 
+                        <Row>
+                            <Col sm={7} smOffset={4}>
                         <ControlLabel>Oletko ruokailija vai kokki?</ControlLabel>
                         <FormGroup controlId="forControlStatus">
                             <Radio name="userStatus"
@@ -252,6 +254,8 @@ class Register extends Component {
                                    value="chef"
                                    onChange={e => this.handleStatus(e)}>Kokki</Radio>
                         </FormGroup>
+                            </Col>
+                        </Row>
 
                         <FormGroup controlId="formHorizontalPassword">
                             <Col componentClass={ControlLabel} sm={4}>

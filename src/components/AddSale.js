@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import {Redirect} from 'react-router';
 import '../App.css';
 
 //Contains userinformation from Sessionstorage
@@ -7,30 +8,33 @@ var cachedUser;
 
 //this component lets user(if logged in) to add a Sale.
 // When form is submitted, adds the sale to a database and then asks if user wants to add more sales.
-var requs ='';
+var requs = '';
 
 export class Added extends Component {
-    addReq = (e) =>{
+    addReq = (e) => {
         this.props.callback(e);
     };
+
     render() {
         var o = this.props.regus;
-        var text = o.substring(0,o.length-1);
+        var text = o.substring(0, o.length - 1);
         return (
             <p>
-                    {text.split("\n").map(i => {
-                        return(
+                {text.split("\n").map(i => {
+                    return (
                         <div>
-                            <input type="checkbox" key={i} name="requirements" value={i} onChange={this.addReq}/>{i}<br/>
+                            <input type="checkbox" key={i} name="requirements" value={i}
+                                   onChange={this.addReq}/>{i}<br/>
                         </div>)
-                            })}
+                })}
             </p>);
 
-        };
-        // requirementin poistosta <p>  </p><button onClick={this.removeWord(i)}>x</button>
+    };
+
+    // requirementin poistosta <p>  </p><button onClick={this.removeWord(i)}>x</button>
 }
 
-var titles ='';
+var titles = '';
 var contents = '';
 var user = '';
 
@@ -81,7 +85,7 @@ class AddSale extends Component {
         let requirements = this.state.sale.requirements;
         if (requirements.length > 0) {
             if (this.listContainsItem(itemToAdd, requirements)) {
-                requirements.splice(requirements.indexOf(itemToAdd),1)
+                requirements.splice(requirements.indexOf(itemToAdd), 1)
             } else {
                 requirements.push(itemToAdd);
             }
@@ -91,8 +95,8 @@ class AddSale extends Component {
     };
 
     listContainsItem = (item, list) => {
-        for (let key in list){
-            if (list[key].requirement == item.requirement){
+        for (let key in list) {
+            if (list[key].requirement === item.requirement) {
                 return true;
             }
         }
@@ -109,7 +113,7 @@ class AddSale extends Component {
 
     addRqrmt = (e) => {
         e.preventDefault();
-        requs = requs+ this.state.reqs +'\n';
+        requs = requs + this.state.reqs + '\n';
         // this.state.sale.requirements.push({requirement: this.state.reqs});
         this.setState({reqs: ''});
         // console.dir(this.state.sale.requirements);
@@ -181,7 +185,7 @@ class AddSale extends Component {
             )
 
         } else {
-            if (cachedUser && this.props.auth) {
+            if (this.props.auth) {
                 return (
                     <div className="register-content">
                         <h1>Lisää myynti-ilmoitus</h1>
@@ -208,7 +212,8 @@ class AddSale extends Component {
                             <input type="checkbox" name="requirements" value="maidoton" onChange={this.addRequirement}/>maidoton<br/>
                             <input type="checkbox" name="requirements" value="viljaton" onChange={this.addRequirement}/>viljaton<br/>
                             <input type="checkbox" name="requirements" value="vegaani" onChange={this.addRequirement}/>vegaani<br/>
-                            <div>{requs !== undefined && requs.length > 2 ? <Added callback={this.addRequirement} regus={requs}/> : ''}</div>
+                            <div>{requs !== undefined && requs.length > 2 ?
+                                <Added callback={this.addRequirement} regus={requs}/> : ''}</div>
 
                             <input defaultValue="joku muu, mikä?" type="text" name="requirements"
                                    onChange={this.addRmt}/>
@@ -224,9 +229,7 @@ class AddSale extends Component {
             }
             else {
                 return (
-                    <div className="register-content">
-                        <h1>Kirjaudu sisään lisätäksesi myynnin</h1>
-                    </div>
+                    <Redirect to='/login'/>
                 )
             }
         }

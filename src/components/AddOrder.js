@@ -1,5 +1,8 @@
 import React, {Component} from 'react';
-import AddSale, {Added} from './AddSale'
+import {Redirect} from 'react-router';
+import {Added} from './AddSale'
+
+
 //Contains userinformation from Sessionstorage
 var cachedUser;
 var requirs = '';
@@ -52,7 +55,7 @@ class AddOrder extends Component {
 
     listContainsItem = (item, list) => {
         for (let key in list){
-            if (list[key].requirement == item.requirement){
+            if (list[key].requirement === item.requirement){
                 return true;
             }
         }
@@ -130,7 +133,7 @@ class AddOrder extends Component {
             )
         }
         else {
-            if (cachedUser && this.props.auth) {
+            if (this.props.auth) {
                 return (
                     <div className="register-content">
                         <h1>Lisää tilaus</h1>
@@ -167,9 +170,7 @@ class AddOrder extends Component {
                 );
             } else {
                 return (
-                    <div className="register-content">
-                        <h1>Kirjaudu sisään lisätäksesi tilauksen</h1>
-                    </div>
+                    <Redirect to='/login'/>
                 )
             }
         }
