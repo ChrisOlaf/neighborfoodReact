@@ -174,7 +174,7 @@ class AddSale extends Component {
 //Shows to a user who's logged in a Sale -form,
     // if not logged in, doesn't show a form
     render() {
-        if (cachedUser && this.state.saleAdded) {
+        if (this.state.saleAdded) {
             return (
                 <div className="register-content">
                     <h2>Myynti-ilmoitus on nyt lisätty!</h2>
@@ -185,7 +185,7 @@ class AddSale extends Component {
             )
 
         } else {
-            if (cachedUser && this.props.auth) {
+            if (this.props.auth) {
                 return (
                     <div className="register-content">
                         <h1>Lisää myynti-ilmoitus</h1>

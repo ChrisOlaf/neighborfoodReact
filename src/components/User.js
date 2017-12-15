@@ -156,18 +156,9 @@ class User extends Component {
             return (
                 <span key={rev.id}>
                     <ListGroupItem header={<Star rev={rev.stars}/>}>{rev.content}</ListGroupItem>
-                    {/*<p>{rev.content}</p>*/}
-                    {/*<p><Star rev={rev.stars}/></p>*/}
                 </span>
             )
         })
-        // if (!cachedUser) {
-        //     return (
-        //         <div>
-        //             <h1>Kirjaudu sisään nähdäksesi käyttäjien tiedot</h1>
-        //         </div>
-        //     )
-        // }
 
         if (this.props.auth === false) {
             return <Redirect to='/login'/>;

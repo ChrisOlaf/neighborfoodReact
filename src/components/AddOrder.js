@@ -133,7 +133,7 @@ class AddOrder extends Component {
             )
         }
         else {
-            if (cachedUser && this.props.auth) {
+            if (this.props.auth) {
                 return (
                     <div className="register-content">
                         <h1>Lisää tilaus</h1>
