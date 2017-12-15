@@ -142,11 +142,13 @@ class AddOrder extends Component {
                             <li>Mitä ruokaa haluat syödä?</li>
                             <li>milloin haluat syödä?</li>
                             <li>noudatko itse vai kotiinkuljetus?</li>
-                            <li>hintahintahaarukka</li>
+                            <li>hintahaarukka</li>
                         </ul>
                         <form>
+                            Otsikko: <br />
                             <input type="text" name="title" value={this.state.orders.title.value}
                                    onChange={e => this.handleTitleInput(e)}/><br/>
+                            Sisältö: <br />
                             <textarea rows="4" cols="50" name="content" value={this.state.orders.content.value}
                                       onChange={e => this.handleContentInput(e)}/><br/>
                             <input type="checkbox" name="requirements" value="gluteeniton"

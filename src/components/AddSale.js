@@ -199,9 +199,10 @@ class AddSale extends Component {
 
                         <form>
 
-                            Otsikko: <input type="text" name="title" value={this.state.sale.title.value}
+                            Otsikko: <br />
+                            <input type="text" name="title" value={this.state.sale.title.value}
                                             onChange={e => this.handleTitleInput(e)}/><br/>
-                            Sisältö:
+                            Sisältö:<br />
                             <textarea rows="5" cols="50" name="content" value={this.state.sale.content.value}
                                       onChange={e => this.handleContentInput(e)}/><br/>
 
